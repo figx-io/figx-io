@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		// "composite": true,
+		"declaration": true,
+		"declarationMap": false,
+		"forceConsistentCasingInFileNames": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noUncheckedIndexedAccess": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ESNext",
+		"isolatedModules": true,
+		"resolveJsonModule": true,
+		"types": [
+			"@types/mocha",
+		]
+	}
+}
