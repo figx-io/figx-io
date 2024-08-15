@@ -1,1 +1,1 @@
-export const core = 'core2';
+export const core = 'core11';

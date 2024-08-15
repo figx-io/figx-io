@@ -4,15 +4,30 @@
 	"description": "figx-io mono repo",
 	"type": "module",
 	"scripts": {
-		"dev": "wireit",
-		"build": "wireit"
+		"dev:core": "wireit",
+		"dev:ui": "wireit"
 	},
 	"wireit": {
-		"dev": {
-			"command": "npm run dev -w packages/core"
+		"dev:core": {
+			"command": "npm run dev -w packages/core",
+			"files": [
+				"./packages/core/src/**/*.ts"
+			],
+			"output": [
+				"./packages/core/dist/**"
+			]
 		},
-		"build": {
-			"command": "npm run build -w packages/core"
+		"dev:ui": {
+			"command": "npm run dev -w packages/ui",
+			"files": [
+				"./packages/ui/src/**/*.ts"
+			],
+			"dependencies": [
+				"./packages/core:dev"
+			],
+			"output": [
+				"./packages/ui/dist/**"
+			]
 		}
 	},
 	"workspaces": [
