@@ -1,11 +1,12 @@
 {
 	"name": "@figx-io/core",
-	"version": "0.0.0",
 	"type": "module",
+	"version": "0.0.1",
+	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"scripts": {
-		"dev": "tsc",
-		"build": "tsc"
+		"dev": "vite build --watch",
+		"build": "vite build"
 	}
 }
