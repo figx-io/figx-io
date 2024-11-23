@@ -5,15 +5,16 @@ export default defineConfig({
 	build: {
 		emptyOutDir: false,
 		lib: {
-			entry: './src/index.ts',
-			fileName: 'index',
+			entry: [
+				'./src/IComponent.ts',
+				'./src/Component.ts',
+				'./src/Container.ts',
+			],
 			formats: ['es'],
 		},
 		minify: false,
+		outDir: './dist',
 		sourcemap: 'inline',
-		target: 'esnext',
-	},
-	esbuild: {
 		target: 'esnext',
 	},
 	plugins: [dts()],

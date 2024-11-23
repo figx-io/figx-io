@@ -2,9 +2,19 @@
 	"name": "@figx-io/core",
 	"type": "module",
 	"version": "0.0.1",
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"exports": {
+		"./icomponent": {
+			"types": "./dist/IComponent.d.ts"
+		},
+		"./component": {
+			"types": "./dist/Component.d.ts",
+			"default": "./dist/Component.js"
+		},
+		"./container": {
+			"types": "./dist/Container.d.ts",
+			"default": "./dist/Container.js"
+		}
+	},
 	"scripts": {
 		"dev": "vite build --watch",
 		"build": "vite build"
