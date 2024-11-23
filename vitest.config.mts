@@ -5,7 +5,7 @@ export default defineConfig({
 	test: {
 		browser: {
 			enabled: true,
-			// headless: true,
+			headless: true,
 			name: 'chromium', // browser name is required
 			provider: 'playwright', // or 'webdriverio'
 		},
