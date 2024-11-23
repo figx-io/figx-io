@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/figx-io/figx-io/compare/core-v0.2.0...core-v0.2.1) (2024-11-23)
+
+
+### Bug Fixes
+
+* set package.json private to false ([c574bd7](https://github.com/figx-io/figx-io/commit/c574bd71e33900631c8cb2af71966442a80e3b79))
+
 ## [0.2.0](https://github.com/figx-io/figx-io/compare/core-v0.1.1...core-v0.2.0) (2024-11-23)
 
 

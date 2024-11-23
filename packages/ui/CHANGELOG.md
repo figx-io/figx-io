@@ -12,6 +12,20 @@
   * dependencies
     * @figx-io/core bumped from 0.1.1 to 0.2.0
 
+## [0.1.3](https://github.com/figx-io/figx-io/compare/ui-v0.1.2...ui-v0.1.3) (2024-11-23)
+
+
+### Bug Fixes
+
+* set package.json private to false ([c574bd7](https://github.com/figx-io/figx-io/commit/c574bd71e33900631c8cb2af71966442a80e3b79))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from 0.2.0 to 0.2.1
+
 ## [0.1.0](https://github.com/figx-io/figx-io/compare/ui-v0.0.1...ui-v0.1.0) (2024-11-23)
 
 
