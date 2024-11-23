@@ -1,0 +1,26 @@
+# Changelog
+
+## [0.1.0](https://github.com/figx-io/figx-io/compare/core-v0.0.1...core-v0.1.0) (2024-11-23)
+
+
+### Continuous Integration
+
+* testing wireit ([b6abf42](https://github.com/figx-io/figx-io/commit/b6abf42ba9ffe50929f6cf3f9580f10842a0205a))
+
+
+### Miscellaneous Chores
+
+* add new setup ([f1c4541](https://github.com/figx-io/figx-io/commit/f1c4541966f5ebb4e26be926d91baeef991d7065))
+
+
+### Features
+
+* create core components ([5e2c0bb](https://github.com/figx-io/figx-io/commit/5e2c0bbd0b458bddeb23223beadf59d98795c493))
+* initialize project ([aa9d352](https://github.com/figx-io/figx-io/commit/aa9d3526d2d9dc275e908c13e64eea6f76a7d4c7))
+
+
+### Tests
+
+* create IComponent test ([f9605e3](https://github.com/figx-io/figx-io/commit/f9605e313679c41f7f9269312aae749c17d926a8))
+* create test scripts ([e1506fe](https://github.com/figx-io/figx-io/commit/e1506feb6493b307656b56a2714a93d26edb6f52))
+* create vitest config ([697e57d](https://github.com/figx-io/figx-io/commit/697e57da482798638bcca5ab1b0ff5d7bcdf9f83))
