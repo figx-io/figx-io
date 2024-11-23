@@ -41,7 +41,7 @@ jobs:
 
       - name: Test
         run: npm t
-    
+
   release-please:
     name: Release Please
     needs: test
