@@ -1,8 +1,7 @@
 {
 	"name": "@figx-io/ui",
 	"type": "module",
-	"version": "0.1.1",
-	"private": false,
+	"version": "0.1.2",
 	"exports": {
 		"./button": {
 			"types": "./dist/Button.d.ts",
@@ -14,6 +13,6 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"@figx-io/core": "0.1.1"
+		"@figx-io/core": "0.2.0"
 	}
 }
