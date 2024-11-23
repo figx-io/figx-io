@@ -10,8 +10,10 @@
 		"test": "npm run test -w packages/core",
 		"build:core": "npm run build -w packages/core",
 		"build:ui": "npm run build -w packages/ui",
+		"build:packages": "run-s build:core build:ui",
 		"dev:website": "npm run dev -w apps/website",
-		"build:website": "npm run build -w apps/website"
+		"build:website": "npm run build -w apps/website",
+		"build": "run-s build:packages build:website"
 	},
 	"workspaces": [
 		"apps/*",
