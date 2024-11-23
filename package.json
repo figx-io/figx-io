@@ -3,13 +3,17 @@
 	"type": "module",
 	"version": "0.0.1",
 	"description": "figx-io mono repo",
-
 	"author": "Martin Rossil",
 	"license": "MIT",
 	"scripts": {
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"build:core": "npm run build -w packages/core",
+		"build:ui": "npm run build -w packages/ui",
+		"dev:website": "npm run dev -w apps/website",
+		"build:website": "npm run build -w apps/website"
 	},
 	"workspaces": [
+		"apps/*",
 		"packages/*"
 	],
 	"devDependencies": {
