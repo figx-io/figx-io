@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/figx-io/figx-io/compare/core-v0.1.0...core-v0.1.1) (2024-11-23)
+
+
+### Bug Fixes
+
+* test NPM publish ([c110d83](https://github.com/figx-io/figx-io/commit/c110d838b0b9361d772fba2c593bb97c1023812e))
+
 ## [0.1.0](https://github.com/figx-io/figx-io/compare/core-v0.0.1...core-v0.1.0) (2024-11-23)
 
 
