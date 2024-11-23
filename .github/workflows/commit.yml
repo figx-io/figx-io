@@ -67,7 +67,7 @@ jobs:
 
   deploy:
     if: contains(needs.release-please.outputs.paths_released, 'apps/website')
-    name: Deploy acies.pages.dev
+    name: Deploy to figx.io
     needs: release-please
     runs-on: ubuntu-latest
     steps:
