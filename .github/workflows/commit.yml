@@ -119,8 +119,7 @@ jobs:
       - name: Build @figx-io/core
         run: npm run build:core
 
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN  }}
-          package: packages/core
-          access: public
+      - name: Publish to NPM
+        run: npm publish packages/core --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
