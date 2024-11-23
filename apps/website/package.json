@@ -1,0 +1,13 @@
+{
+	"name": "@figx-io/website",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@figx-io/core": "^0.0.1"
+	}
+}
