@@ -72,6 +72,13 @@
   * dependencies
     * @figx-io/core bumped from 0.7.4 to 0.7.5
 
+## [0.1.15](https://github.com/figx-io/figx-io/compare/ui-v0.1.14...ui-v0.1.15) (2024-11-23)
+
+
+### Bug Fixes
+
+* test NPM publish ([2be91c7](https://github.com/figx-io/figx-io/commit/2be91c7a49c984addbcb731e42a12f83f60fbcb0))
+
 ## [0.1.14](https://github.com/figx-io/figx-io/compare/ui-v0.1.13...ui-v0.1.14) (2024-11-23)
 
 
