@@ -64,3 +64,34 @@ jobs:
           release-type: node
           command: manifest
           monorepo-tags: true
+
+  deploy:
+    if: contains(needs.release-please.outputs.paths_released, 'apps/website')
+    name: Deploy acies.pages.dev
+    needs: release-please
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build apps/website
+        run: npm run build
+
+      - name: Deploy to cloudflare
+        uses: cloudflare/wrangler-action@3.0.0
+        with:
+          workingDirectory: ./apps/website
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: 3.5.0
+          command: pages deploy 'dist' --project-name=figx --branch=main
