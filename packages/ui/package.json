@@ -2,9 +2,12 @@
 	"name": "@figx-io/ui",
 	"type": "module",
 	"version": "0.0.1",
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"exports": {
+		"./button": {
+			"types": "./dist/Button.d.ts",
+			"default": "./dist/Button.js"
+		}
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build"
