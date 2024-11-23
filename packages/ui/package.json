@@ -2,6 +2,7 @@
 	"name": "@figx-io/ui",
 	"type": "module",
 	"version": "0.1.1",
+	"private": false,
 	"exports": {
 		"./button": {
 			"types": "./dist/Button.d.ts",

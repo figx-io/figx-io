@@ -2,6 +2,7 @@
 	"name": "figx-io",
 	"type": "module",
 	"version": "0.0.1",
+	"private": false,
 	"description": "figx-io mono repo",
 	"author": "Martin Rossil",
 	"license": "MIT",

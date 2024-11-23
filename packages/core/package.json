@@ -2,6 +2,7 @@
 	"name": "@figx-io/core",
 	"type": "module",
 	"version": "0.1.1",
+	"private": false,
 	"exports": {
 		"./icomponent": {
 			"types": "./dist/IComponent.d.ts"
