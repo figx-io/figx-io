@@ -123,3 +123,4 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN  }}
           package: packages/core
+          access: public
