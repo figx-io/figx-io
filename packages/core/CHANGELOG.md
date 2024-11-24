@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.9.0](https://github.com/figx-io/figx-io/compare/core-v0.8.0...core-v0.9.0) (2024-11-24)
+
+
+### Build System
+
+* add new classes to vite config ([b0d4d6d](https://github.com/figx-io/figx-io/commit/b0d4d6dec51e325278a7b076cce8cf874cd75a4b))
+
+
+### Continuous Integration
+
+* fix wrong placement in tsconfig ([3e31761](https://github.com/figx-io/figx-io/commit/3e31761027889a6591799596796031624833f26f))
+
+
+### Miscellaneous Chores
+
+* add exports ([26170c0](https://github.com/figx-io/figx-io/commit/26170c0291a363372fec49256fe19706dcc5e10c))
+
+
+### Features
+
+* create Application and Interface ([5f91680](https://github.com/figx-io/figx-io/commit/5f91680f50886d8e24e9ffa3a7a20cd953fbe7a1))
+* create Container and Interface ([375d32c](https://github.com/figx-io/figx-io/commit/375d32c8662fc97f64935f4b0aa794833683278a))
+* create Text and Interface ([44ce870](https://github.com/figx-io/figx-io/commit/44ce87086ce3f335c88a43344f79761675d3a793))
+
+
+### Tests
+
+* change console log ([e9eb158](https://github.com/figx-io/figx-io/commit/e9eb15870cc87f8711359379cbef9707311a7b54))
+
 ## [0.8.0](https://github.com/figx-io/figx-io/compare/core-v0.7.5...core-v0.8.0) (2024-11-24)
 
 
