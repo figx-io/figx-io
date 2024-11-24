@@ -3,13 +3,16 @@
 	"type": "module",
 	"version": "0.2.0",
 	"exports": {
-		"./button": {
+		"./IButton": {
+			"types": "./dist/IButton.d.ts"
+		},
+		"./Button": {
 			"types": "./dist/Button.d.ts",
 			"default": "./dist/Button.js"
 		}
 	},
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite build --watch",
 		"build": "vite build"
 	},
 	"dependencies": {
