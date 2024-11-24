@@ -8,6 +8,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@figx-io/core": "^0.8.0"
+		"@figx-io/core": "^0.8.0",
+		"@figx-io/ui": "^0.2.0"
 	}
 }
