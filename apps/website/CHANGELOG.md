@@ -78,6 +78,26 @@
   * dependencies
     * @figx-io/core bumped from ^0.7.4 to ^0.7.5
 
+## [0.2.1](https://github.com/figx-io/figx-io/compare/website-v0.2.0...website-v0.2.1) (2024-11-24)
+
+
+### Miscellaneous Chores
+
+* add @figx-io/ui dependency ([016747f](https://github.com/figx-io/figx-io/commit/016747f8322bd8cbb4539a1ec0b2e3ef17ca832f))
+
+
+### Tests
+
+* add Button and Text to FigxIO ([86d8485](https://github.com/figx-io/figx-io/commit/86d848582be1e9145e7b440123f3f3f2c2a822be))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from ^0.8.0 to ^0.9.0
+    * @figx-io/ui bumped from ^0.2.0 to ^0.3.0
+
 ## [0.2.0](https://github.com/figx-io/figx-io/compare/website-v0.1.13...website-v0.2.0) (2024-11-24)
 
 

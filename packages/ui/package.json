@@ -1,7 +1,7 @@
 {
 	"name": "@figx-io/ui",
 	"type": "module",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"exports": {
 		"./IButton": {
 			"types": "./dist/IButton.d.ts"
@@ -16,6 +16,6 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"@figx-io/core": "0.8.0"
+		"@figx-io/core": "0.9.0"
 	}
 }
