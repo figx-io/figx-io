@@ -72,6 +72,20 @@
   * dependencies
     * @figx-io/core bumped from 0.7.4 to 0.7.5
 
+## [0.2.0](https://github.com/figx-io/figx-io/compare/ui-v0.1.15...ui-v0.2.0) (2024-11-24)
+
+
+### Features
+
+* uppercase exports ([a6dc0bf](https://github.com/figx-io/figx-io/commit/a6dc0bf149a144d66bcca5d63e52bc6570c14540))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from 0.7.5 to 0.8.0
+
 ## [0.1.15](https://github.com/figx-io/figx-io/compare/ui-v0.1.14...ui-v0.1.15) (2024-11-23)
 
 
