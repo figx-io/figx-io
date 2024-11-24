@@ -1,4 +1,4 @@
-import Container from '@figx-io/core/container';
+import Container from '@figx-io/core/Container';
 
 export default class Button extends Container {
 	public constructor() {

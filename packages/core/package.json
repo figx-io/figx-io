@@ -4,14 +4,14 @@
 	"version": "0.7.5",
 	"private": false,
 	"exports": {
-		"./icomponent": {
+		"./IComponent": {
 			"types": "./dist/IComponent.d.ts"
 		},
-		"./component": {
+		"./Component": {
 			"types": "./dist/Component.d.ts",
 			"default": "./dist/Component.js"
 		},
-		"./container": {
+		"./Container": {
 			"types": "./dist/Container.d.ts",
 			"default": "./dist/Container.js"
 		}
