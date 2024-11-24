@@ -72,6 +72,25 @@
   * dependencies
     * @figx-io/core bumped from 0.7.4 to 0.7.5
 
+## [0.3.0](https://github.com/figx-io/figx-io/compare/ui-v0.2.0...ui-v0.3.0) (2024-11-24)
+
+
+### Features
+
+* create IButton Interface ([6150a02](https://github.com/figx-io/figx-io/commit/6150a02a41b97f7b98a7c8cd4822b812fdc0e8fd))
+
+
+### Styles
+
+* fix format issues ([6c2774d](https://github.com/figx-io/figx-io/commit/6c2774de034dcde33bd670e8bcaacbbefddc86ce))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from 0.8.0 to 0.9.0
+
 ## [0.2.0](https://github.com/figx-io/figx-io/compare/ui-v0.1.15...ui-v0.2.0) (2024-11-24)
 
 
