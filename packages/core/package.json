@@ -4,8 +4,9 @@
 	"version": "0.8.0",
 	"private": false,
 	"exports": {
-		"./IComponent": {
-			"types": "./dist/IComponent.d.ts"
+		"./Application": {
+			"types": "./dist/Application.d.ts",
+			"default": "./dist/Application.js"
 		},
 		"./Component": {
 			"types": "./dist/Component.d.ts",
@@ -14,11 +15,26 @@
 		"./Container": {
 			"types": "./dist/Container.d.ts",
 			"default": "./dist/Container.js"
+		},
+		"./IComponent": {
+			"types": "./dist/IComponent.d.ts"
+		},
+		"./IContainer": {
+			"types": "./dist/IContainer.d.ts"
+		},
+		"./IText": {
+			"types": "./dist/IText.d.ts"
+		},
+		"./Text": {
+			"types": "./dist/Text.d.ts",
+			"default": "./dist/Text.js"
 		}
 	},
 	"scripts": {
 		"dev": "vite build --watch",
 		"build": "vite build",
-		"test": "vitest run"
+		"dev:test": "vitest",
+		"test": "vitest",
+		"test:once": "vitest run"
 	}
 }
