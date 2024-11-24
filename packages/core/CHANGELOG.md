@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/figx-io/figx-io/compare/core-v0.7.5...core-v0.8.0) (2024-11-24)
+
+
+### Features
+
+* uppercase exports ([a6dc0bf](https://github.com/figx-io/figx-io/commit/a6dc0bf149a144d66bcca5d63e52bc6570c14540))
+
 ## [0.7.5](https://github.com/figx-io/figx-io/compare/core-v0.7.4...core-v0.7.5) (2024-11-23)
 
 
