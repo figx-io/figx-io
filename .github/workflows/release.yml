@@ -1,6 +1,7 @@
 name: Release workflow
 on:
-  pull_request
+  release:
+    types: [released]
 
 jobs:
   release-please:
