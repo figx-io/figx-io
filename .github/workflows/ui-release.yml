@@ -2,7 +2,7 @@ name: Release workflow
 on:
   pull_request:
     paths:
-      - 'packages/ui'
+      - packages/ui
 
 jobs:
   publish-ui:
