@@ -1,7 +1,7 @@
 {
 	"name": "@figx-io/ui",
 	"type": "module",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"exports": {
 		"./IButton": {
 			"types": "./dist/IButton.d.ts"
