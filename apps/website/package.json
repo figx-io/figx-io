@@ -1,7 +1,7 @@
 {
 	"name": "@figx-io/website",
 	"type": "module",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
@@ -9,6 +9,6 @@
 	},
 	"dependencies": {
 		"@figx-io/core": "^0.9.1",
-		"@figx-io/ui": "^0.4.0"
+		"@figx-io/ui": "^0.5.0"
 	}
 }
