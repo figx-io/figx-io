@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/figx-io/figx-io/compare/core-v0.9.0...core-v0.9.1) (2024-11-27)
+
+
+### Tests
+
+* add coverage text report for test:once ([017cd2a](https://github.com/figx-io/figx-io/commit/017cd2ab4879732037e5a9b46d389ea99fd206f6))
+
 ## [0.9.0](https://github.com/figx-io/figx-io/compare/core-v0.8.0...core-v0.9.0) (2024-11-24)
 
 

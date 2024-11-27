@@ -72,6 +72,20 @@
   * dependencies
     * @figx-io/core bumped from 0.7.4 to 0.7.5
 
+## [0.4.0](https://github.com/figx-io/figx-io/compare/ui-v0.3.0...ui-v0.4.0) (2024-11-27)
+
+
+### Features
+
+* bump Button version ([fd80563](https://github.com/figx-io/figx-io/commit/fd80563afde717e03e28581f9d166aa0c58767c5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from 0.9.0 to 0.9.1
+
 ## [0.3.0](https://github.com/figx-io/figx-io/compare/ui-v0.2.0...ui-v0.3.0) (2024-11-24)
 
 
