@@ -3,6 +3,7 @@
 	"type": "module",
 	"version": "0.9.1",
 	"private": false,
+	"license": "MIT",
 	"exports": {
 		"./Application": {
 			"types": "./dist/Application.d.ts",

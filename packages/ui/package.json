@@ -2,6 +2,8 @@
 	"name": "@figx-io/ui",
 	"type": "module",
 	"version": "0.7.0",
+	"private": false,
+	"license": "MIT",
 	"exports": {
 		"./IButton": {
 			"types": "./dist/IButton.d.ts"
