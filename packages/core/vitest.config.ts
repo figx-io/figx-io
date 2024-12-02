@@ -13,8 +13,9 @@ export default defineConfig({
 		coverage: {
 			// TODO coverage breaks modifying non test files and rerun tests?
 			// enabled: true,
-			// include: ['src/**/*.ts'],
-			// reporter: ['text-summary', 'html'],
+			exclude: ['src/**/I*.ts'], // exclude Interfaces from tests
+			include: ['src/**/*.ts'],
+			// reporter: ['text'], // html and others break automatic refresh
 		},
 	},
 });
