@@ -7,7 +7,6 @@ export default class Text extends Component implements IText {
 	public constructor() {
 		super();
 		this._text = '';
-		console.log('Text() 2');
 	}
 
 	public set text(value: string) {
