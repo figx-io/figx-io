@@ -9,8 +9,8 @@
 	"scripts": {
 		"lint": "eslint .",
 		"test": "npm run test -w packages/core",
-		"test:core:once": "npm run test:once -w packages/core",
-		"test:once": "run-s build test:core:once",
+		"test:core:ci": "npm run test:ci -w packages/core",
+		"test:ci": "run-s build test:core:ci",
 		"dev:test:core": "npm run dev:test -w packages/core",
 		"dev:test": "run-p dev:test:core",
 		"dev:core": "npm run dev -w packages/core",
