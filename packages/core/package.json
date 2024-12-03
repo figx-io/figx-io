@@ -35,7 +35,7 @@
 		"dev": "vite build --watch",
 		"build": "vite build",
 		"dev:test": "vitest",
-		"test": "vitest --coverage --coverage.reporter=text",
-		"test:once": "vitest run --coverage --coverage.reporter=text"
+		"test": "vitest",
+		"test:ci": "vitest run --coverage --coverage.reporter=text"
 	}
 }
