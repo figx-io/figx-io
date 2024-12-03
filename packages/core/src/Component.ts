@@ -1,22 +1,52 @@
 import type IComponent from './IComponent';
+import { assert_if_number_is_positive, assert_is_auto_layout, assert_parent_is_component } from './assertions';
 
 export default class Component extends HTMLElement implements IComponent {
+	private _connected: boolean;
 	private _height: number | 'fill' | 'hug';
 	private _height_changed: boolean;
 	private _width: number | 'fill' | 'hug';
 	private _width_changed: boolean;
 	public constructor() {
 		super();
+		this._connected = false;
 		this._height = 'hug';
 		this._height_changed = true;
 		this._width = 'hug';
 		this._width_changed = false;
+		// this.style.display = 'inline-flex';
+	}
+
+	private commit_properties(): void {
 		if (this._width_changed) {
 			this.widthChanged();
 		}
 		if (this._height_changed) {
 			this.heightChanged();
 		}
+	}
+
+	/**
+	 * connectedCallback() is invoked immediately by the browser,
+	 * when the component is added as a child of parent component.
+	 *
+	 * connectedCallback() can be called multiple times, so we use
+	 * the connected flag to prevent invalidation being invoked multiple times.
+	 */
+	private connectedCallback(): void {
+		if (!this.connected) {
+			this.connected = true;
+		}
+	}
+
+	/**
+	 * disconnectedCallback() is invoked by the browser,
+	 * when the component is removed from the parent component.
+	 */
+	private disconnectedCallback(): void {
+		this.connected = false;
+	}
+
 	private heightChanged(): void {
 		this._height_changed = false;
 		if (this.height === 'fill') {
@@ -29,6 +59,17 @@ export default class Component extends HTMLElement implements IComponent {
 		}
 		this.style.height = `${this.height}px`;
 	}
+
+	/**
+	 * invalidateProperties() is invoked by property setters,
+	 * to trigger an invalidation pass that will commit the changes.
+	 */
+	private invalidate_properties(): void {
+		if (this.connected) {
+			this.commit_properties();
+		}
+	}
+
 	private widthChanged(): void {
 		this._width_changed = false;
 		if (this.width === 'fill') {
@@ -41,6 +82,15 @@ export default class Component extends HTMLElement implements IComponent {
 		}
 		this.style.width = `${this.width}px`;
 	}
+
+	private set connected(value: boolean) {
+		this._connected = value;
+	}
+
+	private get connected(): boolean {
+		return this._connected;
+	}
+
 	/**
 	 * height should be a number, "fill" or "hug".
 	 *
