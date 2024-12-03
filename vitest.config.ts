@@ -11,8 +11,8 @@ export default defineConfig({
 			screenshotFailures: false,
 		},
 		coverage: {
-			exclude: ['src/**/I*.ts', 'src/**/*test.ts'],
-			include: ['src/**/*.ts'],
+			exclude: ['packages/**/src/**/I*.ts', 'packages/**/src/**/*test.ts'],
+			include: ['packages/**/src/**/*.ts'],
 			reporter: ['lcovonly'],
 		},
 	},
