@@ -2,6 +2,8 @@ import type IComponent from './IComponent';
 import { assert_if_number_is_positive, assert_is_auto_layout, assert_parent_is_component } from './assertions';
 
 export default class Component extends HTMLElement implements IComponent {
+	private _auto_layout: 'none' | 'horizontal' | 'vertical' | 'wrap';
+	private _auto_layout_changed: boolean;
 	private _connected: boolean;
 	private _height: number | 'fill' | 'hug';
 	private _height_changed: boolean;
@@ -9,6 +11,8 @@ export default class Component extends HTMLElement implements IComponent {
 	private _width_changed: boolean;
 	public constructor() {
 		super();
+		this._auto_layout = 'none';
+		this._auto_layout_changed = false;
 		this._connected = false;
 		this._height = 'hug';
 		this._height_changed = true;
@@ -83,6 +87,17 @@ export default class Component extends HTMLElement implements IComponent {
 		this.style.width = `${this.width}px`;
 	}
 
+	public set auto_layout(value: 'none' | 'horizontal' | 'vertical' | 'wrap') {
+		assert_is_auto_layout(value);
+		this._auto_layout = value;
+		this._auto_layout_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get auto_layout(): 'none' | 'horizontal' | 'vertical' | 'wrap' {
+		return this._auto_layout;
+	}
+
 	private set connected(value: boolean) {
 		this._connected = value;
 	}
@@ -111,6 +126,12 @@ export default class Component extends HTMLElement implements IComponent {
 	public get height(): number | 'fill' | 'hug' {
 		return this._height;
 	}
+
+	private get parent(): IComponent {
+		assert_parent_is_component(this.parentElement);
+		return this.parentElement;
+	}
+
 	/**
 	 * width should be a number, "fill" or "hug".
 	 *
