@@ -10,7 +10,7 @@
 		"lint": "eslint .",
 		"test": "npm run test -w packages/core",
 		"test:core:ci": "npm run test:ci -w packages/core",
-		"test:coverage": "vitest run --coverage --coverage.reporter=lcovonly",
+		"test:coverage": "vitest run --coverage --coverage.reporter=lcovonly --coverage.reporter=text",
 		"test:ci": "run-s build:packages test:coverage",
 		"dev:test:core": "npm run dev:test -w packages/core",
 		"dev:test": "run-p dev:test:core",
