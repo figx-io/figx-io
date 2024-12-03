@@ -43,7 +43,7 @@ jobs:
         run: npx playwright install
 
       - name: Test
-        run: npm run test:once
+        run: npm run test:ci
 
   release-please:
     name: Release Please
