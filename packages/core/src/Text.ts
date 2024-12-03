@@ -2,19 +2,20 @@ import type IText from './IText';
 import Component from './Component';
 
 export default class Text extends Component implements IText {
-	private _text: string;
+	private _characters: string;
 
 	public constructor() {
 		super();
-		this._text = '';
+		this._characters = '';
 	}
 
-	public set text(value: string) {
+	public set characters(value: string) {
+		this._characters = value;
 		this.textContent = value;
 	}
 
-	public get text(): string {
-		return this._text;
+	public get characters(): string {
+		return this._characters;
 	}
 }
 customElements.define('fx-text', Text);

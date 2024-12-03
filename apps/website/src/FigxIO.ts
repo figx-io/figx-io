@@ -8,7 +8,7 @@ export default class FigxIO extends Application {
 		super();
 		this.appendChild(new Button());
 		const text: IText = new Text();
-		text.text = 'Hello World';
+		text.characters = 'Hello World';
 		this.appendChild(text as unknown as Node);
 	}
 }
