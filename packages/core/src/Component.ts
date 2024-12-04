@@ -1,12 +1,16 @@
 import type IComponent from './IComponent';
 import {
+	assert_is_component,
+	assert_is_not_child,
+	assert_is_valid_alignment,
 	assert_is_valid_auto_layout,
 	assert_is_valid_size,
-	assert_parent_is_component,
 } from './assertions';
 
 export default class Component extends HTMLElement implements IComponent {
-	private _auto_layout: 'none' | 'horizontal' | 'vertical' | 'wrap';
+	private _alignment: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right';
+	private _alignment_changed: boolean;
+	private _auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	private _auto_layout_changed: boolean;
 	private _connected: boolean;
 	private _height: number | 'fill' | 'hug';
@@ -15,22 +19,55 @@ export default class Component extends HTMLElement implements IComponent {
 	private _width_changed: boolean;
 	public constructor() {
 		super();
-		this._auto_layout = 'none';
+		this.style.alignItems = 'flex-start';
+		this.style.display = 'inline-flex';
+		this.style.flexDirection = 'row';
+		this._alignment = 'top_left';
+		this._alignment_changed = false;
+		this._auto_layout = 'horizontal';
 		this._auto_layout_changed = false;
 		this._connected = false;
 		this._height = 'hug';
-		this._height_changed = true;
+		this._height_changed = false;
 		this._width = 'hug';
 		this._width_changed = false;
-		// this.style.display = 'inline-flex';
+	}
+
+	private alignment_changed(): void {
+		this._alignment_changed = false;
+		//
+	}
+
+	private auto_layout_changed(): void {
+		this._auto_layout_changed = false;
+		if (this.auto_layout === 'horizontal') {
+			this.style.flexDirection = 'row';
+			this.style.flexWrap = '';
+			return;
+		}
+		if (this.auto_layout === 'vertical') {
+			this.style.flexDirection = 'column';
+			this.style.flexWrap = '';
+			return;
+		}
+		if (this.auto_layout === 'wrap') {
+			this.style.flexDirection = 'row';
+			this.style.flexWrap = 'wrap';
+		}
 	}
 
 	private commit_properties(): void {
 		if (this._width_changed) {
-			this.widthChanged();
+			this.width_changed();
 		}
 		if (this._height_changed) {
-			this.heightChanged();
+			this.height_changed();
+		}
+		if (this._auto_layout_changed) {
+			this.auto_layout_changed();
+		}
+		if (this._alignment_changed) {
+			this.alignment_changed();
 		}
 	}
 
@@ -39,11 +76,12 @@ export default class Component extends HTMLElement implements IComponent {
 	 * when the component is added as a child of parent component.
 	 *
 	 * connectedCallback() can be called multiple times, so we use
-	 * the connected flag to prevent invalidation being invoked multiple times.
+	 * the connected flag to prevent invalidation being invoked too many times.
 	 */
 	private connectedCallback(): void {
 		if (!this.connected) {
 			this.connected = true;
+			this.commit_properties();
 		}
 	}
 
@@ -55,7 +93,7 @@ export default class Component extends HTMLElement implements IComponent {
 		this.connected = false;
 	}
 
-	private heightChanged(): void {
+	private height_changed(): void {
 		this._height_changed = false;
 		if (this.height === 'fill') {
 			// implement width parent
@@ -78,7 +116,7 @@ export default class Component extends HTMLElement implements IComponent {
 		}
 	}
 
-	private widthChanged(): void {
+	private width_changed(): void {
 		this._width_changed = false;
 		if (this.width === 'fill') {
 			// implement width parent
@@ -91,14 +129,31 @@ export default class Component extends HTMLElement implements IComponent {
 		this.style.width = `${this.width}px`;
 	}
 
-	public set auto_layout(value: 'none' | 'horizontal' | 'vertical' | 'wrap') {
+	public add_component(value: IComponent): void {
+		assert_is_component(value);
+		assert_is_not_child(value, this);
+		this.appendChild(value);
+	}
+
+	public set alignment(value: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right') {
+		assert_is_valid_alignment(value);
+		this._alignment = value;
+		this._alignment_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get alignment(): 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right' {
+		return this._alignment;
+	}
+
+	public set auto_layout(value: 'horizontal' | 'vertical' | 'wrap') {
 		assert_is_valid_auto_layout(value);
 		this._auto_layout = value;
 		this._auto_layout_changed = true;
 		this.invalidate_properties();
 	}
 
-	public get auto_layout(): 'none' | 'horizontal' | 'vertical' | 'wrap' {
+	public get auto_layout(): 'horizontal' | 'vertical' | 'wrap' {
 		return this._auto_layout;
 	}
 
@@ -132,7 +187,7 @@ export default class Component extends HTMLElement implements IComponent {
 	}
 
 	private get parent(): IComponent {
-		assert_parent_is_component(this.parentElement);
+		assert_is_component(this.parentElement);
 		return this.parentElement;
 	}
 
