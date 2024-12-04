@@ -9,9 +9,16 @@ export default defineConfig({
 			name: 'chromium', // browser name is required
 			provider: 'playwright', // or 'webdriverio'
 			screenshotFailures: false,
+			viewport: {
+				height: 1000,
+				width: 1000,
+			},
 		},
 		coverage: {
-			exclude: ['packages/**/src/**/I*.ts', 'packages/**/src/**/*test.ts'],
+			exclude: [
+				'packages/**/src/**/I*.ts',
+				'packages/**/src/**/*test.ts',
+			],
 			include: ['packages/**/src/**/*.ts'],
 			reporter: ['lcovonly'],
 		},
