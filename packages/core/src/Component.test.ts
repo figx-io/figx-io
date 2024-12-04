@@ -28,11 +28,11 @@ describe('component', () => {
 				expect(component.width).toBe('hug');
 				component.remove();
 			});
-			it('when width is set to a non positive number, a RangeError should be thrown', (): void => {
+			it('when width is set to a negative number, a RangeError should be thrown', (): void => {
 				const component = new Component();
 				document.body.appendChild(component);
 				expect(() => {
-					component.width = 0;
+					component.width = -1;
 				}).toThrowError(RangeError);
 				component.remove();
 			});
@@ -58,11 +58,11 @@ describe('component', () => {
 				expect(component.height).toBe('hug');
 				component.remove();
 			});
-			it('when height is set to a non positive number, a RangeError should be thrown', (): void => {
+			it('when height is set to a negative number, a RangeError should be thrown', (): void => {
 				const component = new Component();
 				document.body.appendChild(component);
 				expect(() => {
-					component.height = 0;
+					component.height = -1;
 				}).toThrowError(RangeError);
 				component.remove();
 			});

@@ -1,5 +1,9 @@
 import type IComponent from './IComponent';
-import { assert_if_number_is_positive, assert_is_auto_layout, assert_parent_is_component } from './assertions';
+import {
+	assert_is_valid_auto_layout,
+	assert_is_valid_size,
+	assert_parent_is_component,
+} from './assertions';
 
 export default class Component extends HTMLElement implements IComponent {
 	private _auto_layout: 'none' | 'horizontal' | 'vertical' | 'wrap';
@@ -88,7 +92,7 @@ export default class Component extends HTMLElement implements IComponent {
 	}
 
 	public set auto_layout(value: 'none' | 'horizontal' | 'vertical' | 'wrap') {
-		assert_is_auto_layout(value);
+		assert_is_valid_auto_layout(value);
 		this._auto_layout = value;
 		this._auto_layout_changed = true;
 		this.invalidate_properties();
@@ -110,14 +114,14 @@ export default class Component extends HTMLElement implements IComponent {
 	 * height should be a number, "fill" or "hug".
 	 *
 	 * If a number, it represents the height in pixels,
-	 * and must be a positive number.
+	 * and must be a non negative number.
 	 *
 	 * If "fill", the component should expand it's height as much as possible
 	 *
 	 * If "hug", the component should shrink it's height as much as possible.
 	 */
 	public set height(value: number | 'fill' | 'hug') {
-		assert_if_number_is_positive(value);
+		assert_is_valid_size(value);
 		this._height = value;
 		this._height_changed = true;
 		this.invalidate_properties();
@@ -136,14 +140,14 @@ export default class Component extends HTMLElement implements IComponent {
 	 * width should be a number, "fill" or "hug".
 	 *
 	 * If a number, it represents the width in pixels,
-	 * and must be a positive number.
+	 * and must be a non negative number.
 	 *
 	 * If "fill", the component should expand it's width as much as possible
 	 *
 	 * If "hug", the component should shrink it's width as much as possible.
 	 */
 	public set width(value: number | 'fill' | 'hug') {
-		assert_if_number_is_positive(value);
+		assert_is_valid_size(value);
 		this._width = value;
 		this._width_changed = true;
 		this.invalidate_properties();
