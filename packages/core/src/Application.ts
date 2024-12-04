@@ -10,6 +10,7 @@ export default class Application extends Container implements IApplication {
 		document.documentElement.style.minHeight = '100%';
 		document.documentElement.style.height = '100%';
 		this.style.display = 'flex';
+		this.style.flexDirection = 'column';
 		this.style.minHeight = '100%';
 	}
 

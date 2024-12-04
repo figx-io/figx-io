@@ -48,6 +48,11 @@ describe('application', () => {
 			expect(application.style.minHeight).toBe('100%');
 			application.remove();
 		});
+		it('default style.flexDirection should be "column"', () => {
+			const application = new Application();
+			expect(application.style.flexDirection).toBe('column');
+			application.remove();
+		});
 	});
 	describe('properties', () => {
 		describe('fontFamily', () => {
