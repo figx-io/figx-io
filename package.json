@@ -8,7 +8,7 @@
 	"license": "MIT",
 	"scripts": {
 		"lint": "eslint .",
-		"test": "npm run test -w packages/core",
+		"test": "vitest",
 		"test:core:ci": "npm run test:ci -w packages/core",
 		"test:coverage": "vitest run --coverage --coverage.reporter=lcovonly --coverage.reporter=text",
 		"test:ci": "run-s build:packages test:coverage",
