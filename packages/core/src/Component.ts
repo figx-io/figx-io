@@ -35,7 +35,13 @@ export default class Component extends HTMLElement implements IComponent {
 
 	private alignment_changed(): void {
 		this._alignment_changed = false;
-		//
+		if (this.auto_layout === 'vertical') {
+			this.auto_layout_vertical_alignment();
+			return;
+		}
+		if (this.auto_layout === 'horizontal') {
+			this.auto_layout_horizontal_alignment();
+		}
 	}
 
 	private auto_layout_changed(): void {
@@ -56,6 +62,100 @@ export default class Component extends HTMLElement implements IComponent {
 		}
 	}
 
+	private auto_layout_horizontal_alignment(): void {
+		if (this.alignment === 'top_left') {
+			this.style.justifyContent = 'flex-start';
+			this.style.alignItems = 'flex-start';
+			return;
+		}
+		if (this.alignment === 'top_center') {
+			this.style.justifyContent = 'center';
+			this.style.alignItems = 'flex-start';
+			return;
+		}
+		if (this.alignment === 'top_right') {
+			this.style.justifyContent = 'flex-end';
+			this.style.alignItems = 'flex-start';
+			return;
+		}
+		if (this.alignment === 'left') {
+			this.style.justifyContent = 'flex-start';
+			this.style.alignItems = 'center';
+			return;
+		}
+		if (this.alignment === 'center') {
+			this.style.justifyContent = 'center';
+			this.style.alignItems = 'center';
+			return;
+		}
+		if (this.alignment === 'right') {
+			this.style.justifyContent = 'flex-end';
+			this.style.alignItems = 'center';
+			return;
+		}
+		if (this.alignment === 'bottom_left') {
+			this.style.justifyContent = 'flex-start';
+			this.style.alignItems = 'flex-end';
+			return;
+		}
+		if (this.alignment === 'bottom_center') {
+			this.style.justifyContent = 'center';
+			this.style.alignItems = 'flex-end';
+			return;
+		}
+		if (this.alignment === 'bottom_right') {
+			this.style.justifyContent = 'flex-end';
+			this.style.alignItems = 'flex-end';
+		}
+	}
+
+	private auto_layout_vertical_alignment(): void {
+		if (this.alignment === 'top_left') {
+			this.style.justifyContent = 'flex-start';
+			this.style.alignItems = '';
+			return;
+		}
+		if (this.alignment === 'top_center') {
+			this.style.justifyContent = '';
+			this.style.alignItems = 'center';
+			return;
+		}
+		if (this.alignment === 'top_right') {
+			this.style.justifyContent = '';
+			this.style.alignItems = 'flex-end';
+			return;
+		}
+		if (this.alignment === 'left') {
+			this.style.justifyContent = 'center';
+			this.style.alignItems = 'flex-start';
+			return;
+		}
+		if (this.alignment === 'center') {
+			this.style.justifyContent = 'center';
+			this.style.alignItems = 'center';
+			return;
+		}
+		if (this.alignment === 'right') {
+			this.style.justifyContent = 'center';
+			this.style.alignItems = 'flex-end';
+			return;
+		}
+		if (this.alignment === 'bottom_left') {
+			this.style.justifyContent = 'flex-end';
+			this.style.alignItems = 'flex-start';
+			return;
+		}
+		if (this.alignment === 'bottom_center') {
+			this.style.justifyContent = 'flex-end';
+			this.style.alignItems = 'center';
+			return;
+		}
+		if (this.alignment === 'bottom_right') {
+			this.style.justifyContent = 'flex-end';
+			this.style.alignItems = 'flex-end';
+		}
+	}
+
 	private commit_properties(): void {
 		if (this._width_changed) {
 			this.width_changed();
@@ -63,10 +163,8 @@ export default class Component extends HTMLElement implements IComponent {
 		if (this._height_changed) {
 			this.height_changed();
 		}
-		if (this._auto_layout_changed) {
+		if (this._auto_layout_changed || this._alignment_changed) {
 			this.auto_layout_changed();
-		}
-		if (this._alignment_changed) {
 			this.alignment_changed();
 		}
 	}
