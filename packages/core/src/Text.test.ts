@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import Text from './Text';
 
-describe('component', () => {
+describe('text', () => {
 	describe('default properties', () => {
 		describe('characters', () => {
 			it('default characters should be ""', (): void => {
