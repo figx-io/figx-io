@@ -32,7 +32,7 @@ export function assert_is_not_child(child: unknown, parent: unknown): void {
 	}
 }
 
-export function assert_is_valid_auto_layout(value: unknown): asserts value is 'none' | 'horizontal' | 'vertical' | 'wrap' {
+export function assert_is_valid_auto_layout(value: unknown): asserts value is 'horizontal' | 'vertical' | 'wrap' {
 	if (value === 'horizontal' || value === 'vertical' || value === 'wrap') {
 		return;
 	}
