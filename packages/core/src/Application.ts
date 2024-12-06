@@ -21,5 +21,21 @@ export default class Application extends Container implements IApplication {
 	public set fontFamily(value: string) {
 		document.body.style.fontFamily = value;
 	}
+
+	override set height(value: number | 'fill' | 'hug') {
+		throw new RangeError('set height is not allowed on the Application component');
+	}
+
+	override get height(): number | 'fill' | 'hug' {
+		throw new RangeError('get height is not allowed on the Application component');
+	}
+
+	override set width(value: number | 'fill' | 'hug') {
+		throw new RangeError('set width is not allowed on the Application component');
+	}
+
+	override get width(): number | 'fill' | 'hug' {
+		throw new RangeError('get width is not allowed on the Application component');
+	}
 }
 customElements.define('fx-application', Application);
