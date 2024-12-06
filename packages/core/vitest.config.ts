@@ -9,6 +9,10 @@ export default defineConfig({
 			name: 'chromium', // browser name is required
 			provider: 'playwright', // or 'webdriverio'
 			screenshotFailures: false,
+			viewport: {
+				height: 1000,
+				width: 1000,
+			},
 		},
 		coverage: {
 			// TODO coverage breaks modifying non test files and rerun tests?
