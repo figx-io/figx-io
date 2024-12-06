@@ -70,5 +70,24 @@ describe('application', () => {
 				application.remove();
 			});
 		});
+		describe('width and height getters / setters', () => {
+			it('get or set width or height should throw a RangeError', () => {
+				const application = new Application();
+				expect(() => {
+					const width = application.width;
+					console.log(width);
+				}).toThrow(RangeError);
+				expect(() => {
+					const height = application.height;
+					console.log(height);
+				}).toThrow(RangeError);
+				expect(() => {
+					application.width = 123;
+				}).toThrow(RangeError);
+				expect(() => {
+					application.height = 123;
+				}).toThrow(RangeError);
+			});
+		});
 	});
 });
