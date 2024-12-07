@@ -239,6 +239,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		}
 		else {
 			this.style.height = `${this.height}px`;
+			if (this.parent.auto_layout === 'vertical') {
+				this.style.flexGrow = '';
+			}
 		}
 	}
 
@@ -283,7 +286,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		}
 		else {
 			this.style.width = `${this.width}px`;
-			this.style.flexGrow = '';
+			if (this.parent.auto_layout === 'horizontal') {
+				this.style.flexGrow = '';
+			}
 		}
 	}
 
