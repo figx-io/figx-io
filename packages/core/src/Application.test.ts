@@ -74,12 +74,14 @@ describe('application', () => {
 			it('get or set width or height should throw a RangeError', () => {
 				const application = new Application();
 				expect(() => {
-					const width = application.width;
-					console.log(width);
+					if (application.width) {
+						//
+					}
 				}).toThrow(RangeError);
 				expect(() => {
-					const height = application.height;
-					console.log(height);
+					if (application.height) {
+						//
+					};
 				}).toThrow(RangeError);
 				expect(() => {
 					application.width = 123;
