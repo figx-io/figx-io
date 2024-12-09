@@ -27,9 +27,10 @@ export function assert_is_component(value: unknown): asserts value is Component 
 export function assert_is_not_child(child: unknown, parent: unknown): void {
 	assert_is_component(child);
 	assert_is_component(parent);
-	if (parent.contains(child)) {
-		throw new TypeError(`[${child}] is already a child of ${parent}`);
+	if (parent.contains(child) === false) {
+		return;
 	}
+	throw new TypeError(`[${child}] is already a child of ${parent}`);
 }
 
 export function assert_is_valid_auto_layout(value: unknown): asserts value is 'horizontal' | 'vertical' | 'wrap' {
