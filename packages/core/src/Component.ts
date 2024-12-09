@@ -16,6 +16,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	private _connected: boolean;
 	private _height: number | 'fill' | 'hug';
 	private _height_changed: boolean;
+	private _parent_auto_layout: 'horizontal' | 'vertical' | 'wrap';
+	private _parent_auto_layout_changed: boolean;
 	private _width: number | 'fill' | 'hug';
 	private _width_changed: boolean;
 	public constructor() {
@@ -34,6 +36,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this._height_changed = false;
 		this._width = 'hug';
 		this._width_changed = false;
+		this._parent_auto_layout = 'horizontal';
+		this._parent_auto_layout_changed = false;
 	}
 
 	private alignment_changed(): void {
@@ -52,19 +56,19 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.auto_layout === 'horizontal') {
 			this.style.flexDirection = 'row';
 			this.style.flexWrap = '';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.auto_layout === 'vertical') {
 			this.style.flexDirection = 'column';
 			this.style.flexWrap = '';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.auto_layout === 'wrap') {
 			this.style.flexDirection = 'row';
 			this.style.flexWrap = 'wrap';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 		}
 	}
 
@@ -72,55 +76,55 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.alignment === 'top_left') {
 			this.style.justifyContent = 'flex-start';
 			this.style.alignItems = 'flex-start';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'top_center') {
 			this.style.justifyContent = 'center';
 			this.style.alignItems = 'flex-start';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'top_right') {
 			this.style.justifyContent = 'flex-end';
 			this.style.alignItems = 'flex-start';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'left') {
 			this.style.justifyContent = 'flex-start';
 			this.style.alignItems = 'center';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'center') {
 			this.style.justifyContent = 'center';
 			this.style.alignItems = 'center';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'right') {
 			this.style.justifyContent = 'flex-end';
 			this.style.alignItems = 'center';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_left') {
 			this.style.justifyContent = 'flex-start';
 			this.style.alignItems = 'flex-end';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_center') {
 			this.style.justifyContent = 'center';
 			this.style.alignItems = 'flex-end';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_right') {
 			this.style.justifyContent = 'flex-end';
 			this.style.alignItems = 'flex-end';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 		}
 	}
 
@@ -128,68 +132,71 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.alignment === 'top_left') {
 			this.style.justifyContent = 'flex-start';
 			this.style.alignItems = 'flex-start';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'top_center') {
 			this.style.justifyContent = 'flex-start';
 			this.style.alignItems = 'center';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'top_right') {
 			this.style.justifyContent = 'flex-start';
 			this.style.alignItems = 'flex-end';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'left') {
 			this.style.justifyContent = 'center';
 			this.style.alignItems = 'flex-start';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'center') {
 			this.style.justifyContent = 'center';
 			this.style.alignItems = 'center';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'right') {
 			this.style.justifyContent = 'center';
 			this.style.alignItems = 'flex-end';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_left') {
 			this.style.justifyContent = 'flex-end';
 			this.style.alignItems = 'flex-start';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_center') {
 			this.style.justifyContent = 'flex-end';
 			this.style.alignItems = 'center';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_right') {
 			this.style.justifyContent = 'flex-end';
 			this.style.alignItems = 'flex-end';
-			this.invalidate_children_size();
+			this.update_children_parent_auto_layout();
 		}
 	}
 
 	private commit_properties(): void {
+		if (this._auto_layout_changed || this._alignment_changed) {
+			this.auto_layout_changed();
+			this.alignment_changed();
+		}
+		if (this._parent_auto_layout_changed) {
+			this.parent_auto_layout_changed();
+		}
 		if (this._width_changed) {
 			this.width_changed();
 		}
 		if (this._height_changed) {
 			this.height_changed();
-		}
-		if (this._auto_layout_changed || this._alignment_changed) {
-			this.auto_layout_changed();
-			this.alignment_changed();
 		}
 	}
 
@@ -217,39 +224,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private height_changed(): void {
 		this._height_changed = false;
-		if (this.height === 'fill') {
-			if (this.parent.auto_layout === 'horizontal') {
-				this.style.height = '';
-				this.style.alignSelf = 'stretch';
-			}
-			else if (this.parent.auto_layout === 'vertical') {
-				this.style.height = '';
-				this.style.flexGrow = '1';
-			}
-		}
-		else if (this.height === 'hug') {
-			if (this.parent.auto_layout === 'horizontal') {
-				this.style.height = '';
-				this.style.alignSelf = '';
-			}
-			else if (this.parent.auto_layout === 'vertical') {
-				this.style.height = '';
-				this.style.flexGrow = '';
-			}
-		}
-		else {
-			this.style.height = `${this.height}px`;
-			if (this.parent.auto_layout === 'vertical') {
-				this.style.flexGrow = '';
-			}
-		}
-	}
-
-	private invalidate_children_size(): void {
-		for (const child of this.children) {
-			assert_is_component(child);
-			child.invalidateSize();
-		}
+		this.update_height_styles();
 	}
 
 	/**
@@ -262,46 +237,88 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		}
 	}
 
-	private width_changed(): void {
-		this._width_changed = false;
+	private parent_auto_layout_changed(): void {
+		this._parent_auto_layout_changed = false;
+		this.width_changed();
+		this.height_changed();
+	}
+
+	private update_children_parent_auto_layout(): void {
+		for (const child of this.children) {
+			assert_is_component(child);
+			child.parent_auto_layout = this.auto_layout;
+		}
+	}
+
+	private update_height_styles(): void {
+		if (this.height === 'fill') {
+			if (this.parent_auto_layout === 'horizontal') {
+				this.style.height = '';
+				this.style.alignSelf = 'stretch';
+			}
+			else if (this.parent_auto_layout === 'vertical') {
+				this.style.height = '';
+				this.style.flexGrow = '1';
+			}
+		}
+		else if (this.height === 'hug') {
+			if (this.parent_auto_layout === 'horizontal') {
+				this.style.height = '';
+				this.style.alignSelf = '';
+			}
+			else if (this.parent_auto_layout === 'vertical') {
+				this.style.height = '';
+				this.style.flexGrow = '';
+			}
+		}
+		else {
+			this.style.height = `${this.height}px`;
+			if (this.parent_auto_layout === 'vertical') {
+				this.style.flexGrow = '';
+			}
+		}
+	}
+
+	private update_width_styles(): void {
 		if (this.width === 'fill') {
-			if (this.parent.auto_layout === 'horizontal') {
+			if (this.parent_auto_layout === 'horizontal') {
 				this.style.width = '';
 				this.style.flexGrow = '1';
 			}
-			else if (this.parent.auto_layout === 'vertical') {
+			else if (this.parent_auto_layout === 'vertical') {
 				this.style.width = '';
 				this.style.alignSelf = 'stretch';
 			}
 		}
 		else if (this.width === 'hug') {
-			if (this.parent.auto_layout === 'horizontal') {
+			if (this.parent_auto_layout === 'horizontal') {
 				this.style.width = '';
 				this.style.flexGrow = '';
 			}
-			else if (this.parent.auto_layout === 'vertical') {
+			else if (this.parent_auto_layout === 'vertical') {
 				this.style.width = '';
 				this.style.alignSelf = '';
 			}
 		}
 		else {
 			this.style.width = `${this.width}px`;
-			if (this.parent.auto_layout === 'horizontal') {
+			if (this.parent_auto_layout === 'horizontal') {
 				this.style.flexGrow = '';
+				this.style.flexShrink = '0';
 			}
 		}
+	}
+
+	private width_changed(): void {
+		this._width_changed = false;
+		this.update_width_styles();
 	}
 
 	public add_component(value: IComponent): void {
 		assert_is_component(value);
 		assert_is_not_child(value, this);
+		value.parent_auto_layout = this.auto_layout;
 		this.appendChild(value);
-	}
-
-	public invalidateSize(): void {
-		this._width_changed = true;
-		this._height_changed = true;
-		this.invalidate_properties();
 	}
 
 	public set alignment(value: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right') {
@@ -355,9 +372,15 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		return this._height;
 	}
 
-	private get parent(): IComponent {
-		assert_is_component(this.parentElement);
-		return this.parentElement;
+	public set parent_auto_layout(value: 'horizontal' | 'vertical' | 'wrap') {
+		assert_is_valid_auto_layout(value);
+		this._parent_auto_layout = value;
+		this._parent_auto_layout_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get parent_auto_layout(): 'horizontal' | 'vertical' | 'wrap' {
+		return this._parent_auto_layout;
 	}
 
 	/**
