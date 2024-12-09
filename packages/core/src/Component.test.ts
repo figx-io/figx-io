@@ -392,6 +392,14 @@ describe('component', () => {
 				});
 			});
 		});
+		describe('parent_auto_layout', () => {
+			it('default_auto_layout should be "horizontal"', () => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(component.parent_auto_layout).toBe('horizontal');
+				component.remove();
+			});
+		});
 	});
 	describe('methods', () => {
 		describe('add_component()', () => {
@@ -420,16 +428,19 @@ describe('component', () => {
 			describe('given Application auto_layout = "horizontal"', () => {
 				it('given width = 123, styles should be correct', () => {
 					const application = new Application();
+					application.auto_layout = 'horizontal';
 					document.body.appendChild(application);
 					const component = new Component();
 					application.add_component(component);
 					component.width = 123;
 					expect(component.style.width).toBe('123px');
 					expect(component.style.flexGrow).toBe('');
+					expect(component.style.flexShrink).toBe('0');
 					application.remove();
 				});
 				it('given width = "fill", styles should be correct', () => {
 					const application = new Application();
+					application.auto_layout = 'horizontal';
 					document.body.appendChild(application);
 					const component = new Component();
 					component.width = 'fill';
@@ -440,6 +451,7 @@ describe('component', () => {
 				});
 				it('given width = "hug", styles should be correct', () => {
 					const application = new Application();
+					application.auto_layout = 'horizontal';
 					document.body.appendChild(application);
 					const component = new Component();
 					component.width = 'hug';
@@ -450,6 +462,7 @@ describe('component', () => {
 				});
 				it('given height = 123, styles should be correct', () => {
 					const application = new Application();
+					application.auto_layout = 'horizontal';
 					document.body.appendChild(application);
 					const component = new Component();
 					component.height = 123;
@@ -460,6 +473,7 @@ describe('component', () => {
 				});
 				it('given height = "fill", styles should be correct', () => {
 					const application = new Application();
+					application.auto_layout = 'horizontal';
 					document.body.appendChild(application);
 					const component = new Component();
 					component.height = 'fill';
@@ -470,6 +484,7 @@ describe('component', () => {
 				});
 				it('given height = "hug", styles should be correct', () => {
 					const application = new Application();
+					application.auto_layout = 'horizontal';
 					document.body.appendChild(application);
 					const component = new Component();
 					component.height = 'hug';
