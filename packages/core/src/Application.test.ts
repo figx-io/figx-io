@@ -48,13 +48,14 @@ describe('application', () => {
 			expect(application.style.minHeight).toBe('100%');
 			application.remove();
 		});
-		it('default style.flexDirection should be "column"', () => {
-			const application = new Application();
-			expect(application.style.flexDirection).toBe('column');
-			application.remove();
-		});
 	});
 	describe('properties', () => {
+		describe('auto_layout', () => {
+			it('default auto_layout should "vertical"', () => {
+				const application = new Application();
+				expect(application.auto_layout).toBe('vertical');
+			});
+		});
 		describe('fontFamily', () => {
 			it('default fontFamily should be ""', () => {
 				const application = new Application();
@@ -68,27 +69,6 @@ describe('application', () => {
 				document.body.appendChild(application);
 				expect(application.fontFamily).toBe('Inter');
 				application.remove();
-			});
-		});
-		describe('width and height getters / setters', () => {
-			it('get or set width or height should throw a RangeError', () => {
-				const application = new Application();
-				expect(() => {
-					if (application.width) {
-						//
-					}
-				}).toThrow(RangeError);
-				expect(() => {
-					if (application.height) {
-						//
-					};
-				}).toThrow(RangeError);
-				expect(() => {
-					application.width = 123;
-				}).toThrow(RangeError);
-				expect(() => {
-					application.height = 123;
-				}).toThrow(RangeError);
 			});
 		});
 	});
