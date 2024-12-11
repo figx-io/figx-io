@@ -2,6 +2,7 @@ import type IChild from './IChild';
 import type IComponent from './IComponent';
 import {
 	assert_is_component,
+	assert_is_non_negative,
 	assert_is_not_child,
 	assert_is_valid_alignment,
 	assert_is_valid_auto_layout,
@@ -18,6 +19,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	private _height_changed: boolean;
 	private _padding_horizontal: number;
 	private _padding_horizontal_changed: boolean;
+	private _padding_vertical: number;
+	private _padding_vertical_changed: boolean;
 	private _parent_auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	private _parent_auto_layout_changed: boolean;
 	private _width: number | 'fill' | 'hug';
@@ -40,6 +43,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this._width_changed = false;
 		this._padding_horizontal = 0;
 		this._padding_horizontal_changed = false;
+		this._padding_vertical = 0;
+		this._padding_vertical_changed = false;
 		this._parent_auto_layout = 'horizontal';
 		this._parent_auto_layout_changed = false;
 	}
@@ -205,6 +210,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this._padding_horizontal_changed) {
 			this.paddingHorizontalChanged();
 		}
+		if (this._padding_vertical_changed) {
+			this.paddingVerticalChanged();
+		}
 	}
 
 	/**
@@ -248,6 +256,12 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this._padding_horizontal_changed = false;
 		this.style.paddingLeft = `${this.padding_horizontal}px`;
 		this.style.paddingRight = `${this.padding_horizontal}px`;
+	}
+
+	private paddingVerticalChanged(): void {
+		this._padding_vertical_changed = false;
+		this.style.paddingTop = `${this.padding_vertical}px`;
+		this.style.paddingBottom = `${this.padding_vertical}px`;
 	}
 
 	private parent_auto_layout_changed(): void {
@@ -396,6 +410,16 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		return this._padding_horizontal;
 	}
 
+	public set padding_vertical(value: number) {
+		assert_is_non_negative(value);
+		this._padding_vertical = value;
+		this._padding_vertical_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get padding_vertical(): number {
+		return this._padding_vertical;
+	}
 
 	public set parent_auto_layout(value: 'horizontal' | 'vertical' | 'wrap') {
 		assert_is_valid_auto_layout(value);
