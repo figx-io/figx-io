@@ -17,6 +17,13 @@ export function assert_is_valid_size(value: unknown): asserts value is number | 
 	throw new RangeError(`[${value}] is invalid, must be a non negative number, "fill" or "hug"`);
 }
 
+export function assert_is_non_negative(value: unknown): asserts value is number {
+	if (typeof value === 'number' && value >= 0) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be a non negative number`);
+}
+
 export function assert_is_component(value: unknown): asserts value is Component {
 	if (value instanceof Component) {
 		return;
