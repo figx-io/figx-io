@@ -16,6 +16,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	private _connected: boolean;
 	private _height: number | 'fill' | 'hug';
 	private _height_changed: boolean;
+	private _padding_horizontal: number;
+	private _padding_horizontal_changed: boolean;
 	private _parent_auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	private _parent_auto_layout_changed: boolean;
 	private _width: number | 'fill' | 'hug';
@@ -36,6 +38,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this._height_changed = false;
 		this._width = 'hug';
 		this._width_changed = false;
+		this._padding_horizontal = 0;
+		this._padding_horizontal_changed = false;
 		this._parent_auto_layout = 'horizontal';
 		this._parent_auto_layout_changed = false;
 	}
@@ -198,6 +202,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this._height_changed) {
 			this.height_changed();
 		}
+		if (this._padding_horizontal_changed) {
+			this.paddingHorizontalChanged();
+		}
 	}
 
 	/**
@@ -235,6 +242,12 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.connected) {
 			this.commit_properties();
 		}
+	}
+
+	private paddingHorizontalChanged(): void {
+		this._padding_horizontal_changed = false;
+		this.style.paddingLeft = `${this.padding_horizontal}px`;
+		this.style.paddingRight = `${this.padding_horizontal}px`;
 	}
 
 	private parent_auto_layout_changed(): void {
@@ -371,6 +384,18 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	public get height(): number | 'fill' | 'hug' {
 		return this._height;
 	}
+
+	public set padding_horizontal(value: number) {
+		assert_is_non_negative(value);
+		this._padding_horizontal = value;
+		this._padding_horizontal_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get padding_horizontal(): number {
+		return this._padding_horizontal;
+	}
+
 
 	public set parent_auto_layout(value: 'horizontal' | 'vertical' | 'wrap') {
 		assert_is_valid_auto_layout(value);
