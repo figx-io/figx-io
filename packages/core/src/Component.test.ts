@@ -400,6 +400,50 @@ describe('component', () => {
 				component.remove();
 			});
 		});
+		describe('padding', () => {
+			it('default padding_horizontal should be 0', () => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(component.padding_horizontal).toBe(0);
+				component.remove();
+			});
+			it('default padding_vertical should be 0', () => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(component.padding_vertical).toBe(0);
+				component.remove();
+			});
+			it('when padding_horizontal = 32, padding_horizontal should be 32', () => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.padding_horizontal = 32;
+				expect(component.padding_horizontal).toBe(32);
+				component.remove();
+			});
+			it('when padding_horizontal = 32, style.paddingLeft and style.paddingRight should be 32px', () => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.padding_horizontal = 32;
+				expect(component.style.paddingLeft).toBe('32px');
+				expect(component.style.paddingRight).toBe('32px');
+				component.remove();
+			});
+			it('when padding_vertical = 32, padding_vertical should be 32', () => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.padding_vertical = 32;
+				expect(component.padding_vertical).toBe(32);
+				component.remove();
+			});
+			it('when padding_vertical = 32, style.paddingTop and style.paddingBottom should be 32px', () => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.padding_vertical = 32;
+				expect(component.style.paddingTop).toBe('32px');
+				expect(component.style.paddingBottom).toBe('32px');
+				component.remove();
+			});
+		});
 	});
 	describe('methods', () => {
 		describe('add_component()', () => {
