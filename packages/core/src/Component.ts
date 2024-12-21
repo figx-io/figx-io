@@ -25,6 +25,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	private _parent_auto_layout_changed: boolean;
 	#min_height: number;
 	#min_height_changed: boolean;
+	#min_width: number;
+	#min_width_changed: boolean;
 	public constructor() {
 		super();
 		this.style.justifyContent = 'flex-start';
@@ -42,6 +44,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this._height_changed = false;
 		this.#min_height = 0;
 		this.#min_height_changed = false;
+		this.#min_width = 0;
+		this.#min_width_changed = false;
 		this._padding_horizontal = 0;
 		this._padding_horizontal_changed = false;
 		this._padding_vertical = 0;
@@ -202,7 +206,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this._parent_auto_layout_changed) {
 			this.parent_auto_layout_changed();
 		}
-		if (this._width_changed) {
+		if (this.#min_width_changed) {
+			this.min_width_changed();
+		}
 			this.width_changed();
 		}
 		if (this.#min_height_changed) {
@@ -259,6 +265,11 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	private min_height_changed(): void {
 		this.#min_height_changed = false;
 		this.style.minHeight = `${this.#min_height}px`;
+	}
+
+	private min_width_changed(): void {
+		this.#min_width_changed = false;
+		this.style.minWidth = `${this.#min_width}px`;
 	}
 
 	private paddingHorizontalChanged(): void {
@@ -417,6 +428,17 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public get min_height(): number {
 		return this.#min_height;
+	}
+
+	public set min_width(value: number) {
+		assert_is_non_negative(value);
+		this.#min_width = value;
+		this.#min_width_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get min_width(): number {
+		return this.#min_width;
 	}
 
 	public set padding_horizontal(value: number) {

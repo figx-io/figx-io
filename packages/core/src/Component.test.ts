@@ -106,6 +106,34 @@ describe('component', () => {
 				component.remove();
 			});
 		});
+		describe('min_width', () => {
+			it('default min_width should be 0', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(component.min_width).toBe(0);
+				component.remove();
+			});
+			it('when min_width is set to a negative number, a RangeError should be thrown', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(() => {
+					component.min_width = -1;
+				}).toThrowError(RangeError);
+				component.remove();
+			});
+			it('when min_width = 123, min_width should be 123', (): void => {
+				const component = new Component();
+				component.min_width = 123;
+				expect(component.min_width).toBe(123);
+			});
+			it('when min_width = 123, style.minWidth should be "123px"', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.min_width = 123;
+				expect(component.style.minWidth).toBe('123px');
+				component.remove();
+			});
+		});
 		describe('height', () => {
 			it('default height should be "hug"', (): void => {
 				const component = new Component();
