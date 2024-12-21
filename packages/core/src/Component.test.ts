@@ -63,16 +63,14 @@ describe('component', () => {
 				}).toThrowError(RangeError);
 				component.remove();
 			});
-			it('width = 123, width should be 123', (): void => {
+			it('when width = 123, width should be 123', (): void => {
 				const component = new Component();
 				component.width = 123;
 				expect(component.width).toBe(123);
 			});
 			it('when width = 123, style.width should be "123px"', (): void => {
-				const application = new Application();
-				document.body.appendChild(application);
 				const component = new Component();
-				application.add_component(component);
+				document.body.appendChild(component);
 				component.width = 123;
 				expect(component.style.width).toBe('123px');
 				component.remove();
@@ -143,26 +141,18 @@ describe('component', () => {
 			});
 			it('when height is set to a negative number, a RangeError should be thrown', (): void => {
 				const component = new Component();
-				document.body.appendChild(component);
 				expect(() => {
 					component.height = -1;
 				}).toThrowError(RangeError);
-				component.remove();
 			});
 			it('when height = 123, height should be 123', (): void => {
-				const application = new Application();
 				const component = new Component();
-				application.add_component(component);
-				document.body.appendChild(application);
 				component.height = 123;
 				expect(component.height).toBe(123);
-				component.remove();
 			});
 			it('when height = 123, style.height should be "123px"', (): void => {
-				const application = new Application();
 				const component = new Component();
-				application.add_component(component);
-				document.body.appendChild(application);
+				document.body.appendChild(component);
 				component.height = 123;
 				expect(component.style.height).toBe('123px');
 				component.remove();
