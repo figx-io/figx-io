@@ -450,6 +450,20 @@ describe('component', () => {
 				expect(component.parent_auto_layout).toBe('horizontal');
 				component.remove();
 			});
+			describe('given parent auto_layout is "horizontal"', () => {
+				describe('when parent auto_layout = "vertical"', () => {
+					it('children parent_auto_layout should be "vertical"', () => {
+						const parent = new Component();
+						const child = new Component();
+						parent.add_component(child);
+						document.body.appendChild(parent);
+						parent.auto_layout = 'horizontal';
+						parent.auto_layout = 'vertical';
+						expect(child.parent_auto_layout).toBe('vertical');
+						parent.remove();
+					});
+				});
+			});
 		});
 		describe('padding', () => {
 			it('default padding_horizontal should be 0', () => {
