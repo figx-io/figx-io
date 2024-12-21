@@ -10,23 +10,25 @@ import {
 } from './assertions';
 
 export default class Component extends HTMLElement implements IComponent, IChild {
-	private _alignment: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right';
-	private _alignment_changed: boolean;
-	private _auto_layout: 'horizontal' | 'vertical' | 'wrap';
-	private _auto_layout_changed: boolean;
-	private _connected: boolean;
-	private _height: number | 'fill' | 'hug';
-	private _height_changed: boolean;
-	private _padding_horizontal: number;
-	private _padding_horizontal_changed: boolean;
-	private _padding_vertical: number;
-	private _padding_vertical_changed: boolean;
-	private _parent_auto_layout: 'horizontal' | 'vertical' | 'wrap';
-	private _parent_auto_layout_changed: boolean;
+	#alignment: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right';
+	#alignment_changed: boolean;
+	#auto_layout: 'horizontal' | 'vertical' | 'wrap';
+	#auto_layout_changed: boolean;
+	#connected: boolean;
+	#height: number | 'fill' | 'hug';
+	#height_changed: boolean;
 	#min_height: number;
 	#min_height_changed: boolean;
 	#min_width: number;
 	#min_width_changed: boolean;
+	#padding_horizontal: number;
+	#padding_horizontal_changed: boolean;
+	#padding_vertical: number;
+	#padding_vertical_changed: boolean;
+	#parent_auto_layout: 'horizontal' | 'vertical' | 'wrap';
+	#parent_auto_layout_changed: boolean;
+	#width: number | 'fill' | 'hug';
+	#width_changed: boolean;
 	public constructor() {
 		super();
 		this.style.justifyContent = 'flex-start';
@@ -35,27 +37,29 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.style.flexDirection = 'row';
 		this.style.minWidth = '0px';
 		this.style.minHeight = '0px';
-		this._alignment = 'top_left';
-		this._alignment_changed = false;
-		this._auto_layout = 'horizontal';
-		this._auto_layout_changed = false;
-		this._connected = false;
-		this._height = 'hug';
-		this._height_changed = false;
+		this.#alignment = 'top_left';
+		this.#alignment_changed = false;
+		this.#auto_layout = 'horizontal';
+		this.#auto_layout_changed = false;
+		this.#connected = false;
+		this.#height = 'hug';
+		this.#height_changed = false;
 		this.#min_height = 0;
 		this.#min_height_changed = false;
 		this.#min_width = 0;
 		this.#min_width_changed = false;
-		this._padding_horizontal = 0;
-		this._padding_horizontal_changed = false;
-		this._padding_vertical = 0;
-		this._padding_vertical_changed = false;
-		this._parent_auto_layout = 'horizontal';
-		this._parent_auto_layout_changed = false;
+		this.#width = 'hug';
+		this.#width_changed = false;
+		this.#padding_horizontal = 0;
+		this.#padding_horizontal_changed = false;
+		this.#padding_vertical = 0;
+		this.#padding_vertical_changed = false;
+		this.#parent_auto_layout = 'horizontal';
+		this.#parent_auto_layout_changed = false;
 	}
 
 	private alignment_changed(): void {
-		this._alignment_changed = false;
+		this.#alignment_changed = false;
 		if (this.auto_layout === 'vertical') {
 			this.auto_layout_vertical_alignment();
 			return;
@@ -66,7 +70,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	private auto_layout_changed(): void {
-		this._auto_layout_changed = false;
+		this.#auto_layout_changed = false;
 		if (this.auto_layout === 'horizontal') {
 			this.style.flexDirection = 'row';
 			this.style.flexWrap = '';
@@ -199,28 +203,29 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	private commit_properties(): void {
-		if (this._auto_layout_changed || this._alignment_changed) {
+		if (this.#auto_layout_changed || this.#alignment_changed) {
 			this.auto_layout_changed();
 			this.alignment_changed();
 		}
-		if (this._parent_auto_layout_changed) {
+		if (this.#parent_auto_layout_changed) {
 			this.parent_auto_layout_changed();
 		}
 		if (this.#min_width_changed) {
 			this.min_width_changed();
 		}
+		if (this.#width_changed) {
 			this.width_changed();
 		}
 		if (this.#min_height_changed) {
 			this.min_height_changed();
 		}
-		if (this._height_changed) {
+		if (this.#height_changed) {
 			this.height_changed();
 		}
-		if (this._padding_horizontal_changed) {
+		if (this.#padding_horizontal_changed) {
 			this.paddingHorizontalChanged();
 		}
-		if (this._padding_vertical_changed) {
+		if (this.#padding_vertical_changed) {
 			this.paddingVerticalChanged();
 		}
 	}
@@ -248,7 +253,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	private height_changed(): void {
-		this._height_changed = false;
+		this.#height_changed = false;
 		this.update_height_styles();
 	}
 
@@ -273,19 +278,19 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	private paddingHorizontalChanged(): void {
-		this._padding_horizontal_changed = false;
+		this.#padding_horizontal_changed = false;
 		this.style.paddingLeft = `${this.padding_horizontal}px`;
 		this.style.paddingRight = `${this.padding_horizontal}px`;
 	}
 
 	private paddingVerticalChanged(): void {
-		this._padding_vertical_changed = false;
+		this.#padding_vertical_changed = false;
 		this.style.paddingTop = `${this.padding_vertical}px`;
 		this.style.paddingBottom = `${this.padding_vertical}px`;
 	}
 
 	private parent_auto_layout_changed(): void {
-		this._parent_auto_layout_changed = false;
+		this.#parent_auto_layout_changed = false;
 		this.width_changed();
 		this.height_changed();
 	}
@@ -357,7 +362,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	private width_changed(): void {
-		this._width_changed = false;
+		this.#width_changed = false;
 		this.update_width_styles();
 	}
 
@@ -370,32 +375,32 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public set alignment(value: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right') {
 		assert_is_valid_alignment(value);
-		this._alignment = value;
-		this._alignment_changed = true;
+		this.#alignment = value;
+		this.#alignment_changed = true;
 		this.invalidate_properties();
 	}
 
 	public get alignment(): 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right' {
-		return this._alignment;
+		return this.#alignment;
 	}
 
 	public set auto_layout(value: 'horizontal' | 'vertical' | 'wrap') {
 		assert_is_valid_auto_layout(value);
-		this._auto_layout = value;
-		this._auto_layout_changed = true;
+		this.#auto_layout = value;
+		this.#auto_layout_changed = true;
 		this.invalidate_properties();
 	}
 
 	public get auto_layout(): 'horizontal' | 'vertical' | 'wrap' {
-		return this._auto_layout;
+		return this.#auto_layout;
 	}
 
 	private set connected(value: boolean) {
-		this._connected = value;
+		this.#connected = value;
 	}
 
 	private get connected(): boolean {
-		return this._connected;
+		return this.#connected;
 	}
 
 	/**
@@ -410,13 +415,13 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	 */
 	public set height(value: number | 'fill' | 'hug') {
 		assert_is_valid_size(value);
-		this._height = value;
-		this._height_changed = true;
+		this.#height = value;
+		this.#height_changed = true;
 		this.invalidate_properties();
 	}
 
 	public get height(): number | 'fill' | 'hug' {
-		return this._height;
+		return this.#height;
 	}
 
 	public set min_height(value: number) {
@@ -443,35 +448,35 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public set padding_horizontal(value: number) {
 		assert_is_non_negative(value);
-		this._padding_horizontal = value;
-		this._padding_horizontal_changed = true;
+		this.#padding_horizontal = value;
+		this.#padding_horizontal_changed = true;
 		this.invalidate_properties();
 	}
 
 	public get padding_horizontal(): number {
-		return this._padding_horizontal;
+		return this.#padding_horizontal;
 	}
 
 	public set padding_vertical(value: number) {
 		assert_is_non_negative(value);
-		this._padding_vertical = value;
-		this._padding_vertical_changed = true;
+		this.#padding_vertical = value;
+		this.#padding_vertical_changed = true;
 		this.invalidate_properties();
 	}
 
 	public get padding_vertical(): number {
-		return this._padding_vertical;
+		return this.#padding_vertical;
 	}
 
 	public set parent_auto_layout(value: 'horizontal' | 'vertical' | 'wrap') {
 		assert_is_valid_auto_layout(value);
-		this._parent_auto_layout = value;
-		this._parent_auto_layout_changed = true;
+		this.#parent_auto_layout = value;
+		this.#parent_auto_layout_changed = true;
 		this.invalidate_properties();
 	}
 
 	public get parent_auto_layout(): 'horizontal' | 'vertical' | 'wrap' {
-		return this._parent_auto_layout;
+		return this.#parent_auto_layout;
 	}
 
 	/**
@@ -486,13 +491,13 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	 */
 	public set width(value: number | 'fill' | 'hug') {
 		assert_is_valid_size(value);
-		this._width = value;
-		this._width_changed = true;
+		this.#width = value;
+		this.#width_changed = true;
 		this.invalidate_properties();
 	}
 
 	public get width(): number | 'fill' | 'hug' {
-		return this._width;
+		return this.#width;
 	}
 }
 customElements.define('fx-component', Component);
