@@ -31,6 +31,11 @@ describe('component', () => {
 			expect(component.style.minWidth).toBe('0px');
 			component.remove();
 		});
+		it('default style.minHeight should be "0px"', () => {
+			const component = new Component();
+			expect(component.style.minHeight).toBe('0px');
+			component.remove();
+		});
 	});
 	describe('lifecycle', () => {
 		describe('connectedCallback()', (): void => {
@@ -70,6 +75,34 @@ describe('component', () => {
 				application.add_component(component);
 				component.width = 123;
 				expect(component.style.width).toBe('123px');
+				component.remove();
+			});
+		});
+		describe('min_height', () => {
+			it('default min_height should be 0', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(component.min_height).toBe(0);
+				component.remove();
+			});
+			it('when min_height is set to a negative number, a RangeError should be thrown', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(() => {
+					component.min_height = -1;
+				}).toThrowError(RangeError);
+				component.remove();
+			});
+			it('when min_height = 123, min_height should be 123', (): void => {
+				const component = new Component();
+				component.min_height = 123;
+				expect(component.min_height).toBe(123);
+			});
+			it('when min_height = 123, style.minHeight should be "123px"', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.min_height = 123;
+				expect(component.style.minHeight).toBe('123px');
 				component.remove();
 			});
 		});

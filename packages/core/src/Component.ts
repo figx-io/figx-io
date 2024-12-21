@@ -23,8 +23,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	private _padding_vertical_changed: boolean;
 	private _parent_auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	private _parent_auto_layout_changed: boolean;
-	private _width: number | 'fill' | 'hug';
-	private _width_changed: boolean;
+	#min_height: number;
+	#min_height_changed: boolean;
 	public constructor() {
 		super();
 		this.style.justifyContent = 'flex-start';
@@ -32,6 +32,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.style.display = 'inline-flex';
 		this.style.flexDirection = 'row';
 		this.style.minWidth = '0px';
+		this.style.minHeight = '0px';
 		this._alignment = 'top_left';
 		this._alignment_changed = false;
 		this._auto_layout = 'horizontal';
@@ -39,8 +40,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this._connected = false;
 		this._height = 'hug';
 		this._height_changed = false;
-		this._width = 'hug';
-		this._width_changed = false;
+		this.#min_height = 0;
+		this.#min_height_changed = false;
 		this._padding_horizontal = 0;
 		this._padding_horizontal_changed = false;
 		this._padding_vertical = 0;
@@ -204,6 +205,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this._width_changed) {
 			this.width_changed();
 		}
+		if (this.#min_height_changed) {
+			this.min_height_changed();
+		}
 		if (this._height_changed) {
 			this.height_changed();
 		}
@@ -250,6 +254,11 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.connected) {
 			this.commit_properties();
 		}
+	}
+
+	private min_height_changed(): void {
+		this.#min_height_changed = false;
+		this.style.minHeight = `${this.#min_height}px`;
 	}
 
 	private paddingHorizontalChanged(): void {
@@ -397,6 +406,17 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public get height(): number | 'fill' | 'hug' {
 		return this._height;
+	}
+
+	public set min_height(value: number) {
+		assert_is_non_negative(value);
+		this.#min_height = value;
+		this.#min_height_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get min_height(): number {
+		return this.#min_height;
 	}
 
 	public set padding_horizontal(value: number) {
