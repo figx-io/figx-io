@@ -4,6 +4,7 @@ export default interface IComponent {
 	auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	height: number | 'fill' | 'hug';
 	max_height: number;
+	max_width: number;
 	min_height: number;
 	min_width: number;
 	padding_horizontal: number;

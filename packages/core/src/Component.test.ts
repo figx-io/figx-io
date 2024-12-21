@@ -13,26 +13,31 @@ describe('component', () => {
 		});
 		it('default style.flexDirection should be "row"', () => {
 			const component = new Component();
+			document.body.appendChild(component);
 			expect(component.style.flexDirection).toBe('row');
 			component.remove();
 		});
 		it('default style.justifyContent should be "flex-start"', () => {
 			const component = new Component();
+			document.body.appendChild(component);
 			expect(component.style.justifyContent).toBe('flex-start');
 			component.remove();
 		});
 		it('default style.alignItems should be "flex-start"', () => {
 			const component = new Component();
+			document.body.appendChild(component);
 			expect(component.style.alignItems).toBe('flex-start');
 			component.remove();
 		});
 		it('default style.minWidth should be "0px"', () => {
 			const component = new Component();
+			document.body.appendChild(component);
 			expect(component.style.minWidth).toBe('0px');
 			component.remove();
 		});
 		it('default style.minHeight should be "0px"', () => {
 			const component = new Component();
+			document.body.appendChild(component);
 			expect(component.style.minHeight).toBe('0px');
 			component.remove();
 		});
@@ -40,6 +45,12 @@ describe('component', () => {
 			const component = new Component();
 			document.body.appendChild(component);
 			expect(component.style.maxHeight).toBe('');
+			component.remove();
+		});
+		it('default style.maxWidth should be ""', () => {
+			const component = new Component();
+			document.body.appendChild(component);
+			expect(component.style.maxWidth).toBe('');
 			component.remove();
 		});
 	});
@@ -135,6 +146,34 @@ describe('component', () => {
 				document.body.appendChild(component);
 				component.max_height = 123;
 				expect(component.style.maxHeight).toBe('123px');
+				component.remove();
+			});
+		});
+		describe('max_width', () => {
+			it('default max_width should be Infinity', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(component.max_width).toBe(Infinity);
+				component.remove();
+			});
+			it('when max_width is set to a negative number, a RangeError should be thrown', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(() => {
+					component.max_width = -1;
+				}).toThrowError(RangeError);
+				component.remove();
+			});
+			it('when max_width = 123, max_width should be 123', (): void => {
+				const component = new Component();
+				component.max_width = 123;
+				expect(component.max_width).toBe(123);
+			});
+			it('when max_width = 123, style.maxWidth should be "123px"', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.max_width = 123;
+				expect(component.style.maxWidth).toBe('123px');
 				component.remove();
 			});
 		});

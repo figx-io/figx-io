@@ -19,6 +19,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	#height_changed: boolean;
 	#max_height: number;
 	#max_height_changed: boolean;
+	#max_width: number;
+	#max_width_changed: boolean;
 	#min_height: number;
 	#min_height_changed: boolean;
 	#min_width: number;
@@ -37,7 +39,6 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.style.alignItems = 'flex-start';
 		this.style.display = 'inline-flex';
 		this.style.flexDirection = 'row';
-		this.style.minWidth = '0px';
 		this.style.minHeight = '0px';
 		this.style.minWidth = '0px';
 		this.style.maxHeight = '';
@@ -53,6 +54,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.#max_height_changed = false;
 		this.#min_height = 0;
 		this.#min_height_changed = false;
+		this.#max_width = Infinity;
+		this.#max_width_changed = false;
 		this.#min_width = 0;
 		this.#min_width_changed = false;
 		this.#width = 'hug';
@@ -220,6 +223,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.#max_height_changed) {
 			this.max_height_changed();
 		}
+		if (this.#max_width_changed) {
+			this.max_width_changed();
+		}
 		if (this.#min_width_changed) {
 			this.min_width_changed();
 		}
@@ -280,6 +286,11 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	private max_height_changed(): void {
 		this.#max_height_changed = false;
 		this.style.maxHeight = `${this.#max_height}px`;
+	}
+
+	private max_width_changed(): void {
+		this.#max_width_changed = false;
+		this.style.maxWidth = `${this.#max_width}px`;
 	}
 
 	private min_height_changed(): void {
@@ -448,6 +459,17 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public get max_height(): number {
 		return this.#max_height;
+	}
+
+	public set max_width(value: number) {
+		assert_is_non_negative(value);
+		this.#max_width = value;
+		this.#max_width_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get max_width(): number {
+		return this.#max_width;
 	}
 
 	public set min_height(value: number) {
