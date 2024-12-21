@@ -17,6 +17,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	#connected: boolean;
 	#height: number | 'fill' | 'hug';
 	#height_changed: boolean;
+	#max_height: number;
+	#max_height_changed: boolean;
 	#min_height: number;
 	#min_height_changed: boolean;
 	#min_width: number;
@@ -37,6 +39,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.style.flexDirection = 'row';
 		this.style.minWidth = '0px';
 		this.style.minHeight = '0px';
+		this.style.minWidth = '0px';
+		this.style.maxHeight = '';
+		this.style.maxWidth = '';
 		this.#alignment = 'top_left';
 		this.#alignment_changed = false;
 		this.#auto_layout = 'horizontal';
@@ -44,6 +49,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.#connected = false;
 		this.#height = 'hug';
 		this.#height_changed = false;
+		this.#max_height = Infinity;
+		this.#max_height_changed = false;
 		this.#min_height = 0;
 		this.#min_height_changed = false;
 		this.#min_width = 0;
@@ -210,6 +217,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.#parent_auto_layout_changed) {
 			this.parent_auto_layout_changed();
 		}
+		if (this.#max_height_changed) {
+			this.max_height_changed();
+		}
 		if (this.#min_width_changed) {
 			this.min_width_changed();
 		}
@@ -265,6 +275,11 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.connected) {
 			this.commit_properties();
 		}
+	}
+
+	private max_height_changed(): void {
+		this.#max_height_changed = false;
+		this.style.maxHeight = `${this.#max_height}px`;
 	}
 
 	private min_height_changed(): void {
@@ -422,6 +437,17 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public get height(): number | 'fill' | 'hug' {
 		return this.#height;
+	}
+
+	public set max_height(value: number) {
+		assert_is_non_negative(value);
+		this.#max_height = value;
+		this.#max_height_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get max_height(): number {
+		return this.#max_height;
 	}
 
 	public set min_height(value: number) {

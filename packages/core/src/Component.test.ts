@@ -36,6 +36,12 @@ describe('component', () => {
 			expect(component.style.minHeight).toBe('0px');
 			component.remove();
 		});
+		it('default style.maxHeight should be ""', () => {
+			const component = new Component();
+			document.body.appendChild(component);
+			expect(component.style.maxHeight).toBe('');
+			component.remove();
+		});
 	});
 	describe('lifecycle', () => {
 		describe('connectedCallback()', (): void => {
@@ -101,6 +107,34 @@ describe('component', () => {
 				document.body.appendChild(component);
 				component.min_height = 123;
 				expect(component.style.minHeight).toBe('123px');
+				component.remove();
+			});
+		});
+		describe('max_height', () => {
+			it('default max_height should be Infinity', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(component.max_height).toBe(Infinity);
+				component.remove();
+			});
+			it('when max_height is set to a negative number, a RangeError should be thrown', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				expect(() => {
+					component.max_height = -1;
+				}).toThrowError(RangeError);
+				component.remove();
+			});
+			it('when max_height = 123, max_height should be 123', (): void => {
+				const component = new Component();
+				component.max_height = 123;
+				expect(component.max_height).toBe(123);
+			});
+			it('when max_height = 123, style.maxHeight should be "123px"', (): void => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.max_height = 123;
+				expect(component.style.maxHeight).toBe('123px');
 				component.remove();
 			});
 		});
