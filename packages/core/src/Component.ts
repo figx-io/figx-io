@@ -333,10 +333,16 @@ export default class Component extends HTMLElement implements IComponent, IChild
 			if (this.parent_auto_layout === 'horizontal') {
 				this.style.height = '';
 				this.style.alignSelf = 'stretch';
+				if (this.#width !== 'fill') {
+					this.style.flexGrow = '';
+				}
 			}
 			else if (this.parent_auto_layout === 'vertical') {
 				this.style.height = '';
 				this.style.flexGrow = '1';
+				if (this.#width !== 'fill') {
+					this.style.alignSelf = '';
+				}
 			}
 		}
 		else if (this.height === 'hug') {
@@ -362,10 +368,16 @@ export default class Component extends HTMLElement implements IComponent, IChild
 			if (this.parent_auto_layout === 'horizontal') {
 				this.style.width = '';
 				this.style.flexGrow = '1';
+				if (this.#height !== 'fill') {
+					this.style.alignSelf = '';
+				}
 			}
 			else if (this.parent_auto_layout === 'vertical') {
 				this.style.width = '';
 				this.style.alignSelf = 'stretch';
+				if (this.#height !== 'fill') {
+					this.style.flexGrow = '';
+				}
 			}
 		}
 		else if (this.width === 'hug') {
