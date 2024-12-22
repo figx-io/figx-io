@@ -18,6 +18,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	#connected: boolean;
 	#gap_horizontal: number | 'auto';
 	#gap_horizontal_changed: boolean;
+	#gap_vertical: number | 'auto';
+	#gap_vertical_changed: boolean;
 	#height: number | 'fill' | 'hug';
 	#height_changed: boolean;
 	#max_height: number;
@@ -47,6 +49,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.style.maxWidth = '';
 		this.style.minHeight = '0px';
 		this.style.minWidth = '0px';
+		this.style.rowGap = '';
 		this.#alignment = 'top_left';
 		this.#alignment_changed = false;
 		this.#auto_layout = 'horizontal';
@@ -54,6 +57,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.#connected = false;
 		this.#gap_horizontal = 0;
 		this.#gap_horizontal_changed = false;
+		this.#gap_vertical = 0;
+		this.#gap_vertical_changed = false;
 		this.#height = 'hug';
 		this.#height_changed = false;
 		this.#max_height = Infinity;
@@ -164,64 +169,65 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private auto_layout_vertical_alignment(): void {
 		if (this.alignment === 'top_left') {
-			this.style.justifyContent = 'flex-start';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
 			this.style.alignItems = 'flex-start';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'top_center') {
-			this.style.justifyContent = 'flex-start';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
 			this.style.alignItems = 'center';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'top_right') {
-			this.style.justifyContent = 'flex-start';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
 			this.style.alignItems = 'flex-end';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'left') {
-			this.style.justifyContent = 'center';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
 			this.style.alignItems = 'flex-start';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'center') {
-			this.style.justifyContent = 'center';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
 			this.style.alignItems = 'center';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'right') {
-			this.style.justifyContent = 'center';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
 			this.style.alignItems = 'flex-end';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_left') {
-			this.style.justifyContent = 'flex-end';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
 			this.style.alignItems = 'flex-start';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_center') {
-			this.style.justifyContent = 'flex-end';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
 			this.style.alignItems = 'center';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_right') {
-			this.style.justifyContent = 'flex-end';
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
 			this.style.alignItems = 'flex-end';
 			this.update_children_parent_auto_layout();
 		}
 	}
 
 	private commit_properties(): void {
-		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed) {
+		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed || this.#gap_vertical_changed) {
 			this.auto_layout_changed();
 			this.gap_horizontal_changed();
+			this.gap_vertical_changed();
 			this.alignment_changed();
 		}
 		if (this.#parent_auto_layout_changed) {
@@ -280,6 +286,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.#auto_layout === 'horizontal') {
 			if (this.#gap_horizontal === 'auto') {
 				this.style.justifyContent = 'space-between';
+				this.style.columnGap = '';
 			}
 			else {
 				this.style.columnGap = `${this.#gap_horizontal}px`;
@@ -288,6 +295,24 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		else if (this.#auto_layout === 'vertical') {
 			if (this.#gap_horizontal !== 'auto') {
 				this.style.columnGap = '';
+			}
+		}
+	}
+
+	private gap_vertical_changed(): void {
+		this.#gap_vertical_changed = false;
+		if (this.#auto_layout === 'vertical') {
+			if (this.#gap_vertical === 'auto') {
+				this.style.justifyContent = 'space-between';
+				this.style.rowGap = '';
+			}
+			else {
+				this.style.rowGap = `${this.#gap_vertical}px`;
+			}
+		}
+		else if (this.#auto_layout === 'horizontal') {
+			if (this.#gap_vertical !== 'auto') {
+				this.style.rowGap = '';
 			}
 		}
 	}
@@ -474,6 +499,17 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public get gap_horizontal(): number | 'auto' {
 		return this.#gap_horizontal;
+	}
+
+	public set gap_vertical(value: number | 'auto') {
+		assert_is_valid_gap(value);
+		this.#gap_vertical = value;
+		this.#gap_vertical_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get gap_vertical(): number | 'auto' {
+		return this.#gap_vertical;
 	}
 
 	/**
