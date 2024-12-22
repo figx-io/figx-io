@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assert_is_component, assert_is_non_negative, assert_is_not_child, assert_is_number, assert_is_valid_alignment, assert_is_valid_auto_layout, assert_is_valid_size } from './assertions';
+import { assert_is_component, assert_is_non_negative, assert_is_not_child, assert_is_number, assert_is_valid_alignment, assert_is_valid_auto_layout, assert_is_valid_gap, assert_is_valid_size } from './assertions';
 import Component from './Component';
 
 describe('assertions', () => {
@@ -94,6 +94,35 @@ describe('assertions', () => {
 			expect(() => {
 				assert_is_non_negative(-1);
 			}).toThrow(RangeError);
+		});
+	});
+	describe('assert_is_valid_gap', () => {
+		it('when assert_is_valid_gap(0) it should return undefined', () => {
+			const value = assert_is_valid_gap(0);
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_valid_gap(-1) it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_valid_gap(-1);
+			}).toThrow(TypeError);
+		});
+		it('when assert_is_valid_gap(1) it should return undefined', () => {
+			const value = assert_is_valid_gap(1);
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_valid_gap("auto") it should return undefined', () => {
+			const value = assert_is_valid_gap('auto');
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_valid_gap(Number.NaN) it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_valid_gap(Number.NaN);
+			}).toThrow(TypeError);
+		});
+		it('when assert_is_valid_gap("Hello") it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_valid_gap('Hello');
+			}).toThrow(TypeError);
 		});
 	});
 });

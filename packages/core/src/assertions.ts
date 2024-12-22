@@ -44,7 +44,7 @@ export function assert_is_valid_auto_layout(value: unknown): asserts value is 'h
 	if (value === 'horizontal' || value === 'vertical' || value === 'wrap') {
 		return;
 	}
-	throw new TypeError(`[${value}] is invalid, must be "horizontal", "vertical" or "wrap`);
+	throw new TypeError(`[${value}] is invalid, must be "horizontal", "vertical" or "wrap"`);
 }
 
 export function assert_is_valid_alignment(value: unknown): asserts value is 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right' {
@@ -52,4 +52,14 @@ export function assert_is_valid_alignment(value: unknown): asserts value is 'top
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be "top_left", "top_center", "top_right", "left", "center", "right", "bottom_left", "bottom_center" or "bottom_right"`);
+}
+
+export function assert_is_valid_gap(value: unknown): asserts value is number | 'auto' {
+	if (typeof value === 'number' && value >= 0) {
+		return;
+	}
+	if (value === 'auto') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be a non negative number or "auto"`);
 }
