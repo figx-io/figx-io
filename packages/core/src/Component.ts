@@ -6,6 +6,7 @@ import {
 	assert_is_not_child,
 	assert_is_valid_alignment,
 	assert_is_valid_auto_layout,
+	assert_is_valid_gap,
 	assert_is_valid_size,
 } from './assertions';
 
@@ -15,6 +16,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	#auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	#auto_layout_changed: boolean;
 	#connected: boolean;
+	#gap_horizontal: number | 'auto';
+	#gap_horizontal_changed: boolean;
 	#height: number | 'fill' | 'hug';
 	#height_changed: boolean;
 	#max_height: number;
@@ -35,37 +38,40 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	#width_changed: boolean;
 	public constructor() {
 		super();
-		this.style.justifyContent = 'flex-start';
 		this.style.alignItems = 'flex-start';
+		this.style.columnGap = '';
 		this.style.display = 'inline-flex';
 		this.style.flexDirection = 'row';
-		this.style.minHeight = '0px';
-		this.style.minWidth = '0px';
+		this.style.justifyContent = 'flex-start';
 		this.style.maxHeight = '';
 		this.style.maxWidth = '';
+		this.style.minHeight = '0px';
+		this.style.minWidth = '0px';
 		this.#alignment = 'top_left';
 		this.#alignment_changed = false;
 		this.#auto_layout = 'horizontal';
 		this.#auto_layout_changed = false;
 		this.#connected = false;
+		this.#gap_horizontal = 0;
+		this.#gap_horizontal_changed = false;
 		this.#height = 'hug';
 		this.#height_changed = false;
 		this.#max_height = Infinity;
 		this.#max_height_changed = false;
-		this.#min_height = 0;
-		this.#min_height_changed = false;
 		this.#max_width = Infinity;
 		this.#max_width_changed = false;
+		this.#min_height = 0;
+		this.#min_height_changed = false;
 		this.#min_width = 0;
 		this.#min_width_changed = false;
-		this.#width = 'hug';
-		this.#width_changed = false;
 		this.#padding_horizontal = 0;
 		this.#padding_horizontal_changed = false;
 		this.#padding_vertical = 0;
 		this.#padding_vertical_changed = false;
 		this.#parent_auto_layout = 'horizontal';
 		this.#parent_auto_layout_changed = false;
+		this.#width = 'hug';
+		this.#width_changed = false;
 	}
 
 	private alignment_changed(): void {
@@ -102,55 +108,55 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private auto_layout_horizontal_alignment(): void {
 		if (this.alignment === 'top_left') {
-			this.style.justifyContent = 'flex-start';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
 			this.style.alignItems = 'flex-start';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'top_center') {
-			this.style.justifyContent = 'center';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
 			this.style.alignItems = 'flex-start';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'top_right') {
-			this.style.justifyContent = 'flex-end';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
 			this.style.alignItems = 'flex-start';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'left') {
-			this.style.justifyContent = 'flex-start';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
 			this.style.alignItems = 'center';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'center') {
-			this.style.justifyContent = 'center';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
 			this.style.alignItems = 'center';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'right') {
-			this.style.justifyContent = 'flex-end';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
 			this.style.alignItems = 'center';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_left') {
-			this.style.justifyContent = 'flex-start';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
 			this.style.alignItems = 'flex-end';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_center') {
-			this.style.justifyContent = 'center';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
 			this.style.alignItems = 'flex-end';
 			this.update_children_parent_auto_layout();
 			return;
 		}
 		if (this.alignment === 'bottom_right') {
-			this.style.justifyContent = 'flex-end';
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
 			this.style.alignItems = 'flex-end';
 			this.update_children_parent_auto_layout();
 		}
@@ -213,8 +219,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	private commit_properties(): void {
-		if (this.#auto_layout_changed || this.#alignment_changed) {
+		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed) {
 			this.auto_layout_changed();
+			this.gap_horizontal_changed();
 			this.alignment_changed();
 		}
 		if (this.#parent_auto_layout_changed) {
@@ -266,6 +273,23 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	 */
 	private disconnectedCallback(): void {
 		this.connected = false;
+	}
+
+	private gap_horizontal_changed(): void {
+		this.#gap_horizontal_changed = false;
+		if (this.#auto_layout === 'horizontal') {
+			if (this.#gap_horizontal === 'auto') {
+				this.style.justifyContent = 'space-between';
+			}
+			else {
+				this.style.columnGap = `${this.#gap_horizontal}px`;
+			}
+		}
+		else if (this.#auto_layout === 'vertical') {
+			if (this.#gap_horizontal !== 'auto') {
+				this.style.columnGap = '';
+			}
+		}
 	}
 
 	private height_changed(): void {
@@ -439,6 +463,17 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private get connected(): boolean {
 		return this.#connected;
+	}
+
+	public set gap_horizontal(value: number | 'auto') {
+		assert_is_valid_gap(value);
+		this.#gap_horizontal = value;
+		this.#gap_horizontal_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get gap_horizontal(): number | 'auto' {
+		return this.#gap_horizontal;
 	}
 
 	/**

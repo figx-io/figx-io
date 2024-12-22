@@ -53,6 +53,12 @@ describe('component', () => {
 			expect(component.style.maxWidth).toBe('');
 			component.remove();
 		});
+		it('default style.columnGap should be ""', () => {
+			const component = new Component();
+			document.body.appendChild(component);
+			expect(component.style.columnGap).toBe('');
+			component.remove();
+		});
 	});
 	describe('lifecycle', () => {
 		describe('connectedCallback()', (): void => {
@@ -430,6 +436,98 @@ describe('component', () => {
 						expect(component.style.alignItems).toBe('flex-end');
 						component.remove();
 					});
+					describe('given gap_horizontal = "auto", style.justifyContent should be "space-between"', () => {
+						it('when alignment = "top_left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'top_left';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('flex-start');
+							component.remove();
+						});
+						it('when alignment = "top_center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'top_center';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('flex-start');
+							component.remove();
+						});
+						it('when alignment = "top_right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'top_right';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('flex-start');
+							component.remove();
+						});
+						it('when alignment = "left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'left';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('center');
+							component.remove();
+						});
+						it('when alignment = "center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'center';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('center');
+							component.remove();
+						});
+						it('when alignment = "right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'right';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('center');
+							component.remove();
+						});
+						it('when alignment = "bottom_left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'bottom_left';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('flex-end');
+							component.remove();
+						});
+						it('when alignment = "bottom_center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'bottom_center';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('flex-end');
+							component.remove();
+						});
+						it('when alignment = "bottom_right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'horizontal';
+							component.alignment = 'bottom_right';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							expect(component.style.alignItems).toBe('flex-end');
+							component.remove();
+						});
+					});
 				});
 				describe('given auto_layout = "vertical"', () => {
 					it('when alignment = "top_left", styles should be correct', (): void => {
@@ -580,6 +678,55 @@ describe('component', () => {
 				expect(component.style.paddingTop).toBe('32px');
 				expect(component.style.paddingBottom).toBe('32px');
 				component.remove();
+			});
+		});
+		describe('gap_horizontal', () => {
+			it('default gap_horizontal should be 0', () => {
+				const component = new Component();
+				expect(component.gap_horizontal).toBe(0);
+			});
+			it('when gap_horizontal = 123, gap_horizontal should be 123', () => {
+				const component = new Component();
+				component.gap_horizontal = 123;
+				expect(component.gap_horizontal).toBe(123);
+			});
+			it('when gap_horizontal = "auto", gap_horizontal should be "auto"', () => {
+				const component = new Component();
+				component.gap_horizontal = 'auto';
+				expect(component.gap_horizontal).toBe('auto');
+			});
+			it('when gap_horizontal = 123, style.columnGap should be 123px', () => {
+				const component = new Component();
+				component.gap_horizontal = 123;
+				document.body.appendChild(component);
+				expect(component.style.columnGap).toBe('123px');
+				component.remove();
+			});
+			it('when gap_horizontal = "auto", style.columnGap should be ""', () => {
+				const component = new Component();
+				component.gap_horizontal = 'auto';
+				document.body.appendChild(component);
+				expect(component.style.columnGap).toBe('');
+				component.remove();
+			});
+			describe('given auto_layout = "horizontal"', () => {
+				it('when gap_horizontal = "auto", style.justifyContent should be "space-between"', () => {
+					const component = new Component();
+					component.gap_horizontal = 'auto';
+					document.body.appendChild(component);
+					expect(component.style.justifyContent).toBe('space-between');
+					component.remove();
+				});
+			});
+			describe('given auto_layout = "vertical"', () => {
+				it('when gap_horizontal !== "auto", style.columnGap should be ""', () => {
+					const component = new Component();
+					component.auto_layout = 'vertical';
+					component.gap_horizontal = 123;
+					document.body.appendChild(component);
+					expect(component.style.columnGap).toBe('');
+					component.remove();
+				});
 			});
 		});
 	});
