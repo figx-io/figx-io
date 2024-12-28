@@ -6,6 +6,7 @@ import {
 	assert_is_non_negative_or_auto,
 	assert_is_not_child,
 	assert_is_number,
+	assert_is_string,
 	assert_is_valid_alignment,
 	assert_is_valid_auto_layout,
 	assert_is_valid_size,
@@ -21,6 +22,17 @@ describe('assertions', () => {
 		it('when assert_is_number("Hello") it should throw a TypeError', () => {
 			expect(() => {
 				assert_is_number('Hello');
+			}).toThrow(TypeError);
+		});
+	});
+	describe('assert_is_string', () => {
+		it('when assert_is_string("Hello") should return undefined', () => {
+			const value = assert_is_string('Hello');
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_string(123) it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_string(123);
 			}).toThrow(TypeError);
 		});
 	});

@@ -70,3 +70,10 @@ export function assert_is_from_zero_to_one(value: unknown): asserts value is num
 	}
 	throw new RangeError(`[${value}] is invalid, must be from 0 to 1`);
 }
+
+export function assert_is_string(value: unknown): asserts value is string {
+	if (typeof value === 'string') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be of type string`);
+}
