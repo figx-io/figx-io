@@ -4,10 +4,10 @@ import {
 	assert_is_component,
 	assert_is_from_zero_to_one,
 	assert_is_non_negative,
+	assert_is_non_negative_or_auto,
 	assert_is_not_child,
 	assert_is_valid_alignment,
 	assert_is_valid_auto_layout,
-	assert_is_valid_gap,
 	assert_is_valid_size,
 } from './assertions';
 
@@ -607,7 +607,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	public set gap_horizontal(value: number | 'auto') {
-		assert_is_valid_gap(value);
+		assert_is_non_negative_or_auto(value);
 		this.#gap_horizontal = value;
 		this.#gap_horizontal_changed = true;
 		this.invalidate_properties();
@@ -618,7 +618,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	public set gap_vertical(value: number | 'auto') {
-		assert_is_valid_gap(value);
+		assert_is_non_negative_or_auto(value);
 		this.#gap_vertical = value;
 		this.#gap_vertical_changed = true;
 		this.invalidate_properties();

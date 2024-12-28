@@ -54,7 +54,7 @@ export function assert_is_valid_alignment(value: unknown): asserts value is 'top
 	throw new TypeError(`[${value}] is invalid, must be "top_left", "top_center", "top_right", "left", "center", "right", "bottom_left", "bottom_center" or "bottom_right"`);
 }
 
-export function assert_is_valid_gap(value: unknown): asserts value is number | 'auto' {
+export function assert_is_non_negative_or_auto(value: unknown): asserts value is number | 'auto' {
 	if (typeof value === 'number' && value >= 0) {
 		return;
 	}
