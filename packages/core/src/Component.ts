@@ -90,6 +90,58 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.#width_changed = false;
 	}
 
+	protected commit_properties(): void {
+		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed || this.#gap_vertical_changed) {
+			this.auto_layout_changed();
+			this.gap_horizontal_changed();
+			this.gap_vertical_changed();
+			this.alignment_changed();
+		}
+		if (this.#corner_radius_changed) {
+			this.corner_radius_changed();
+		}
+		if (this.#parent_auto_layout_changed) {
+			this.parent_auto_layout_changed();
+		}
+		if (this.#max_height_changed) {
+			this.max_height_changed();
+		}
+		if (this.#max_width_changed) {
+			this.max_width_changed();
+		}
+		if (this.#min_width_changed) {
+			this.min_width_changed();
+		}
+		if (this.#width_changed) {
+			this.width_changed();
+		}
+		if (this.#min_height_changed) {
+			this.min_height_changed();
+		}
+		if (this.#height_changed) {
+			this.height_changed();
+		}
+		if (this.#opacity_changed) {
+			this.opacity_changed();
+		}
+		if (this.#padding_horizontal_changed) {
+			this.padding_horizontal_changed();
+		}
+		if (this.#padding_vertical_changed) {
+			this.padding_vertical_changed();
+		}
+	}
+
+	/**
+	 * invalidateProperties() is invoked by property setters,
+	 * to trigger an invalidation pass that will commit the changes.
+	 */
+	protected invalidate_properties(): void {
+		if (this.connected) {
+			this.commit_properties();
+		}
+	}
+
 	private alignment_changed(): void {
 		this.#alignment_changed = false;
 		if (this.auto_layout === 'vertical') {
@@ -303,48 +355,6 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		}
 	}
 
-	private commit_properties(): void {
-		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed || this.#gap_vertical_changed) {
-			this.auto_layout_changed();
-			this.gap_horizontal_changed();
-			this.gap_vertical_changed();
-			this.alignment_changed();
-		}
-		if (this.#corner_radius_changed) {
-			this.corner_radius_changed();
-		}
-		if (this.#parent_auto_layout_changed) {
-			this.parent_auto_layout_changed();
-		}
-		if (this.#max_height_changed) {
-			this.max_height_changed();
-		}
-		if (this.#max_width_changed) {
-			this.max_width_changed();
-		}
-		if (this.#min_width_changed) {
-			this.min_width_changed();
-		}
-		if (this.#width_changed) {
-			this.width_changed();
-		}
-		if (this.#min_height_changed) {
-			this.min_height_changed();
-		}
-		if (this.#height_changed) {
-			this.height_changed();
-		}
-		if (this.#opacity_changed) {
-			this.opacity_changed();
-		}
-		if (this.#padding_horizontal_changed) {
-			this.padding_horizontal_changed();
-		}
-		if (this.#padding_vertical_changed) {
-			this.padding_vertical_changed();
-		}
-	}
-
 	/**
 	 * connectedCallback() is invoked immediately by the browser,
 	 * when the component is added as a child of parent component.
@@ -420,16 +430,6 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	private height_changed(): void {
 		this.#height_changed = false;
 		this.update_height_styles();
-	}
-
-	/**
-	 * invalidateProperties() is invoked by property setters,
-	 * to trigger an invalidation pass that will commit the changes.
-	 */
-	private invalidate_properties(): void {
-		if (this.connected) {
-			this.commit_properties();
-		}
 	}
 
 	private max_height_changed(): void {
