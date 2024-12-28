@@ -330,10 +330,10 @@ export default class Component extends HTMLElement implements IComponent, IChild
 			this.opacity_changed();
 		}
 		if (this.#padding_horizontal_changed) {
-			this.paddingHorizontalChanged();
+			this.padding_horizontal_changed();
 		}
 		if (this.#padding_vertical_changed) {
-			this.paddingVerticalChanged();
+			this.padding_vertical_changed();
 		}
 	}
 
@@ -444,13 +444,13 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.style.opacity = `${this.opacity}`;
 	}
 
-	private paddingHorizontalChanged(): void {
+	private padding_horizontal_changed(): void {
 		this.#padding_horizontal_changed = false;
 		this.style.paddingLeft = `${this.padding_horizontal}px`;
 		this.style.paddingRight = `${this.padding_horizontal}px`;
 	}
 
-	private paddingVerticalChanged(): void {
+	private padding_vertical_changed(): void {
 		this.#padding_vertical_changed = false;
 		this.style.paddingTop = `${this.padding_vertical}px`;
 		this.style.paddingBottom = `${this.padding_vertical}px`;
