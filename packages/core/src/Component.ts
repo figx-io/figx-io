@@ -2,6 +2,7 @@ import type IChild from './IChild';
 import type IComponent from './IComponent';
 import {
 	assert_is_component,
+	assert_is_from_zero_to_one,
 	assert_is_non_negative,
 	assert_is_not_child,
 	assert_is_valid_alignment,
@@ -30,6 +31,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	#min_height_changed: boolean;
 	#min_width: number;
 	#min_width_changed: boolean;
+	#opacity: number;
+	#opacity_changed: boolean;
 	#padding_horizontal: number;
 	#padding_horizontal_changed: boolean;
 	#padding_vertical: number;
@@ -49,6 +52,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.style.maxWidth = '';
 		this.style.minHeight = '0px';
 		this.style.minWidth = '0px';
+		this.style.opacity = '';
 		this.style.rowGap = '';
 		this.#alignment = 'top_left';
 		this.#alignment_changed = false;
@@ -69,6 +73,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.#min_height_changed = false;
 		this.#min_width = 0;
 		this.#min_width_changed = false;
+		this.#opacity = 1;
+		this.#opacity_changed = false;
 		this.#padding_horizontal = 0;
 		this.#padding_horizontal_changed = false;
 		this.#padding_vertical = 0;
@@ -320,6 +326,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		if (this.#height_changed) {
 			this.height_changed();
 		}
+		if (this.#opacity_changed) {
+			this.opacity_changed();
+		}
 		if (this.#padding_horizontal_changed) {
 			this.paddingHorizontalChanged();
 		}
@@ -412,22 +421,27 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private max_height_changed(): void {
 		this.#max_height_changed = false;
-		this.style.maxHeight = `${this.#max_height}px`;
+		this.style.maxHeight = `${this.max_height}px`;
 	}
 
 	private max_width_changed(): void {
 		this.#max_width_changed = false;
-		this.style.maxWidth = `${this.#max_width}px`;
+		this.style.maxWidth = `${this.max_width}px`;
 	}
 
 	private min_height_changed(): void {
 		this.#min_height_changed = false;
-		this.style.minHeight = `${this.#min_height}px`;
+		this.style.minHeight = `${this.min_height}px`;
 	}
 
 	private min_width_changed(): void {
 		this.#min_width_changed = false;
-		this.style.minWidth = `${this.#min_width}px`;
+		this.style.minWidth = `${this.min_width}px`;
+	}
+
+	private opacity_changed(): void {
+		this.#opacity_changed = false;
+		this.style.opacity = `${this.opacity}`;
 	}
 
 	private paddingHorizontalChanged(): void {
@@ -653,6 +667,17 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public get min_width(): number {
 		return this.#min_width;
+	}
+
+	public set opacity(value: number) {
+		assert_is_from_zero_to_one(value);
+		this.#opacity = value;
+		this.#opacity_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get opacity(): number {
+		return this.#opacity;
 	}
 
 	public set padding_horizontal(value: number) {

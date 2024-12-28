@@ -9,6 +9,7 @@ export default interface IComponent {
 	max_width: number;
 	min_height: number;
 	min_width: number;
+	opacity: number;
 	padding_horizontal: number;
 	padding_vertical: number;
 	width: number | 'fill' | 'hug';

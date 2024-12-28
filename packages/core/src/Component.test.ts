@@ -65,6 +65,12 @@ describe('component', () => {
 			expect(component.style.rowGap).toBe('');
 			component.remove();
 		});
+		it('default style.opacity should be ""', () => {
+			const component = new Component();
+			document.body.appendChild(component);
+			expect(component.style.opacity).toBe('');
+			component.remove();
+		});
 	});
 	describe('lifecycle', () => {
 		describe('connectedCallback()', (): void => {
@@ -1132,6 +1138,23 @@ describe('component', () => {
 					expect(component.style.columnGap).toBe('');
 					component.remove();
 				});
+			});
+		});
+		describe('opacity', () => {
+			it('default opacity should be 1', () => {
+				const component = new Component();
+				expect(component.opacity).toBe(1);
+			});
+			it('when opacity = 0.5, opacity should be 0.5', () => {
+				const component = new Component();
+				expect(component.opacity).toBe(1);
+			});
+			it('when opacity = 0.5, style.opacity should be "0.5"', () => {
+				const component = new Component();
+				component.opacity = 0.5;
+				document.body.appendChild(component);
+				expect(component.style.opacity).toBe('0.5');
+				component.remove();
 			});
 		});
 	});
