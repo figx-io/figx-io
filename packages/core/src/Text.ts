@@ -1,5 +1,5 @@
 import type IText from './IText';
-import { assert_is_string } from './assertions';
+import { assert_is_from_one_to_thousand, assert_is_string } from './assertions';
 import Component from './Component';
 
 export default class Text extends Component implements IText {
@@ -7,13 +7,18 @@ export default class Text extends Component implements IText {
 	#characters_changed: boolean;
 	#font_family: string;
 	#font_family_changed: boolean;
+	#font_weight: number;
+	#font_weight_changed: boolean;
 	public constructor() {
 		super();
 		this.style.fontFamily = '';
+		this.style.fontWeight = '400';
 		this.#characters = '';
 		this.#characters_changed = false;
 		this.#font_family = '';
 		this.#font_family_changed = false;
+		this.#font_weight = 400;
+		this.#font_weight_changed = false;
 	}
 
 	protected override commit_properties(): void {
@@ -23,6 +28,9 @@ export default class Text extends Component implements IText {
 		}
 		if (this.#font_family_changed) {
 			this.font_family_changed();
+		}
+		if (this.#font_weight_changed) {
+			this.font_weight_changed();
 		}
 	}
 
@@ -34,6 +42,11 @@ export default class Text extends Component implements IText {
 	private font_family_changed(): void {
 		this.#font_family_changed = false;
 		this.style.fontFamily = this.font_family;
+	}
+
+	private font_weight_changed(): void {
+		this.#font_weight_changed = false;
+		this.style.fontWeight = `${this.font_weight}`;
 	}
 
 	public set characters(value: string) {
@@ -56,6 +69,17 @@ export default class Text extends Component implements IText {
 
 	public get font_family(): string {
 		return this.#font_family;
+	}
+
+	public set font_weight(value: number) {
+		assert_is_from_one_to_thousand(value);
+		this.#font_weight = value;
+		this.#font_weight_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get font_weight(): number {
+		return this.#font_weight;
 	}
 }
 customElements.define('fx-text', Text);
