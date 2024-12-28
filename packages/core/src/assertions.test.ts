@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assert_is_component, assert_is_non_negative, assert_is_not_child, assert_is_number, assert_is_valid_alignment, assert_is_valid_auto_layout, assert_is_valid_gap, assert_is_valid_size } from './assertions';
+import { assert_is_component, assert_is_from_zero_to_one, assert_is_non_negative, assert_is_not_child, assert_is_number, assert_is_valid_alignment, assert_is_valid_auto_layout, assert_is_valid_gap, assert_is_valid_size } from './assertions';
 import Component from './Component';
 
 describe('assertions', () => {
@@ -123,6 +123,31 @@ describe('assertions', () => {
 			expect(() => {
 				assert_is_valid_gap('Hello');
 			}).toThrow(TypeError);
+		});
+	});
+	describe('assert_is_from_zero_to_one', () => {
+		it('when assert_is_from_zero_to_one(0) it should return undefined', () => {
+			const value = assert_is_from_zero_to_one(0);
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_from_zero_to_one(1) it should return undefined', () => {
+			const value = assert_is_from_zero_to_one(1);
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_from_zero_to_one(Number.NaN) it should throw a RangeError', () => {
+			expect(() => {
+				assert_is_from_zero_to_one(Number.NaN);
+			}).toThrow(RangeError);
+		});
+		it('when assert_is_from_zero_to_one(-1) it should throw a RangeError', () => {
+			expect(() => {
+				assert_is_from_zero_to_one(-1);
+			}).toThrow(RangeError);
+		});
+		it('when assert_is_from_zero_to_one(2) it should throw a RangeError', () => {
+			expect(() => {
+				assert_is_from_zero_to_one(2);
+			}).toThrow(RangeError);
 		});
 	});
 });
