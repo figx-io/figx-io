@@ -60,7 +60,7 @@ describe('text', () => {
 				const text = new Text();
 				expect(text.font_weight).toBe(400);
 			});
-			it('when font_weight = 600, fontWeight should be 600', (): void => {
+			it('when font_weight = 600, font_weight should be 600', (): void => {
 				const text = new Text();
 				text.font_weight = 600;
 				expect(text.font_weight).toBe(600);
@@ -70,6 +70,28 @@ describe('text', () => {
 				document.body.appendChild(text);
 				text.font_weight = 600;
 				expect(text.style.fontWeight).toBe('600');
+				text.remove();
+			});
+		});
+		describe('font_size', () => {
+			it('default style.fontSize should be "16px"', (): void => {
+				const text = new Text();
+				expect(text.style.fontSize).toBe('16px');
+			});
+			it('default font_size should be 16', (): void => {
+				const text = new Text();
+				expect(text.font_size).toBe(16);
+			});
+			it('when font_size = 32, font_size should be 32', (): void => {
+				const text = new Text();
+				text.font_size = 32;
+				expect(text.font_size).toBe(32);
+			});
+			it('when font_size = 32, style.fontSize should be "32px"', (): void => {
+				const text = new Text();
+				document.body.appendChild(text);
+				text.font_size = 32;
+				expect(text.style.fontSize).toBe('32px');
 				text.remove();
 			});
 		});

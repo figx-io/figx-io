@@ -1,5 +1,5 @@
 import type IText from './IText';
-import { assert_is_from_one_to_thousand, assert_is_string } from './assertions';
+import { assert_is_from_one_to_thousand, assert_is_non_negative, assert_is_string } from './assertions';
 import Component from './Component';
 
 export default class Text extends Component implements IText {
@@ -7,16 +7,21 @@ export default class Text extends Component implements IText {
 	#characters_changed: boolean;
 	#font_family: string;
 	#font_family_changed: boolean;
+	#font_size: number;
+	#font_size_changed: boolean;
 	#font_weight: number;
 	#font_weight_changed: boolean;
 	public constructor() {
 		super();
 		this.style.fontFamily = '';
+		this.style.fontSize = '16px';
 		this.style.fontWeight = '400';
 		this.#characters = '';
 		this.#characters_changed = false;
 		this.#font_family = '';
 		this.#font_family_changed = false;
+		this.#font_size = 16;
+		this.#font_size_changed = false;
 		this.#font_weight = 400;
 		this.#font_weight_changed = false;
 	}
@@ -28,6 +33,9 @@ export default class Text extends Component implements IText {
 		}
 		if (this.#font_family_changed) {
 			this.font_family_changed();
+		}
+		if (this.#font_size_changed) {
+			this.font_size_changed();
 		}
 		if (this.#font_weight_changed) {
 			this.font_weight_changed();
@@ -42,6 +50,11 @@ export default class Text extends Component implements IText {
 	private font_family_changed(): void {
 		this.#font_family_changed = false;
 		this.style.fontFamily = this.font_family;
+	}
+
+	private font_size_changed(): void {
+		this.#font_size_changed = false;
+		this.style.fontSize = `${this.font_size}px`;
 	}
 
 	private font_weight_changed(): void {
@@ -69,6 +82,17 @@ export default class Text extends Component implements IText {
 
 	public get font_family(): string {
 		return this.#font_family;
+	}
+
+	public set font_size(value: number) {
+		assert_is_non_negative(value);
+		this.#font_size = value;
+		this.#font_size_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get font_size(): number {
+		return this.#font_size;
 	}
 
 	public set font_weight(value: number) {
