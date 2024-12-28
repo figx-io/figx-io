@@ -71,6 +71,12 @@ describe('component', () => {
 			expect(component.style.opacity).toBe('');
 			component.remove();
 		});
+		it('default style.borderRadius should be ""', () => {
+			const component = new Component();
+			document.body.appendChild(component);
+			expect(component.style.borderRadius).toBe('');
+			component.remove();
+		});
 	});
 	describe('lifecycle', () => {
 		describe('connectedCallback()', (): void => {
@@ -1147,13 +1153,32 @@ describe('component', () => {
 			});
 			it('when opacity = 0.5, opacity should be 0.5', () => {
 				const component = new Component();
-				expect(component.opacity).toBe(1);
+				component.opacity = 0.5;
+				expect(component.opacity).toBe(0.5);
 			});
 			it('when opacity = 0.5, style.opacity should be "0.5"', () => {
 				const component = new Component();
 				component.opacity = 0.5;
 				document.body.appendChild(component);
 				expect(component.style.opacity).toBe('0.5');
+				component.remove();
+			});
+		});
+		describe('corner_radius', () => {
+			it('default corner_radius should be 0', () => {
+				const component = new Component();
+				expect(component.corner_radius).toBe(0);
+			});
+			it('when corner_radius = 16, corner_radius should be 16', () => {
+				const component = new Component();
+				component.corner_radius = 16;
+				expect(component.corner_radius).toBe(16);
+			});
+			it('when corner_radius = 16, style.borderRadius should be "16px"', () => {
+				const component = new Component();
+				component.corner_radius = 16;
+				document.body.appendChild(component);
+				expect(component.style.borderRadius).toBe('16px');
 				component.remove();
 			});
 		});

@@ -17,6 +17,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	#auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	#auto_layout_changed: boolean;
 	#connected: boolean;
+	#corner_radius: number;
+	#corner_radius_changed: boolean;
 	#gap_horizontal: number | 'auto';
 	#gap_horizontal_changed: boolean;
 	#gap_vertical: number | 'auto';
@@ -44,6 +46,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	public constructor() {
 		super();
 		this.style.alignItems = 'flex-start';
+		this.style.borderRadius = '';
 		this.style.columnGap = '';
 		this.style.display = 'inline-flex';
 		this.style.flexDirection = 'row';
@@ -59,6 +62,8 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.#auto_layout = 'horizontal';
 		this.#auto_layout_changed = false;
 		this.#connected = false;
+		this.#corner_radius = 0;
+		this.#corner_radius_changed = false;
 		this.#gap_horizontal = 0;
 		this.#gap_horizontal_changed = false;
 		this.#gap_vertical = 0;
@@ -305,6 +310,9 @@ export default class Component extends HTMLElement implements IComponent, IChild
 			this.gap_vertical_changed();
 			this.alignment_changed();
 		}
+		if (this.#corner_radius_changed) {
+			this.corner_radius_changed();
+		}
 		if (this.#parent_auto_layout_changed) {
 			this.parent_auto_layout_changed();
 		}
@@ -349,6 +357,11 @@ export default class Component extends HTMLElement implements IComponent, IChild
 			this.connected = true;
 			this.commit_properties();
 		}
+	}
+
+	private corner_radius_changed(): void {
+		this.#corner_radius_changed = false;
+		this.style.borderRadius = `${this.corner_radius}px`;
 	}
 
 	/**
@@ -580,6 +593,17 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private get connected(): boolean {
 		return this.#connected;
+	}
+
+	public set corner_radius(value: number) {
+		assert_is_non_negative(value);
+		this.#corner_radius = value;
+		this.#corner_radius_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get corner_radius(): number {
+		return this.#corner_radius;
 	}
 
 	public set gap_horizontal(value: number | 'auto') {
