@@ -87,6 +87,10 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		}
 		if (this.auto_layout === 'horizontal') {
 			this.auto_layout_horizontal_alignment();
+			return;
+		}
+		if (this.auto_layout === 'wrap') {
+			this.auto_layout_wrap_alignment();
 		}
 	}
 
@@ -223,6 +227,71 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		}
 	}
 
+	private auto_layout_wrap_alignment(): void {
+		if (this.alignment === 'top_left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'top_center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'top_right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.update_children_parent_auto_layout();
+		}
+	}
+
 	private commit_properties(): void {
 		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed || this.#gap_vertical_changed) {
 			this.auto_layout_changed();
@@ -283,7 +352,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private gap_horizontal_changed(): void {
 		this.#gap_horizontal_changed = false;
-		if (this.#auto_layout === 'horizontal') {
+		if (this.#auto_layout === 'horizontal' || this.#auto_layout === 'wrap') {
 			if (this.#gap_horizontal === 'auto') {
 				this.style.justifyContent = 'space-between';
 				this.style.columnGap = '';
@@ -313,6 +382,15 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		else if (this.#auto_layout === 'horizontal') {
 			if (this.#gap_vertical !== 'auto') {
 				this.style.rowGap = '';
+			}
+		}
+		else if (this.#auto_layout === 'wrap') {
+			if (this.#gap_vertical === 'auto') {
+				this.style.alignContent = 'space-between';
+				this.style.rowGap = '';
+			}
+			else {
+				this.style.rowGap = `${this.#gap_vertical}px`;
 			}
 		}
 	}
@@ -379,7 +457,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private update_height_styles(): void {
 		if (this.height === 'fill') {
-			if (this.parent_auto_layout === 'horizontal') {
+			if (this.parent_auto_layout === 'horizontal' || this.parent_auto_layout === 'wrap') {
 				this.style.height = '';
 				this.style.alignSelf = 'stretch';
 				if (this.#width !== 'fill') {
@@ -395,7 +473,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 			}
 		}
 		else if (this.height === 'hug') {
-			if (this.parent_auto_layout === 'horizontal') {
+			if (this.parent_auto_layout === 'horizontal' || this.parent_auto_layout === 'wrap') {
 				this.style.height = '';
 				this.style.alignSelf = '';
 			}
@@ -414,7 +492,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	private update_width_styles(): void {
 		if (this.width === 'fill') {
-			if (this.parent_auto_layout === 'horizontal') {
+			if (this.parent_auto_layout === 'horizontal' || this.parent_auto_layout === 'wrap') {
 				this.style.width = '';
 				this.style.flexGrow = '1';
 				if (this.#height !== 'fill') {
@@ -430,7 +508,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 			}
 		}
 		else if (this.width === 'hug') {
-			if (this.parent_auto_layout === 'horizontal') {
+			if (this.parent_auto_layout === 'horizontal' || this.parent_auto_layout === 'wrap') {
 				this.style.width = '';
 				this.style.flexGrow = '';
 			}
@@ -441,7 +519,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		}
 		else {
 			this.style.width = `${this.width}px`;
-			if (this.parent_auto_layout === 'horizontal') {
+			if (this.parent_auto_layout === 'horizontal' || this.parent_auto_layout === 'wrap') {
 				this.style.flexGrow = '';
 				this.style.flexShrink = '0';
 			}

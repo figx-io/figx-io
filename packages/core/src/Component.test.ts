@@ -526,6 +526,255 @@ describe('component', () => {
 						});
 					});
 				});
+				describe('given auto_layout = "wrap"', () => {
+					it('when alignment = "top_left", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'top_left';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('flex-start');
+						expect(component.style.alignContent).toBe('flex-start');
+						component.remove();
+					});
+					it('when alignment = "top_center", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'top_center';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('center');
+						expect(component.style.alignContent).toBe('flex-start');
+						component.remove();
+					});
+					it('when alignment = "top_right", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'top_right';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('flex-end');
+						expect(component.style.alignContent).toBe('flex-start');
+						component.remove();
+					});
+					it('when alignment = "left", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'left';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('flex-start');
+						expect(component.style.alignContent).toBe('center');
+						component.remove();
+					});
+					it('when alignment = "center", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'center';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('center');
+						expect(component.style.alignContent).toBe('center');
+						component.remove();
+					});
+					it('when alignment = "right", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'right';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('flex-end');
+						expect(component.style.alignContent).toBe('center');
+						component.remove();
+					});
+					it('when alignment = "bottom_left", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'bottom_left';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('flex-start');
+						expect(component.style.alignContent).toBe('flex-end');
+						component.remove();
+					});
+					it('when alignment = "bottom_center", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'bottom_center';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('center');
+						expect(component.style.alignContent).toBe('flex-end');
+						component.remove();
+					});
+					it('when alignment = "bottom_right", styles should be correct', (): void => {
+						const component = new Component();
+						component.auto_layout = 'wrap';
+						component.alignment = 'bottom_right';
+						document.body.appendChild(component);
+						expect(component.style.justifyContent).toBe('flex-end');
+						expect(component.style.alignContent).toBe('flex-end');
+						component.remove();
+					});
+					describe('given gap_horizontal = "auto", style.justifyContent should be "space-between"', () => {
+						it('when alignment = "top_left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'top_left';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "top_center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'top_center';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "top_right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'top_right';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'left';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'center';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'right';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "bottom_left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'bottom_left';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "bottom_center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'bottom_center';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "bottom_right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'bottom_right';
+							component.gap_horizontal = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.justifyContent).toBe('space-between');
+							component.remove();
+						});
+					});
+					describe('given gap_vertical = "auto", style.alignContent should be "space-between"', () => {
+						it('when alignment = "top_left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'top_left';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "top_center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'top_center';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "top_right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'top_right';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'left';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'center';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'right';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "bottom_left", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'bottom_left';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "bottom_center", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'bottom_center';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+						it('when alignment = "bottom_right", styles should be correct', (): void => {
+							const component = new Component();
+							component.auto_layout = 'wrap';
+							component.alignment = 'bottom_right';
+							component.gap_vertical = 'auto';
+							document.body.appendChild(component);
+							expect(component.style.alignContent).toBe('space-between');
+							component.remove();
+						});
+					});
+				});
 				describe('given auto_layout = "vertical"', () => {
 					it('when alignment = "top_left", styles should be correct', (): void => {
 						const component = new Component();
@@ -806,6 +1055,32 @@ describe('component', () => {
 					component.gap_vertical = 'auto';
 					document.body.appendChild(component);
 					expect(component.style.rowGap).toBe('');
+					component.remove();
+				});
+			});
+			describe('given auto_layout = "wrap"', () => {
+				it('when gap_vertical !== "auto", style.rowGap should be ""', () => {
+					const component = new Component();
+					component.auto_layout = 'wrap';
+					component.gap_vertical = 'auto';
+					document.body.appendChild(component);
+					expect(component.style.rowGap).toBe('');
+					component.remove();
+				});
+				it('when gap_vertical = "auto", style.alignContent should be "space-between"', () => {
+					const component = new Component();
+					component.auto_layout = 'wrap';
+					component.gap_vertical = 'auto';
+					document.body.appendChild(component);
+					expect(component.style.alignContent).toBe('space-between');
+					component.remove();
+				});
+				it('when gap_vertical = 32, style.rowGap should be "32px"', () => {
+					const component = new Component();
+					component.auto_layout = 'wrap';
+					component.gap_vertical = 32;
+					document.body.appendChild(component);
+					expect(component.style.rowGap).toBe('32px');
 					component.remove();
 				});
 			});
