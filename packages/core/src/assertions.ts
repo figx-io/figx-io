@@ -71,6 +71,13 @@ export function assert_is_from_zero_to_one(value: unknown): asserts value is num
 	throw new RangeError(`[${value}] is invalid, must be from 0 to 1`);
 }
 
+export function assert_is_from_one_to_thousand(value: unknown): asserts value is number {
+	if (typeof value === 'number' && value >= 1 && value <= 1000) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be from 1 to 1000`);
+}
+
 export function assert_is_string(value: unknown): asserts value is string {
 	if (typeof value === 'string') {
 		return;
