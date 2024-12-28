@@ -95,5 +95,41 @@ describe('text', () => {
 				text.remove();
 			});
 		});
+		describe('line_height', () => {
+			it('default style.lineHeight should be "1.2"', (): void => {
+				const text = new Text();
+				expect(text.style.lineHeight).toBe('1.2');
+			});
+			it('default line_height should be "auto"', (): void => {
+				const text = new Text();
+				expect(text.line_height).toBe('auto');
+			});
+			it('when line_height = 32, line_height should be 32', (): void => {
+				const text = new Text();
+				text.line_height = 32;
+				expect(text.line_height).toBe(32);
+			});
+			it('when line_height = 32, style.lineHeight should be "32px"', (): void => {
+				const text = new Text();
+				text.line_height = 32;
+				document.body.appendChild(text);
+				expect(text.style.lineHeight).toBe('32px');
+				text.remove();
+			});
+			it('given line_height = 32, when line_height = "auto", line_height should be "auto"', (): void => {
+				const text = new Text();
+				text.line_height = 32;
+				text.line_height = 'auto';
+				expect(text.line_height).toBe('auto');
+			});
+			it('given line_height = 32, when line_height = "auto", style.lineHeight should be "1.2"', (): void => {
+				const text = new Text();
+				text.line_height = 32;
+				text.line_height = 'auto';
+				document.body.appendChild(text);
+				expect(text.style.lineHeight).toBe('1.2');
+				text.remove();
+			});
+		});
 	});
 });

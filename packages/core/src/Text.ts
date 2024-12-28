@@ -1,5 +1,5 @@
 import type IText from './IText';
-import { assert_is_from_one_to_thousand, assert_is_non_negative, assert_is_string } from './assertions';
+import { assert_is_from_one_to_thousand, assert_is_non_negative, assert_is_string, is_valid_line_height } from './assertions';
 import Component from './Component';
 
 export default class Text extends Component implements IText {
@@ -11,11 +11,14 @@ export default class Text extends Component implements IText {
 	#font_size_changed: boolean;
 	#font_weight: number;
 	#font_weight_changed: boolean;
+	#line_height: number | 'auto';
+	#line_height_changed: boolean;
 	public constructor() {
 		super();
 		this.style.fontFamily = '';
 		this.style.fontSize = '16px';
 		this.style.fontWeight = '400';
+		this.style.lineHeight = '1.2';
 		this.#characters = '';
 		this.#characters_changed = false;
 		this.#font_family = '';
@@ -24,6 +27,9 @@ export default class Text extends Component implements IText {
 		this.#font_size_changed = false;
 		this.#font_weight = 400;
 		this.#font_weight_changed = false;
+		this.#line_height = 'auto';
+		this.#line_height_changed = false;
+		this.style.background = '#FF000055';
 	}
 
 	protected override commit_properties(): void {
@@ -39,6 +45,9 @@ export default class Text extends Component implements IText {
 		}
 		if (this.#font_weight_changed) {
 			this.font_weight_changed();
+		}
+		if (this.#line_height_changed) {
+			this.line_height_changed();
 		}
 	}
 
@@ -60,6 +69,15 @@ export default class Text extends Component implements IText {
 	private font_weight_changed(): void {
 		this.#font_weight_changed = false;
 		this.style.fontWeight = `${this.font_weight}`;
+	}
+
+	private line_height_changed(): void {
+		this.#line_height_changed = false;
+		if (this.line_height === 'auto') {
+			this.style.lineHeight = '1.2';
+			return;
+		}
+		this.style.lineHeight = `${this.line_height}px`;
 	}
 
 	public set characters(value: string) {
@@ -104,6 +122,17 @@ export default class Text extends Component implements IText {
 
 	public get font_weight(): number {
 		return this.#font_weight;
+	}
+
+	public set line_height(value: number | 'auto') {
+		is_valid_line_height(value);
+		this.#line_height = value;
+		this.#line_height_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get line_height(): number | 'auto' {
+		return this.#line_height;
 	}
 }
 customElements.define('fx-text', Text);

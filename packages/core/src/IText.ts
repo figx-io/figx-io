@@ -5,4 +5,5 @@ export default interface IText extends IComponent {
 	font_family: string;
 	font_size: number;
 	font_weight: number;
+	line_height: number | 'auto';
 }
