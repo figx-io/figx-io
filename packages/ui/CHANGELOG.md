@@ -72,6 +72,27 @@
   * dependencies
     * @figx-io/core bumped from 0.7.4 to 0.7.5
 
+## [0.7.1](https://github.com/figx-io/figx-io/compare/ui-v0.7.0...ui-v0.7.1) (2024-12-29)
+
+
+### Miscellaneous Chores
+
+* remove console.log ([361b3c1](https://github.com/figx-io/figx-io/commit/361b3c10dada5cd83ac321d7060beb1b8a174a47))
+* update README badges ([bfdeb4b](https://github.com/figx-io/figx-io/commit/bfdeb4b8275c1ab89d3399ba7f48dea0d074d162))
+* update README badges ([8fa4798](https://github.com/figx-io/figx-io/commit/8fa4798289df64bb07baf9f2c1ed6cb25d1a8056))
+
+
+### Tests
+
+* create Button test ([60b3f1f](https://github.com/figx-io/figx-io/commit/60b3f1f736c6d2c67853fd550d28e6fb5a6e679d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from 0.9.1 to 0.10.0
+
 ## [0.7.0](https://github.com/figx-io/figx-io/compare/ui-v0.6.0...ui-v0.7.0) (2024-11-27)
 
 

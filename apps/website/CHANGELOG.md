@@ -103,6 +103,42 @@
   * dependencies
     * @figx-io/ui bumped from ^0.6.0 to ^0.7.0
 
+## [0.3.0](https://github.com/figx-io/figx-io/compare/website-v0.2.5...website-v0.3.0) (2024-12-29)
+
+
+### Miscellaneous Chores
+
+* remove un used imports ([d3e7d1f](https://github.com/figx-io/figx-io/commit/d3e7d1f368798f4e708258177dab1d4c5f061a16))
+
+
+### Features
+
+* deploy website ([df8a791](https://github.com/figx-io/figx-io/commit/df8a791284787a0dcd4609412a02a0d9eff078dc))
+
+
+### Code Refactoring
+
+* rename text to characters ([e29c129](https://github.com/figx-io/figx-io/commit/e29c1292b2d6df6c407d96528bc39e19ed8e8d34))
+
+
+### Tests
+
+* add visual testing aswell ([5ead08a](https://github.com/figx-io/figx-io/commit/5ead08a8a297f86adf7a9f024bb4877a4a54646e))
+* change ColorBox to API ([09761fa](https://github.com/figx-io/figx-io/commit/09761fa2af4fb3c55b947d07aea268dadf52869e))
+* create test ColorBox component ([61afc29](https://github.com/figx-io/figx-io/commit/61afc292dbd6651f203e7bd5ebe36860d119a7eb))
+* manual layout test ([1dbf951](https://github.com/figx-io/figx-io/commit/1dbf951b2dc3d5e24f8c84bf0df8c2a40cab719a))
+* test alingment ([0e8086f](https://github.com/figx-io/figx-io/commit/0e8086f350e742f9a71d758637ce49e953dc2fde))
+* test component sizing ([9ac3461](https://github.com/figx-io/figx-io/commit/9ac34614b105064329e0d1108df313c39b09a9a9))
+* testing min- width and height ([87b2c84](https://github.com/figx-io/figx-io/commit/87b2c841fc5c4648d307396c3c9dd355c725c232))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from ^0.9.1 to ^0.10.0
+    * @figx-io/ui bumped from ^0.7.0 to ^0.7.1
+
 ## [0.2.1](https://github.com/figx-io/figx-io/compare/website-v0.2.0...website-v0.2.1) (2024-11-24)
 
 
