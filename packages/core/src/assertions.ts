@@ -122,3 +122,10 @@ export function is_positive_integer(value: unknown): asserts value is number {
 	}
 	throw new RangeError(`[${value}] is invalid, must be a positive integer`);
 }
+
+export function is_valid_vertical_trim(value: unknown): asserts value is 'standard' | 'cap' {
+	if (value === 'standard' || value === 'cap') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be "standard" or "cap"`);
+}
