@@ -46,6 +46,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	public constructor() {
 		super();
 		this.style.alignItems = 'flex-start';
+		this.style.boxSizing = 'border-box';
 		this.style.borderRadius = '';
 		this.style.columnGap = '';
 		this.style.display = 'inline-flex';

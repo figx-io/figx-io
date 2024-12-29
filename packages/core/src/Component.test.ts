@@ -7,75 +7,55 @@ describe('component', () => {
 	describe('default style properties', () => {
 		it('default style.display should be "inline-flex"', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.display).toBe('inline-flex');
-			component.remove();
 		});
 		it('default style.flexDirection should be "row"', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.flexDirection).toBe('row');
-			component.remove();
 		});
 		it('default style.justifyContent should be "flex-start"', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.justifyContent).toBe('flex-start');
-			component.remove();
 		});
 		it('default style.alignItems should be "flex-start"', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.alignItems).toBe('flex-start');
-			component.remove();
 		});
 		it('default style.minWidth should be "0px"', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.minWidth).toBe('0px');
-			component.remove();
 		});
 		it('default style.minHeight should be "0px"', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.minHeight).toBe('0px');
-			component.remove();
 		});
 		it('default style.maxHeight should be ""', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.maxHeight).toBe('');
-			component.remove();
 		});
 		it('default style.maxWidth should be ""', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.maxWidth).toBe('');
-			component.remove();
 		});
 		it('default style.columnGap should be ""', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.columnGap).toBe('');
-			component.remove();
 		});
 		it('default style.rowGap should be ""', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.rowGap).toBe('');
-			component.remove();
 		});
 		it('default style.opacity should be ""', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.opacity).toBe('');
-			component.remove();
 		});
 		it('default style.borderRadius should be ""', () => {
 			const component = new Component();
-			document.body.appendChild(component);
 			expect(component.style.borderRadius).toBe('');
-			component.remove();
+		});
+		it('default style.boxSizing should be "border-box"', () => {
+			const component = new Component();
+			expect(component.style.boxSizing).toBe('border-box');
 		});
 	});
 	describe('lifecycle', () => {
