@@ -11,6 +11,7 @@ import {
 	assert_is_valid_alignment,
 	assert_is_valid_auto_layout,
 	assert_is_valid_size,
+	is_boolean,
 	is_valid_line_height,
 	is_valid_text_align_horizontal,
 	is_valid_text_align_vertical,
@@ -276,6 +277,31 @@ describe('assertions', () => {
 		it('when is_valid_text_align_vertical(1) it should throw a TypeError', () => {
 			expect(() => {
 				is_valid_text_align_vertical(1);
+			}).toThrow(TypeError);
+		});
+	});
+	describe('is_boolean', () => {
+		it('when is_boolean(true) it should return undefined', () => {
+			const value = is_boolean(true);
+			expect(value).toBeUndefined();
+		});
+		it('when is_boolean(false) it should return undefined', () => {
+			const value = is_boolean(false);
+			expect(value).toBeUndefined();
+		});
+		it('when is_boolean(1) it should throw a TypeError', () => {
+			expect(() => {
+				is_boolean(1);
+			}).toThrow(TypeError);
+		});
+		it('when is_boolean("Hello") it should throw a TypeError', () => {
+			expect(() => {
+				is_boolean('Hello');
+			}).toThrow(TypeError);
+		});
+		it('when is_boolean(Number.NaN) it should throw a TypeError', () => {
+			expect(() => {
+				is_boolean(Number.NaN);
 			}).toThrow(TypeError);
 		});
 	});
