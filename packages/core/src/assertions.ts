@@ -94,3 +94,10 @@ export function is_valid_line_height(value: unknown): asserts value is number | 
 	}
 	throw new RangeError(`[${value}] is invalid, must be more than 0 or "auto"`);
 }
+
+export function is_valid_text_align(value: unknown): asserts value is 'left' | 'center' | 'right' | 'justified' {
+	if (value === 'left' || value === 'center' || value === 'right' || value === 'justified') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be "left", "center", "right" or "justified"`);
+}

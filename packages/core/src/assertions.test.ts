@@ -12,6 +12,7 @@ import {
 	assert_is_valid_auto_layout,
 	assert_is_valid_size,
 	is_valid_line_height,
+	is_valid_text_align,
 } from './assertions';
 import Component from './Component';
 
@@ -222,6 +223,34 @@ describe('assertions', () => {
 			expect(() => {
 				is_valid_line_height(0);
 			}).toThrow(RangeError);
+		});
+	});
+	describe('is_valid_text_align', () => {
+		it('when is_valid_text_align("left") it should return undefined', () => {
+			const value = is_valid_text_align('left');
+			expect(value).toBeUndefined();
+		});
+		it('when is_valid_text_align("center") it should return undefined', () => {
+			const value = is_valid_text_align('center');
+			expect(value).toBeUndefined();
+		});
+		it('when is_valid_text_align("right") it should return undefined', () => {
+			const value = is_valid_text_align('right');
+			expect(value).toBeUndefined();
+		});
+		it('when is_valid_text_align("justified") it should return undefined', () => {
+			const value = is_valid_text_align('justified');
+			expect(value).toBeUndefined();
+		});
+		it('when is_valid_text_align("Hello") it should throw a TypeError', () => {
+			expect(() => {
+				is_valid_text_align('Hello');
+			}).toThrow(TypeError);
+		});
+		it('when is_valid_text_align(1) it should throw a TypeError', () => {
+			expect(() => {
+				is_valid_text_align(1);
+			}).toThrow(TypeError);
 		});
 	});
 });
