@@ -12,9 +12,11 @@ import {
 	assert_is_valid_auto_layout,
 	assert_is_valid_size,
 	is_valid_line_height,
-	is_valid_text_align,
+	is_valid_text_align_horizontal,
+	is_valid_text_align_vertical,
 } from './assertions';
 import Component from './Component';
+import Container from './Container';
 
 describe('assertions', () => {
 	describe('assert_is_number', () => {
@@ -81,7 +83,7 @@ describe('assertions', () => {
 		});
 		it('when assert_is_not_child(child, parent) it should throw a TypeError', () => {
 			const child = new Component();
-			const parent = new Component();
+			const parent = new Container();
 			parent.add_component(child);
 			expect(() => {
 				assert_is_not_child(child, parent);
@@ -225,31 +227,55 @@ describe('assertions', () => {
 			}).toThrow(RangeError);
 		});
 	});
-	describe('is_valid_text_align', () => {
+	describe('is_valid_text_align_horizontal', () => {
 		it('when is_valid_text_align("left") it should return undefined', () => {
-			const value = is_valid_text_align('left');
+			const value = is_valid_text_align_horizontal('left');
 			expect(value).toBeUndefined();
 		});
 		it('when is_valid_text_align("center") it should return undefined', () => {
-			const value = is_valid_text_align('center');
+			const value = is_valid_text_align_horizontal('center');
 			expect(value).toBeUndefined();
 		});
 		it('when is_valid_text_align("right") it should return undefined', () => {
-			const value = is_valid_text_align('right');
+			const value = is_valid_text_align_horizontal('right');
 			expect(value).toBeUndefined();
 		});
 		it('when is_valid_text_align("justified") it should return undefined', () => {
-			const value = is_valid_text_align('justified');
+			const value = is_valid_text_align_horizontal('justified');
 			expect(value).toBeUndefined();
 		});
 		it('when is_valid_text_align("Hello") it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_text_align('Hello');
+				is_valid_text_align_horizontal('Hello');
 			}).toThrow(TypeError);
 		});
 		it('when is_valid_text_align(1) it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_text_align(1);
+				is_valid_text_align_horizontal(1);
+			}).toThrow(TypeError);
+		});
+	});
+	describe('is_valid_text_align_vertical', () => {
+		it('when is_valid_text_align_vertical("top") it should return undefined', () => {
+			const value = is_valid_text_align_vertical('top');
+			expect(value).toBeUndefined();
+		});
+		it('when is_valid_text_align_vertical("middle") it should return undefined', () => {
+			const value = is_valid_text_align_vertical('middle');
+			expect(value).toBeUndefined();
+		});
+		it('when is_valid_text_align_vertical("bottom") it should return undefined', () => {
+			const value = is_valid_text_align_vertical('bottom');
+			expect(value).toBeUndefined();
+		});
+		it('when is_valid_text_align_vertical("Hello") it should throw a TypeError', () => {
+			expect(() => {
+				is_valid_text_align_vertical('Hello');
+			}).toThrow(TypeError);
+		});
+		it('when is_valid_text_align_vertical(1) it should throw a TypeError', () => {
+			expect(() => {
+				is_valid_text_align_vertical(1);
 			}).toThrow(TypeError);
 		});
 	});
