@@ -1,5 +1,5 @@
 import type IText from './IText';
-import { assert_is_from_one_to_thousand, assert_is_non_negative, assert_is_string, is_valid_line_height } from './assertions';
+import { assert_is_from_one_to_thousand, assert_is_non_negative, assert_is_string, is_valid_line_height, is_valid_text_align } from './assertions';
 import Component from './Component';
 
 export default class Text extends Component implements IText {
@@ -13,12 +13,15 @@ export default class Text extends Component implements IText {
 	#font_weight_changed: boolean;
 	#line_height: number | 'auto';
 	#line_height_changed: boolean;
+	#text_align_horizontal: 'left' | 'center' | 'right' | 'justified';
+	#text_align_horizontal_changed: boolean;
 	public constructor() {
 		super();
 		this.style.fontFamily = '';
 		this.style.fontSize = '16px';
 		this.style.fontWeight = '400';
 		this.style.lineHeight = '1.2';
+		this.style.textAlign = 'start';
 		this.#characters = '';
 		this.#characters_changed = false;
 		this.#font_family = '';
@@ -29,7 +32,8 @@ export default class Text extends Component implements IText {
 		this.#font_weight_changed = false;
 		this.#line_height = 'auto';
 		this.#line_height_changed = false;
-		this.style.background = '#FF000055';
+		this.#text_align_horizontal = 'left';
+		this.#text_align_horizontal_changed = false;
 	}
 
 	protected override commit_properties(): void {
@@ -48,6 +52,9 @@ export default class Text extends Component implements IText {
 		}
 		if (this.#line_height_changed) {
 			this.line_height_changed();
+		}
+		if (this.#text_align_horizontal_changed) {
+			this.text_align_horizontal_changed();
 		}
 	}
 
@@ -78,6 +85,25 @@ export default class Text extends Component implements IText {
 			return;
 		}
 		this.style.lineHeight = `${this.line_height}px`;
+	}
+
+	private text_align_horizontal_changed(): void {
+		this.#text_align_horizontal_changed = false;
+		if (this.text_align_horizontal === 'left') {
+			this.style.textAlign = 'start';
+			return;
+		}
+		if (this.text_align_horizontal === 'right') {
+			this.style.textAlign = 'end';
+			return;
+		}
+		if (this.text_align_horizontal === 'justified') {
+			this.style.textAlign = 'justify';
+			return;
+		}
+		if (this.text_align_horizontal === 'center') {
+			this.style.textAlign = 'center';
+		}
 	}
 
 	public set characters(value: string) {
@@ -133,6 +159,17 @@ export default class Text extends Component implements IText {
 
 	public get line_height(): number | 'auto' {
 		return this.#line_height;
+	}
+
+	public set text_align_horizontal(value: 'left' | 'center' | 'right' | 'justified') {
+		is_valid_text_align(value);
+		this.#text_align_horizontal = value;
+		this.#text_align_horizontal_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get text_align_horizontal(): 'left' | 'center' | 'right' | 'justified' {
+		return this.#text_align_horizontal;
 	}
 }
 customElements.define('fx-text', Text);

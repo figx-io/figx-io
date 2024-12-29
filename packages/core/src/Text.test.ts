@@ -131,5 +131,65 @@ describe('text', () => {
 				text.remove();
 			});
 		});
+		describe('text_align_horizontal', () => {
+			it('default style.textAlign should be "start"', (): void => {
+				const text = new Text();
+				expect(text.style.textAlign).toBe('start');
+			});
+			it('default text_align_horizontal should be "left"', (): void => {
+				const text = new Text();
+				expect(text.text_align_horizontal).toBe('left');
+			});
+			it('when text_align_horizontal = "center", text_align_horizontal should be "center"', (): void => {
+				const text = new Text();
+				text.text_align_horizontal = 'center';
+				expect(text.text_align_horizontal).toBe('center');
+			});
+			it('when text_align_horizontal = "center", style.textAlign should be "center"', (): void => {
+				const text = new Text();
+				text.text_align_horizontal = 'center';
+				document.body.appendChild(text);
+				expect(text.style.textAlign).toBe('center');
+				text.remove();
+			});
+			it('when text_align_horizontal = "left", text_align_horizontal should be "left"', (): void => {
+				const text = new Text();
+				text.text_align_horizontal = 'center';
+				text.text_align_horizontal = 'left';
+				expect(text.text_align_horizontal).toBe('left');
+			});
+			it('when text_align_horizontal = "left", style.textAlign should be "start"', (): void => {
+				const text = new Text();
+				text.text_align_horizontal = 'center';
+				text.text_align_horizontal = 'left';
+				document.body.appendChild(text);
+				expect(text.style.textAlign).toBe('start');
+				text.remove();
+			});
+			it('when text_align_horizontal = "right", text_align_horizontal should be "right"', (): void => {
+				const text = new Text();
+				text.text_align_horizontal = 'right';
+				expect(text.text_align_horizontal).toBe('right');
+			});
+			it('when text_align_horizontal = "right", style.textAlign should be "end"', (): void => {
+				const text = new Text();
+				text.text_align_horizontal = 'right';
+				document.body.appendChild(text);
+				expect(text.style.textAlign).toBe('end');
+				text.remove();
+			});
+			it('when text_align_horizontal = "justified", text_align_horizontal should be "justified"', (): void => {
+				const text = new Text();
+				text.text_align_horizontal = 'justified';
+				expect(text.text_align_horizontal).toBe('justified');
+			});
+			it('when text_align_horizontal = "justified", style.textAlign should be "justify"', (): void => {
+				const text = new Text();
+				text.text_align_horizontal = 'justified';
+				document.body.appendChild(text);
+				expect(text.style.textAlign).toBe('justify');
+				text.remove();
+			});
+		});
 	});
 });
