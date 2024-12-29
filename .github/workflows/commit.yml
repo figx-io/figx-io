@@ -4,7 +4,7 @@ on:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
   test:
     name: Test
     needs: lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       paths_released: ${{ steps.release.outputs.paths_released }}
     steps:
@@ -75,7 +75,7 @@ jobs:
     if: contains(needs.release-please.outputs.paths_released, 'apps/website')
     name: Deploy to figx.io
     needs: release-please
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -106,7 +106,7 @@ jobs:
     if: contains(needs.release-please.outputs.paths_released, 'packages/core')
     name: Publish @figx-io/core to NPM
     needs: release-please
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -135,7 +135,7 @@ jobs:
     if: contains(needs.release-please.outputs.paths_released, 'packages/ui')
     name: Publish @figx-io/ui to NPM
     needs: release-please
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
