@@ -7,4 +7,5 @@ export default interface IText extends IComponent {
 	font_weight: number;
 	line_height: number | 'auto';
 	text_align_horizontal: 'left' | 'center' | 'right' | 'justified';
+	text_align_vertical: 'top' | 'middle' | 'bottom';
 }

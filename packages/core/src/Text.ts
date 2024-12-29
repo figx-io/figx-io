@@ -1,5 +1,12 @@
 import type IText from './IText';
-import { assert_is_from_one_to_thousand, assert_is_non_negative, assert_is_string, is_valid_line_height, is_valid_text_align } from './assertions';
+import {
+	assert_is_from_one_to_thousand,
+	assert_is_non_negative,
+	assert_is_string,
+	is_valid_line_height,
+	is_valid_text_align_horizontal,
+	is_valid_text_align_vertical,
+} from './assertions';
 import Component from './Component';
 
 export default class Text extends Component implements IText {
@@ -15,8 +22,12 @@ export default class Text extends Component implements IText {
 	#line_height_changed: boolean;
 	#text_align_horizontal: 'left' | 'center' | 'right' | 'justified';
 	#text_align_horizontal_changed: boolean;
+	#text_align_vertical: 'top' | 'middle' | 'bottom';
+	#text_align_vertical_changed: boolean;
 	public constructor() {
 		super();
+		this.style.alignItems = 'flex-start';
+		this.style.display = 'inline-flex';
 		this.style.fontFamily = '';
 		this.style.fontSize = '16px';
 		this.style.fontWeight = '400';
@@ -34,6 +45,8 @@ export default class Text extends Component implements IText {
 		this.#line_height_changed = false;
 		this.#text_align_horizontal = 'left';
 		this.#text_align_horizontal_changed = false;
+		this.#text_align_vertical = 'top';
+		this.#text_align_vertical_changed = false;
 	}
 
 	protected override commit_properties(): void {
@@ -55,6 +68,9 @@ export default class Text extends Component implements IText {
 		}
 		if (this.#text_align_horizontal_changed) {
 			this.text_align_horizontal_changed();
+		}
+		if (this.#text_align_vertical_changed) {
+			this.text_align_vertical_changed();
 		}
 	}
 
@@ -103,6 +119,21 @@ export default class Text extends Component implements IText {
 		}
 		if (this.text_align_horizontal === 'center') {
 			this.style.textAlign = 'center';
+		}
+	}
+
+	private text_align_vertical_changed(): void {
+		this.#text_align_vertical_changed = false;
+		if (this.text_align_vertical === 'top') {
+			this.style.alignItems = 'flex-start';
+			return;
+		}
+		if (this.text_align_vertical === 'middle') {
+			this.style.alignItems = 'center';
+			return;
+		}
+		if (this.text_align_vertical === 'bottom') {
+			this.style.alignItems = 'flex-end';
 		}
 	}
 
@@ -162,7 +193,7 @@ export default class Text extends Component implements IText {
 	}
 
 	public set text_align_horizontal(value: 'left' | 'center' | 'right' | 'justified') {
-		is_valid_text_align(value);
+		is_valid_text_align_horizontal(value);
 		this.#text_align_horizontal = value;
 		this.#text_align_horizontal_changed = true;
 		this.invalidate_properties();
@@ -170,6 +201,17 @@ export default class Text extends Component implements IText {
 
 	public get text_align_horizontal(): 'left' | 'center' | 'right' | 'justified' {
 		return this.#text_align_horizontal;
+	}
+
+	public set text_align_vertical(value: 'top' | 'middle' | 'bottom') {
+		is_valid_text_align_vertical(value);
+		this.#text_align_vertical = value;
+		this.#text_align_vertical_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get text_align_vertical(): 'top' | 'middle' | 'bottom' {
+		return this.#text_align_vertical;
 	}
 }
 customElements.define('fx-text', Text);

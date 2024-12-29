@@ -3,6 +3,12 @@ import Text from './Text';
 
 describe('text', () => {
 	describe('properties', () => {
+		describe('default style properties', () => {
+			it('default style.display should be "inline-block"', () => {
+				const text = new Text();
+				expect(text.style.display).toBe('inline-flex');
+			});
+		});
 		describe('characters', () => {
 			it('default characters should be ""', (): void => {
 				const text = new Text();
@@ -128,6 +134,48 @@ describe('text', () => {
 				text.line_height = 'auto';
 				document.body.appendChild(text);
 				expect(text.style.lineHeight).toBe('1.2');
+				text.remove();
+			});
+		});
+		describe('text_align_vertical', () => {
+			it('default style.alignItems should be "flex-start"', (): void => {
+				const text = new Text();
+				expect(text.style.alignItems).toBe('flex-start');
+			});
+			it('default text_align_vertical should be "top"', (): void => {
+				const text = new Text();
+				expect(text.text_align_vertical).toBe('top');
+			});
+			it('given text_align_vertical = "middle", when text_align_vertical = "top", style.alignItems should be "flex-start"', (): void => {
+				const text = new Text();
+				text.text_align_vertical = 'middle';
+				text.text_align_vertical = 'top';
+				document.body.appendChild(text);
+				expect(text.style.alignItems).toBe('flex-start');
+				text.remove();
+			});
+			it('when text_align_vertical = "middle", text_align_vertical should be "middle"', (): void => {
+				const text = new Text();
+				text.text_align_vertical = 'middle';
+				expect(text.text_align_vertical).toBe('middle');
+			});
+			it('when text_align_vertical = "middle", style.alignItems should be "center"', (): void => {
+				const text = new Text();
+				text.text_align_vertical = 'middle';
+				document.body.appendChild(text);
+				expect(text.style.alignItems).toBe('center');
+				text.remove();
+			});
+			it('when text_align_vertical = "bottom", text_align_vertical should be "bottom"', (): void => {
+				const text = new Text();
+				text.text_align_vertical = 'bottom';
+				expect(text.text_align_vertical).toBe('bottom');
+			});
+			it('when text_align_vertical = "bottom", style.alignItems should be "flex-end"', (): void => {
+				const text = new Text();
+				text.text_align_vertical = 'bottom';
+				document.body.appendChild(text);
+				expect(text.style.alignItems).toBe('flex-end');
 				text.remove();
 			});
 		});
