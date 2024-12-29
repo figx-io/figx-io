@@ -12,6 +12,7 @@ import {
 	assert_is_valid_auto_layout,
 	assert_is_valid_size,
 	is_boolean,
+	is_positive_integer,
 	is_valid_line_height,
 	is_valid_text_align_horizontal,
 	is_valid_text_align_vertical,
@@ -303,6 +304,41 @@ describe('assertions', () => {
 			expect(() => {
 				is_boolean(Number.NaN);
 			}).toThrow(TypeError);
+		});
+	});
+	describe('is_positive_integer', () => {
+		it('when is_positive_integer(1) it should return undefined', () => {
+			const value = is_positive_integer(1);
+			expect(value).toBeUndefined();
+		});
+		it('when is_positive_integer(1.0) it should return undefined', () => {
+			const value = is_positive_integer(1.0);
+			expect(value).toBeUndefined();
+		});
+		it('when is_positive_integer(0) it should throw a RangeError', () => {
+			expect(() => {
+				is_positive_integer(0);
+			}).toThrow(RangeError);
+		});
+		it('when is_positive_integer(1.5) it should throw a RangeError', () => {
+			expect(() => {
+				is_positive_integer(1.5);
+			}).toThrow(RangeError);
+		});
+		it('when is_positive_integer(-1) it should throw a RangeError', () => {
+			expect(() => {
+				is_positive_integer(-1);
+			}).toThrow(RangeError);
+		});
+		it('when is_positive_integer(Number.NaN) it should throw a RangeError', () => {
+			expect(() => {
+				is_positive_integer(Number.NaN);
+			}).toThrow(RangeError);
+		});
+		it('when is_positive_integer("Hello") it should throw a RangeError', () => {
+			expect(() => {
+				is_positive_integer('Hello');
+			}).toThrow(RangeError);
 		});
 	});
 });
