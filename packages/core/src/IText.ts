@@ -8,4 +8,5 @@ export default interface IText extends IComponent {
 	line_height: number | 'auto';
 	text_align_horizontal: 'left' | 'center' | 'right' | 'justified';
 	text_align_vertical: 'top' | 'middle' | 'bottom';
+	truncate_text: boolean;
 }

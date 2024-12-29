@@ -3,6 +3,7 @@ import {
 	assert_is_from_one_to_thousand,
 	assert_is_non_negative,
 	assert_is_string,
+	is_boolean,
 	is_valid_line_height,
 	is_valid_text_align_horizontal,
 	is_valid_text_align_vertical,
@@ -24,6 +25,9 @@ export default class Text extends Component implements IText {
 	#text_align_horizontal_changed: boolean;
 	#text_align_vertical: 'top' | 'middle' | 'bottom';
 	#text_align_vertical_changed: boolean;
+	#text_content: Component;
+	#truncate_text: boolean;
+	#truncate_text_changed: boolean;
 	public constructor() {
 		super();
 		this.style.alignItems = 'flex-start';
@@ -47,6 +51,12 @@ export default class Text extends Component implements IText {
 		this.#text_align_horizontal_changed = false;
 		this.#text_align_vertical = 'top';
 		this.#text_align_vertical_changed = false;
+		this.#text_content = new Component();
+		this.#text_content.style.display = 'inline-block';
+		this.#text_content.style.overflow = 'visible';
+		this.#truncate_text = false;
+		this.#truncate_text_changed = false;
+		this.appendChild(this.#text_content);
 	}
 
 	protected override commit_properties(): void {
@@ -72,11 +82,14 @@ export default class Text extends Component implements IText {
 		if (this.#text_align_vertical_changed) {
 			this.text_align_vertical_changed();
 		}
+		if (this.#truncate_text_changed) {
+			this.truncate_text_changed();
+		}
 	}
 
 	private characters_changed(): void {
 		this.#characters_changed = false;
-		this.textContent = this.characters;
+		this.#text_content.textContent = this.characters;
 	}
 
 	private font_family_changed(): void {
@@ -134,6 +147,22 @@ export default class Text extends Component implements IText {
 		}
 		if (this.text_align_vertical === 'bottom') {
 			this.style.alignItems = 'flex-end';
+		}
+	}
+
+	private truncate_text_changed(): void {
+		this.#truncate_text_changed = false;
+		if (this.#truncate_text) {
+			this.#text_content.style.overflow = 'hidden';
+			this.#text_content.style.display = '-webkit-box';
+			this.#text_content.style.webkitBoxOrient = 'vertical';
+			this.#text_content.style.webkitLineClamp = '1';
+		}
+		else {
+			this.#text_content.style.overflow = 'visible';
+			this.#text_content.style.display = 'inline-block';
+			this.#text_content.style.webkitLineClamp = '';
+			this.#text_content.style.webkitBoxOrient = '';
 		}
 	}
 
@@ -212,6 +241,17 @@ export default class Text extends Component implements IText {
 
 	public get text_align_vertical(): 'top' | 'middle' | 'bottom' {
 		return this.#text_align_vertical;
+	}
+
+	public set truncate_text(value: boolean) {
+		is_boolean(value);
+		this.#truncate_text = value;
+		this.#truncate_text_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get truncate_text(): boolean {
+		return this.#truncate_text;
 	}
 }
 customElements.define('fx-text', Text);

@@ -239,5 +239,138 @@ describe('text', () => {
 				text.remove();
 			});
 		});
+		describe('truncate_text', () => {
+			it('default #text_content.style.overflow should be "visible"', (): void => {
+				const text = new Text();
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					expect(text_content.style.overflow).toBe('visible');
+				}
+			});
+			it('default #text_content.style.display should be "inline-block"', (): void => {
+				const text = new Text();
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					expect(text_content.style.display).toBe('inline-block');
+				}
+			});
+			it('default #text_content.style.webkitLineClamp should be ""', (): void => {
+				const text = new Text();
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					expect(text_content.style.webkitLineClamp).toBe('');
+				}
+			});
+			it('default #text_content.style.webkitBoxOrient should be ""', (): void => {
+				const text = new Text();
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					expect(text_content.style.webkitBoxOrient).toBe('');
+				}
+			});
+			it('default truncate_text should be false', (): void => {
+				const text = new Text();
+				expect(text.truncate_text).toBe(false);
+			});
+			it('when truncate_text = true, truncate_text should be true', (): void => {
+				const text = new Text();
+				text.truncate_text = true;
+				expect(text.truncate_text).toBe(true);
+			});
+			it('when truncate_text = true and then false, truncate_text should be false', (): void => {
+				const text = new Text();
+				text.truncate_text = true;
+				text.truncate_text = false;
+				expect(text.truncate_text).toBe(false);
+			});
+			describe('given truncate_text = true', (): void => {
+				it('#text_content.style.overflow should be "hidden"', (): void => {
+					const text = new Text();
+					text.truncate_text = true;
+					document.body.appendChild(text);
+					const text_content = text.firstChild;
+					if (text_content instanceof HTMLElement) {
+						expect(text_content.style.overflow).toBe('hidden');
+					}
+					text.remove();
+				});
+				it('#text_content.style.display should be "-webkit-box"', (): void => {
+					const text = new Text();
+					text.truncate_text = true;
+					document.body.appendChild(text);
+					const text_content = text.firstChild;
+					if (text_content instanceof HTMLElement) {
+						expect(text_content.style.display).toBe('-webkit-box');
+					}
+					text.remove();
+				});
+				it('#text_content.style.webkitBoxOrient should be "vertical"', (): void => {
+					const text = new Text();
+					text.truncate_text = true;
+					document.body.appendChild(text);
+					const text_content = text.firstChild;
+					if (text_content instanceof HTMLElement) {
+						expect(text_content.style.webkitBoxOrient).toBe('vertical');
+					}
+					text.remove();
+				});
+				it('#text_content.style.webkitLineClamp should be "1"', (): void => {
+					const text = new Text();
+					text.truncate_text = true;
+					document.body.appendChild(text);
+					const text_content = text.firstChild;
+					if (text_content instanceof HTMLElement) {
+						expect(text_content.style.webkitLineClamp).toBe('1');
+					}
+					text.remove();
+				});
+			});
+			describe('given truncate_text = true and truncate_text = false', (): void => {
+				it('#text_content.style.overflow should be "visible"', (): void => {
+					const text = new Text();
+					text.truncate_text = true;
+					text.truncate_text = false;
+					document.body.appendChild(text);
+					const text_content = text.firstChild;
+					if (text_content instanceof HTMLElement) {
+						expect(text_content.style.overflow).toBe('visible');
+					}
+					text.remove();
+				});
+				it('#text_content.style.display should be "inline-block"', (): void => {
+					const text = new Text();
+					text.truncate_text = true;
+					text.truncate_text = false;
+					document.body.appendChild(text);
+					const text_content = text.firstChild;
+					if (text_content instanceof HTMLElement) {
+						expect(text_content.style.display).toBe('inline-block');
+					}
+					text.remove();
+				});
+				it('#text_content.style.webkitBoxOrient should be ""', (): void => {
+					const text = new Text();
+					text.truncate_text = true;
+					text.truncate_text = false;
+					document.body.appendChild(text);
+					const text_content = text.firstChild;
+					if (text_content instanceof HTMLElement) {
+						expect(text_content.style.webkitBoxOrient).toBe('');
+					}
+					text.remove();
+				});
+				it('#text_content.style.webkitLineClamp should be ""', (): void => {
+					const text = new Text();
+					text.truncate_text = true;
+					text.truncate_text = false;
+					document.body.appendChild(text);
+					const text_content = text.firstChild;
+					if (text_content instanceof HTMLElement) {
+						expect(text_content.style.webkitLineClamp).toBe('');
+					}
+					text.remove();
+				});
+			});
+		});
 	});
 });
