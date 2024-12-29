@@ -4,9 +4,11 @@ import {
 	assert_is_non_negative,
 	assert_is_string,
 	is_boolean,
+	is_positive_integer,
 	is_valid_line_height,
 	is_valid_text_align_horizontal,
 	is_valid_text_align_vertical,
+	is_valid_vertical_trim,
 } from './assertions';
 import Component from './Component';
 
@@ -21,6 +23,8 @@ export default class Text extends Component implements IText {
 	#font_weight_changed: boolean;
 	#line_height: number | 'auto';
 	#line_height_changed: boolean;
+	#max_lines: number;
+	#max_lines_changed: boolean;
 	#text_align_horizontal: 'left' | 'center' | 'right' | 'justified';
 	#text_align_horizontal_changed: boolean;
 	#text_align_vertical: 'top' | 'middle' | 'bottom';
@@ -28,6 +32,8 @@ export default class Text extends Component implements IText {
 	#text_content: Component;
 	#truncate_text: boolean;
 	#truncate_text_changed: boolean;
+	#vertical_trim: 'standard' | 'cap';
+	#vertical_trim_changed: boolean;
 	public constructor() {
 		super();
 		this.style.alignItems = 'flex-start';
@@ -47,6 +53,8 @@ export default class Text extends Component implements IText {
 		this.#font_weight_changed = false;
 		this.#line_height = 'auto';
 		this.#line_height_changed = false;
+		this.#max_lines = 1;
+		this.#max_lines_changed = false;
 		this.#text_align_horizontal = 'left';
 		this.#text_align_horizontal_changed = false;
 		this.#text_align_vertical = 'top';
@@ -54,8 +62,15 @@ export default class Text extends Component implements IText {
 		this.#text_content = new Component();
 		this.#text_content.style.display = 'inline-block';
 		this.#text_content.style.overflow = 'visible';
+		this.#text_content.style.webkitLineClamp = '1';
+		// @ts-expect-error textBoxTrim is not widely supported yet
+		this.#text_content.style.textBoxTrim = '';
+		// @ts-expect-error textBoxEdge is not widely supported yet
+		this.#text_content.style.textBoxEdge = '';
 		this.#truncate_text = false;
 		this.#truncate_text_changed = false;
+		this.#vertical_trim = 'standard';
+		this.#vertical_trim_changed = false;
 		this.appendChild(this.#text_content);
 	}
 
@@ -82,8 +97,12 @@ export default class Text extends Component implements IText {
 		if (this.#text_align_vertical_changed) {
 			this.text_align_vertical_changed();
 		}
-		if (this.#truncate_text_changed) {
+		if (this.#truncate_text_changed || this.#max_lines_changed) {
 			this.truncate_text_changed();
+			this.max_lines_changed();
+		}
+		if (this.#vertical_trim_changed) {
+			this.vertical_trim_changed();
 		}
 	}
 
@@ -114,6 +133,11 @@ export default class Text extends Component implements IText {
 			return;
 		}
 		this.style.lineHeight = `${this.line_height}px`;
+	}
+
+	private max_lines_changed(): void {
+		this.#max_lines_changed = false;
+		this.#text_content.style.webkitLineClamp = this.max_lines.toString();
 	}
 
 	private text_align_horizontal_changed(): void {
@@ -156,13 +180,27 @@ export default class Text extends Component implements IText {
 			this.#text_content.style.overflow = 'hidden';
 			this.#text_content.style.display = '-webkit-box';
 			this.#text_content.style.webkitBoxOrient = 'vertical';
-			this.#text_content.style.webkitLineClamp = '1';
 		}
 		else {
 			this.#text_content.style.overflow = 'visible';
 			this.#text_content.style.display = 'inline-block';
-			this.#text_content.style.webkitLineClamp = '';
 			this.#text_content.style.webkitBoxOrient = '';
+		}
+	}
+
+	private vertical_trim_changed(): void {
+		this.#vertical_trim_changed = false;
+		if (this.vertical_trim === 'standard') {
+			// @ts-expect-error textBoxTrim is not widely supported yet
+			this.#text_content.style.textBoxTrim = '';
+			// @ts-expect-error textBoxEdge is not widely supported yet
+			this.#text_content.style.textBoxEdge = '';
+		}
+		else {
+			// @ts-expect-error textBoxTrim is not widely supported yet
+			this.#text_content.style.textBoxTrim = 'trim-both';
+			// @ts-expect-error textBoxEdge is not widely supported yet
+			this.#text_content.style.textBoxEdge = 'cap alphabetic';
 		}
 	}
 
@@ -221,6 +259,17 @@ export default class Text extends Component implements IText {
 		return this.#line_height;
 	}
 
+	public set max_lines(value: number) {
+		is_positive_integer(value);
+		this.#max_lines = value;
+		this.#max_lines_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get max_lines(): number {
+		return this.#max_lines;
+	}
+
 	public set text_align_horizontal(value: 'left' | 'center' | 'right' | 'justified') {
 		is_valid_text_align_horizontal(value);
 		this.#text_align_horizontal = value;
@@ -252,6 +301,17 @@ export default class Text extends Component implements IText {
 
 	public get truncate_text(): boolean {
 		return this.#truncate_text;
+	}
+
+	public set vertical_trim(value: 'standard' | 'cap') {
+		is_valid_vertical_trim(value);
+		this.#vertical_trim = value;
+		this.#vertical_trim_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get vertical_trim(): 'standard' | 'cap' {
+		return this.#vertical_trim;
 	}
 }
 customElements.define('fx-text', Text);

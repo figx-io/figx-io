@@ -254,13 +254,6 @@ describe('text', () => {
 					expect(text_content.style.display).toBe('inline-block');
 				}
 			});
-			it('default #text_content.style.webkitLineClamp should be ""', (): void => {
-				const text = new Text();
-				const text_content = text.firstChild;
-				if (text_content instanceof HTMLElement) {
-					expect(text_content.style.webkitLineClamp).toBe('');
-				}
-			});
 			it('default #text_content.style.webkitBoxOrient should be ""', (): void => {
 				const text = new Text();
 				const text_content = text.firstChild;
@@ -359,17 +352,112 @@ describe('text', () => {
 					}
 					text.remove();
 				});
-				it('#text_content.style.webkitLineClamp should be ""', (): void => {
-					const text = new Text();
-					text.truncate_text = true;
-					text.truncate_text = false;
-					document.body.appendChild(text);
-					const text_content = text.firstChild;
-					if (text_content instanceof HTMLElement) {
-						expect(text_content.style.webkitLineClamp).toBe('');
-					}
-					text.remove();
-				});
+			});
+		});
+		describe('max_lines', () => {
+			it('default max_lines should be 1', (): void => {
+				const text = new Text();
+				expect(text.max_lines).toBe(1);
+			});
+			it('default #text_content.style.webkitLineClamp should be "1"', (): void => {
+				const text = new Text();
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					expect(text_content.style.webkitLineClamp).toBe('1');
+				}
+			});
+			it('when max_lines = 2, max_lines should be 2', (): void => {
+				const text = new Text();
+				text.max_lines = 2;
+				expect(text.max_lines).toBe(2);
+			});
+			it('when max_lines = 2, #text_content.style.webkitLineClamp should be "2"', (): void => {
+				const text = new Text();
+				text.max_lines = 2;
+				document.body.appendChild(text);
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					expect(text_content.style.webkitLineClamp).toBe('2');
+				}
+				text.remove();
+			});
+		});
+		describe('vertical_trim', () => {
+			it('default vertical_trim should be "standard"', (): void => {
+				const text = new Text();
+				expect(text.vertical_trim).toBe('standard');
+			});
+			it('default #text_content.style.textBoxTrim should be ""', (): void => {
+				const text = new Text();
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					// @ts-expect-error textBoxTrim is not widely supported yet
+					expect(text_content.style.textBoxTrim).toBe('');
+				}
+			});
+			it('default style.textBoxEdge should be ""', (): void => {
+				const text = new Text();
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					// @ts-expect-error textBoxEdge is not widely supported yet
+					expect(text_content.style.textBoxEdge).toBe('');
+				}
+			});
+			it('when vertical_trim = "cap", vertical_trim should be "cap"', (): void => {
+				const text = new Text();
+				text.vertical_trim = 'cap';
+				expect(text.vertical_trim).toBe('cap');
+			});
+			it('when vertical_trim = "cap", #text_content.style.textBoxTrim should be "trim-both"', (): void => {
+				const text = new Text();
+				text.vertical_trim = 'cap';
+				document.body.appendChild(text);
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					// @ts-expect-error textBoxTrim is not widely supported yet
+					expect(text_content.style.textBoxTrim).toBe('trim-both');
+				}
+				text.remove();
+			});
+			it('when vertical_trim = "cap", #text_content.style.textBoxEdge should be "cap alphabetic"', (): void => {
+				const text = new Text();
+				text.vertical_trim = 'cap';
+				document.body.appendChild(text);
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					// @ts-expect-error textBoxEdge is not widely supported yet
+					expect(text_content.style.textBoxEdge).toBe('cap alphabetic');
+				}
+				text.remove();
+			});
+			it('when vertical_trim = "standard", vertical_trim should be "standard"', (): void => {
+				const text = new Text();
+				text.vertical_trim = 'cap';
+				text.vertical_trim = 'standard';
+				expect(text.vertical_trim).toBe('standard');
+			});
+			it('when vertical_trim = "standard", #text_content.style.textBoxTrim should be ""', (): void => {
+				const text = new Text();
+				text.vertical_trim = 'standard';
+				document.body.appendChild(text);
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					// @ts-expect-error textBoxTrim is not widely supported yet
+					expect(text_content.style.textBoxTrim).toBe('');
+				}
+				text.remove();
+			});
+			it('when vertical_trim = "standard", #text_content.style.textBoxEdge should be ""', (): void => {
+				const text = new Text();
+				text.vertical_trim = 'cap';
+				text.vertical_trim = 'standard';
+				document.body.appendChild(text);
+				const text_content = text.firstChild;
+				if (text_content instanceof HTMLElement) {
+					// @ts-expect-error textBoxEdge is not widely supported yet
+					expect(text_content.style.textBoxEdge).toBe('');
+				}
+				text.remove();
 			});
 		});
 	});
