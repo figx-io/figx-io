@@ -35,10 +35,6 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	#min_width_changed: boolean;
 	#opacity: number;
 	#opacity_changed: boolean;
-	#padding_horizontal: number;
-	#padding_horizontal_changed: boolean;
-	#padding_vertical: number;
-	#padding_vertical_changed: boolean;
 	#parent_auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	#parent_auto_layout_changed: boolean;
 	#width: number | 'fill' | 'hug';
@@ -81,10 +77,6 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.#min_width_changed = false;
 		this.#opacity = 1;
 		this.#opacity_changed = false;
-		this.#padding_horizontal = 0;
-		this.#padding_horizontal_changed = false;
-		this.#padding_vertical = 0;
-		this.#padding_vertical_changed = false;
 		this.#parent_auto_layout = 'horizontal';
 		this.#parent_auto_layout_changed = false;
 		this.#width = 'hug';
@@ -124,12 +116,6 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		}
 		if (this.#opacity_changed) {
 			this.opacity_changed();
-		}
-		if (this.#padding_horizontal_changed) {
-			this.padding_horizontal_changed();
-		}
-		if (this.#padding_vertical_changed) {
-			this.padding_vertical_changed();
 		}
 	}
 
@@ -458,18 +444,6 @@ export default class Component extends HTMLElement implements IComponent, IChild
 		this.style.opacity = `${this.opacity}`;
 	}
 
-	private padding_horizontal_changed(): void {
-		this.#padding_horizontal_changed = false;
-		this.style.paddingLeft = `${this.padding_horizontal}px`;
-		this.style.paddingRight = `${this.padding_horizontal}px`;
-	}
-
-	private padding_vertical_changed(): void {
-		this.#padding_vertical_changed = false;
-		this.style.paddingTop = `${this.padding_vertical}px`;
-		this.style.paddingBottom = `${this.padding_vertical}px`;
-	}
-
 	private parent_auto_layout_changed(): void {
 		this.#parent_auto_layout_changed = false;
 		this.width_changed();
@@ -703,28 +677,6 @@ export default class Component extends HTMLElement implements IComponent, IChild
 
 	public get opacity(): number {
 		return this.#opacity;
-	}
-
-	public set padding_horizontal(value: number) {
-		assert_is_non_negative(value);
-		this.#padding_horizontal = value;
-		this.#padding_horizontal_changed = true;
-		this.invalidate_properties();
-	}
-
-	public get padding_horizontal(): number {
-		return this.#padding_horizontal;
-	}
-
-	public set padding_vertical(value: number) {
-		assert_is_non_negative(value);
-		this.#padding_vertical = value;
-		this.#padding_vertical_changed = true;
-		this.invalidate_properties();
-	}
-
-	public get padding_vertical(): number {
-		return this.#padding_vertical;
 	}
 
 	public set parent_auto_layout(value: 'horizontal' | 'vertical' | 'wrap') {
