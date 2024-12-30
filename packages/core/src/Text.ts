@@ -1,15 +1,13 @@
 import type IText from './IText';
-import {
-	assert_is_boolean,
-	assert_is_from_one_to_thousand,
-	assert_is_non_negative,
-	assert_is_positive_integer,
-	assert_is_string,
-	assert_is_valid_line_height,
-	assert_is_valid_text_align_horizontal,
-	assert_is_valid_text_align_vertical,
-	assert_is_valid_vertical_trim,
-} from './assertions';
+import { assert_is_boolean } from '@figx-io/assertions/assert_is_boolean';
+import { assert_is_from_one_to_thousand } from '@figx-io/assertions/assert_is_from_one_to_thousand';
+import { assert_is_non_negative } from '@figx-io/assertions/assert_is_non_negative';
+import { assert_is_positive_integer } from '@figx-io/assertions/assert_is_positive_integer';
+import { assert_is_string } from '@figx-io/assertions/assert_is_string';
+import { assert_is_valid_line_height } from '@figx-io/assertions/assert_is_valid_line_height';
+import { assert_is_valid_text_align_horizontal } from '@figx-io/assertions/assert_is_valid_text_align_horizontal';
+import { assert_is_valid_text_align_vertical } from '@figx-io/assertions/assert_is_valid_text_align_vertical';
+import { assert_is_valid_vertical_trim } from '@figx-io/assertions/assert_is_valid_vertical_trim';
 import Component from './Component';
 
 export default class Text extends Component implements IText {

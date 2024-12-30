@@ -1,11 +1,9 @@
 import type IChild from './IChild';
 import type IComponent from './IComponent';
-import {
-	assert_is_from_zero_to_one,
-	assert_is_non_negative,
-	assert_is_valid_auto_layout,
-	assert_is_valid_size,
-} from './assertions';
+import { assert_is_from_zero_to_one } from '@figx-io/assertions/assert_is_from_zero_to_one';
+import { assert_is_non_negative } from '@figx-io/assertions/assert_is_non_negative';
+import { assert_is_valid_auto_layout } from '@figx-io/assertions/assert_is_valid_auto_layout';
+import { assert_is_valid_size } from '@figx-io/assertions/assert_is_valid_size';
 
 export default class Component extends HTMLElement implements IComponent, IChild {
 	#connected: boolean;

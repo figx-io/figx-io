@@ -1,0 +1,89 @@
+{
+	"name": "@figx-io/assertions",
+	"type": "module",
+	"version": "0.0.1",
+	"private": false,
+	"license": "MIT",
+	"exports": {
+		"./assert_has_parent_auto_layout": {
+			"types": "./dist/assert_has_parent_auto_layout.d.ts",
+			"default": "./dist/assert_has_parent_auto_layout.js"
+		},
+		"./assert_is_boolean": {
+			"types": "./dist/assert_is_boolean.d.ts",
+			"default": "./dist/assert_is_boolean.js"
+		},
+		"./assert_is_from_one_to_thousand": {
+			"types": "./dist/assert_is_from_one_to_thousand.d.ts",
+			"default": "./dist/assert_is_from_one_to_thousand.js"
+		},
+		"./assert_is_from_zero_to_one": {
+			"types": "./dist/assert_is_from_zero_to_one.d.ts",
+			"default": "./dist/assert_is_from_zero_to_one.js"
+		},
+		"./assert_is_html_element": {
+			"types": "./dist/assert_is_html_element.d.ts",
+			"default": "./dist/assert_is_html_element.js"
+		},
+		"./assert_is_non_negative_or_auto": {
+			"types": "./dist/assert_is_non_negative_or_auto.d.ts",
+			"default": "./dist/assert_is_non_negative_or_auto.js"
+		},
+		"./assert_is_non_negative": {
+			"types": "./dist/assert_is_non_negative.d.ts",
+			"default": "./dist/assert_is_non_negative.js"
+		},
+		"./assert_is_not_child": {
+			"types": "./dist/assert_is_not_child.d.ts",
+			"default": "./dist/assert_is_not_child.js"
+		},
+		"./assert_is_number": {
+			"types": "./dist/assert_is_number.d.ts",
+			"default": "./dist/assert_is_number.js"
+		},
+		"./assert_is_positive_integer": {
+			"types": "./dist/assert_is_positive_integer.d.ts",
+			"default": "./dist/assert_is_positive_integer.js"
+		},
+		"./assert_is_string": {
+			"types": "./dist/assert_is_string.d.ts",
+			"default": "./dist/assert_is_string.js"
+		},
+		"./assert_is_valid_alignment": {
+			"types": "./dist/assert_is_valid_alignment.d.ts",
+			"default": "./dist/assert_is_valid_alignment.js"
+		},
+		"./assert_is_valid_auto_layout": {
+			"types": "./dist/assert_is_valid_auto_layout.d.ts",
+			"default": "./dist/assert_is_valid_auto_layout.js"
+		},
+		"./assert_is_valid_hex": {
+			"types": "./dist/assert_is_valid_hex.d.ts",
+			"default": "./dist/assert_is_valid_hex.js"
+		},
+		"./assert_is_valid_line_height": {
+			"types": "./dist/assert_is_valid_line_height.d.ts",
+			"default": "./dist/assert_is_valid_line_height.js"
+		},
+		"./assert_is_valid_size": {
+			"types": "./dist/assert_is_valid_size.d.ts",
+			"default": "./dist/assert_is_valid_size.js"
+		},
+		"./assert_is_valid_text_align_horizontal": {
+			"types": "./dist/assert_is_valid_text_align_horizontal.d.ts",
+			"default": "./dist/assert_is_valid_text_align_horizontal.js"
+		},
+		"./assert_is_valid_text_align_vertical": {
+			"types": "./dist/assert_is_valid_text_align_vertical.d.ts",
+			"default": "./dist/assert_is_valid_text_align_vertical.js"
+		},
+		"./assert_is_valid_vertical_trim": {
+			"types": "./dist/assert_is_valid_vertical_trim.d.ts",
+			"default": "./dist/assert_is_valid_vertical_trim.js"
+		}
+	},
+	"scripts": {
+		"dev": "vite build --watch",
+		"build": "vite build"
+	}
+}

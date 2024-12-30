@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import Hex from './HEX';
+import Hex from './Hex';
 
 describe('assert_is_valid_hex', () => {
 	it('when new Hex("#123"), toStyleString() should return "#123"', () => {

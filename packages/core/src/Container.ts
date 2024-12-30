@@ -1,6 +1,12 @@
 import type IComponent from './IComponent';
 import type IContainer from './IContainer';
-import { assert_is_component, assert_is_non_negative, assert_is_non_negative_or_auto, assert_is_not_child, assert_is_valid_alignment, assert_is_valid_auto_layout } from './assertions';
+import { assert_has_parent_auto_layout } from '@figx-io/assertions/assert_has_parent_auto_layout';
+import { assert_is_html_element } from '@figx-io/assertions/assert_is_html_element';
+import { assert_is_non_negative } from '@figx-io/assertions/assert_is_non_negative';
+import { assert_is_non_negative_or_auto } from '@figx-io/assertions/assert_is_non_negative_or_auto';
+import { assert_is_not_child } from '@figx-io/assertions/assert_is_not_child';
+import { assert_is_valid_alignment } from '@figx-io/assertions/assert_is_valid_alignment';
+import { assert_is_valid_auto_layout } from '@figx-io/assertions/assert_is_valid_auto_layout';
 import Component from './Component';
 
 export default class Container extends Component implements IContainer {
@@ -327,14 +333,16 @@ export default class Container extends Component implements IContainer {
 
 	private update_children_parent_auto_layout(): void {
 		for (const child of this.children) {
-			assert_is_component(child);
+			assert_is_html_element(child);
+			assert_has_parent_auto_layout(child);
 			child.parent_auto_layout = this.auto_layout;
 		}
 	}
 
 	public add_component(value: IComponent): void {
-		assert_is_component(value);
+		assert_is_html_element(value);
 		assert_is_not_child(value, this);
+		assert_has_parent_auto_layout(value);
 		value.parent_auto_layout = this.auto_layout;
 		this.appendChild(value);
 	}
