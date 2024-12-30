@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+	assert_is_boolean,
 	assert_is_component,
 	assert_is_from_one_to_thousand,
 	assert_is_from_zero_to_one,
@@ -10,13 +11,12 @@ import {
 	assert_is_string,
 	assert_is_valid_alignment,
 	assert_is_valid_auto_layout,
+	assert_is_valid_line_height,
 	assert_is_valid_size,
-	is_boolean,
-	is_positive_integer,
-	is_valid_line_height,
-	is_valid_text_align_horizontal,
-	is_valid_text_align_vertical,
-	is_valid_vertical_trim,
+	assert_is_valid_text_align_horizontal,
+	assert_is_valid_text_align_vertical,
+	assert_is_positive_integer,
+	assert_is_valid_vertical_trim,
 } from './assertions';
 import Component from './Component';
 import Container from './Container';
@@ -205,165 +205,165 @@ describe('assertions', () => {
 			}).toThrow(RangeError);
 		});
 	});
-	describe('is_valid_line_height', () => {
-		it('when is_valid_line_height(1) it should return undefined', () => {
-			const value = is_valid_line_height(1);
+	describe('assert_is_valid_line_height', () => {
+		it('when assert_is_valid_line_height(1) it should return undefined', () => {
+			const value = assert_is_valid_line_height(1);
 			expect(value).toBeUndefined();
 		});
-		it('when is_valid_line_height("auto") it should return undefined', () => {
-			const value = is_valid_line_height('auto');
+		it('when assert_is_valid_line_height("auto") it should return undefined', () => {
+			const value = assert_is_valid_line_height('auto');
 			expect(value).toBeUndefined();
 		});
-		it('when is_valid_line_height(Number.NaN) it should throw a RangeError', () => {
+		it('when assert_is_valid_line_height(Number.NaN) it should throw a RangeError', () => {
 			expect(() => {
-				is_valid_line_height(Number.NaN);
+				assert_is_valid_line_height(Number.NaN);
 			}).toThrow(RangeError);
 		});
-		it('when is_valid_line_height("Hello") it should throw a RangeError', () => {
+		it('when assert_is_valid_line_height("Hello") it should throw a RangeError', () => {
 			expect(() => {
-				is_valid_line_height('Hello');
+				assert_is_valid_line_height('Hello');
 			}).toThrow(RangeError);
 		});
-		it('when is_valid_line_height(0) it should throw a RangeError', () => {
+		it('when assert_is_valid_line_height(0) it should throw a RangeError', () => {
 			expect(() => {
-				is_valid_line_height(0);
+				assert_is_valid_line_height(0);
 			}).toThrow(RangeError);
 		});
 	});
-	describe('is_valid_text_align_horizontal', () => {
+	describe('assert_is_valid_text_align_horizontal', () => {
 		it('when is_valid_text_align("left") it should return undefined', () => {
-			const value = is_valid_text_align_horizontal('left');
+			const value = assert_is_valid_text_align_horizontal('left');
 			expect(value).toBeUndefined();
 		});
 		it('when is_valid_text_align("center") it should return undefined', () => {
-			const value = is_valid_text_align_horizontal('center');
+			const value = assert_is_valid_text_align_horizontal('center');
 			expect(value).toBeUndefined();
 		});
 		it('when is_valid_text_align("right") it should return undefined', () => {
-			const value = is_valid_text_align_horizontal('right');
+			const value = assert_is_valid_text_align_horizontal('right');
 			expect(value).toBeUndefined();
 		});
 		it('when is_valid_text_align("justified") it should return undefined', () => {
-			const value = is_valid_text_align_horizontal('justified');
+			const value = assert_is_valid_text_align_horizontal('justified');
 			expect(value).toBeUndefined();
 		});
 		it('when is_valid_text_align("Hello") it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_text_align_horizontal('Hello');
+				assert_is_valid_text_align_horizontal('Hello');
 			}).toThrow(TypeError);
 		});
 		it('when is_valid_text_align(1) it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_text_align_horizontal(1);
+				assert_is_valid_text_align_horizontal(1);
 			}).toThrow(TypeError);
 		});
 	});
-	describe('is_valid_text_align_vertical', () => {
-		it('when is_valid_text_align_vertical("top") it should return undefined', () => {
-			const value = is_valid_text_align_vertical('top');
+	describe('assert_is_valid_text_align_vertical', () => {
+		it('when assert_is_valid_text_align_vertical("top") it should return undefined', () => {
+			const value = assert_is_valid_text_align_vertical('top');
 			expect(value).toBeUndefined();
 		});
-		it('when is_valid_text_align_vertical("middle") it should return undefined', () => {
-			const value = is_valid_text_align_vertical('middle');
+		it('when assert_is_valid_text_align_vertical("middle") it should return undefined', () => {
+			const value = assert_is_valid_text_align_vertical('middle');
 			expect(value).toBeUndefined();
 		});
-		it('when is_valid_text_align_vertical("bottom") it should return undefined', () => {
-			const value = is_valid_text_align_vertical('bottom');
+		it('when assert_is_valid_text_align_vertical("bottom") it should return undefined', () => {
+			const value = assert_is_valid_text_align_vertical('bottom');
 			expect(value).toBeUndefined();
 		});
-		it('when is_valid_text_align_vertical("Hello") it should throw a TypeError', () => {
+		it('when assert_is_valid_text_align_vertical("Hello") it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_text_align_vertical('Hello');
+				assert_is_valid_text_align_vertical('Hello');
 			}).toThrow(TypeError);
 		});
-		it('when is_valid_text_align_vertical(1) it should throw a TypeError', () => {
+		it('when assert_is_valid_text_align_vertical(1) it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_text_align_vertical(1);
-			}).toThrow(TypeError);
-		});
-	});
-	describe('is_boolean', () => {
-		it('when is_boolean(true) it should return undefined', () => {
-			const value = is_boolean(true);
-			expect(value).toBeUndefined();
-		});
-		it('when is_boolean(false) it should return undefined', () => {
-			const value = is_boolean(false);
-			expect(value).toBeUndefined();
-		});
-		it('when is_boolean(1) it should throw a TypeError', () => {
-			expect(() => {
-				is_boolean(1);
-			}).toThrow(TypeError);
-		});
-		it('when is_boolean("Hello") it should throw a TypeError', () => {
-			expect(() => {
-				is_boolean('Hello');
-			}).toThrow(TypeError);
-		});
-		it('when is_boolean(Number.NaN) it should throw a TypeError', () => {
-			expect(() => {
-				is_boolean(Number.NaN);
+				assert_is_valid_text_align_vertical(1);
 			}).toThrow(TypeError);
 		});
 	});
-	describe('is_positive_integer', () => {
-		it('when is_positive_integer(1) it should return undefined', () => {
-			const value = is_positive_integer(1);
+	describe('assert_is_boolean', () => {
+		it('when assert_is_boolean(true) it should return undefined', () => {
+			const value = assert_is_boolean(true);
 			expect(value).toBeUndefined();
 		});
-		it('when is_positive_integer(1.0) it should return undefined', () => {
-			const value = is_positive_integer(1.0);
+		it('when assert_is_boolean(false) it should return undefined', () => {
+			const value = assert_is_boolean(false);
 			expect(value).toBeUndefined();
 		});
-		it('when is_positive_integer(0) it should throw a RangeError', () => {
+		it('when assert_is_boolean(1) it should throw a TypeError', () => {
 			expect(() => {
-				is_positive_integer(0);
+				assert_is_boolean(1);
+			}).toThrow(TypeError);
+		});
+		it('when assert_is_boolean("Hello") it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_boolean('Hello');
+			}).toThrow(TypeError);
+		});
+		it('when assert_is_boolean(Number.NaN) it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_boolean(Number.NaN);
+			}).toThrow(TypeError);
+		});
+	});
+	describe('assert_is_positive_integer', () => {
+		it('when assert_is_positive_integer(1) it should return undefined', () => {
+			const value = assert_is_positive_integer(1);
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_positive_integer(1.0) it should return undefined', () => {
+			const value = assert_is_positive_integer(1.0);
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_positive_integer(0) it should throw a RangeError', () => {
+			expect(() => {
+				assert_is_positive_integer(0);
 			}).toThrow(RangeError);
 		});
-		it('when is_positive_integer(1.5) it should throw a RangeError', () => {
+		it('when assert_is_positive_integer(1.5) it should throw a RangeError', () => {
 			expect(() => {
-				is_positive_integer(1.5);
+				assert_is_positive_integer(1.5);
 			}).toThrow(RangeError);
 		});
-		it('when is_positive_integer(-1) it should throw a RangeError', () => {
+		it('when assert_is_positive_integer(-1) it should throw a RangeError', () => {
 			expect(() => {
-				is_positive_integer(-1);
+				assert_is_positive_integer(-1);
 			}).toThrow(RangeError);
 		});
-		it('when is_positive_integer(Number.NaN) it should throw a RangeError', () => {
+		it('when assert_is_positive_integer(Number.NaN) it should throw a RangeError', () => {
 			expect(() => {
-				is_positive_integer(Number.NaN);
+				assert_is_positive_integer(Number.NaN);
 			}).toThrow(RangeError);
 		});
-		it('when is_positive_integer("Hello") it should throw a RangeError', () => {
+		it('when assert_is_positive_integer("Hello") it should throw a RangeError', () => {
 			expect(() => {
-				is_positive_integer('Hello');
+				assert_is_positive_integer('Hello');
 			}).toThrow(RangeError);
 		});
 	});
-	describe('is_valid_vertical_trim', () => {
-		it('when is_valid_vertical_trim("standard") it should return undefined', () => {
-			const value = is_valid_vertical_trim('standard');
+	describe('assert_is_valid_vertical_trim', () => {
+		it('when assert_is_valid_vertical_trim("standard") it should return undefined', () => {
+			const value = assert_is_valid_vertical_trim('standard');
 			expect(value).toBeUndefined();
 		});
-		it('when is_valid_vertical_trim("cap") it should return undefined', () => {
-			const value = is_valid_vertical_trim('cap');
+		it('when assert_is_valid_vertical_trim("cap") it should return undefined', () => {
+			const value = assert_is_valid_vertical_trim('cap');
 			expect(value).toBeUndefined();
 		});
-		it('when is_valid_vertical_trim("Hello") it should throw a TypeError', () => {
+		it('when assert_is_valid_vertical_trim("Hello") it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_vertical_trim('Hello');
+				assert_is_valid_vertical_trim('Hello');
 			}).toThrow(TypeError);
 		});
-		it('when is_valid_vertical_trim(1) it should throw a TypeError', () => {
+		it('when assert_is_valid_vertical_trim(1) it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_vertical_trim(1);
+				assert_is_valid_vertical_trim(1);
 			}).toThrow(TypeError);
 		});
-		it('when is_valid_vertical_trim(Number.NaN) it should throw a TypeError', () => {
+		it('when assert_is_valid_vertical_trim(Number.NaN) it should throw a TypeError', () => {
 			expect(() => {
-				is_valid_vertical_trim(Number.NaN);
+				assert_is_valid_vertical_trim(Number.NaN);
 			}).toThrow(TypeError);
 		});
 	});

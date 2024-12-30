@@ -85,7 +85,7 @@ export function assert_is_string(value: unknown): asserts value is string {
 	throw new TypeError(`[${value}] is invalid, must be of type string`);
 }
 
-export function is_valid_line_height(value: unknown): asserts value is number | 'auto' {
+export function assert_is_valid_line_height(value: unknown): asserts value is number | 'auto' {
 	if (value === 'auto') {
 		return;
 	}
@@ -95,35 +95,35 @@ export function is_valid_line_height(value: unknown): asserts value is number | 
 	throw new RangeError(`[${value}] is invalid, must be more than 0 or "auto"`);
 }
 
-export function is_valid_text_align_horizontal(value: unknown): asserts value is 'left' | 'center' | 'right' | 'justified' {
+export function assert_is_valid_text_align_horizontal(value: unknown): asserts value is 'left' | 'center' | 'right' | 'justified' {
 	if (value === 'left' || value === 'center' || value === 'right' || value === 'justified') {
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be "left", "center", "right" or "justified"`);
 }
 
-export function is_valid_text_align_vertical(value: unknown): asserts value is 'top' | 'middle' | 'bottom' {
+export function assert_is_valid_text_align_vertical(value: unknown): asserts value is 'top' | 'middle' | 'bottom' {
 	if (value === 'top' || value === 'middle' || value === 'bottom') {
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be "top", "middle" or "bottom"`);
 }
 
-export function is_boolean(value: unknown): asserts value is boolean {
+export function assert_is_boolean(value: unknown): asserts value is boolean {
 	if (typeof value === 'boolean') {
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be true or false`);
 }
 
-export function is_positive_integer(value: unknown): asserts value is number {
+export function assert_is_positive_integer(value: unknown): asserts value is number {
 	if (typeof value === 'number' && value >= 1 && String(value).includes('.') === false) {
 		return;
 	}
 	throw new RangeError(`[${value}] is invalid, must be a positive integer`);
 }
 
-export function is_valid_vertical_trim(value: unknown): asserts value is 'standard' | 'cap' {
+export function assert_is_valid_vertical_trim(value: unknown): asserts value is 'standard' | 'cap' {
 	if (value === 'standard' || value === 'cap') {
 		return;
 	}

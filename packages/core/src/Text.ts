@@ -1,14 +1,14 @@
 import type IText from './IText';
 import {
+	assert_is_boolean,
 	assert_is_from_one_to_thousand,
 	assert_is_non_negative,
 	assert_is_string,
-	is_boolean,
-	is_positive_integer,
-	is_valid_line_height,
-	is_valid_text_align_horizontal,
-	is_valid_text_align_vertical,
-	is_valid_vertical_trim,
+	assert_is_valid_line_height,
+	assert_is_valid_text_align_horizontal,
+	assert_is_valid_text_align_vertical,
+	assert_is_positive_integer,
+	assert_is_valid_vertical_trim,
 } from './assertions';
 import Component from './Component';
 
@@ -67,6 +67,11 @@ export default class Text extends Component implements IText {
 		this.#text_content.style.textBoxTrim = '';
 		// @ts-expect-error textBoxEdge is not widely supported yet
 		this.#text_content.style.textBoxEdge = '';
+
+		this.#text_content.style.background = 'linear-gradient(45deg, oklch(from #ff0000 l c h), #ff6b08, #cf23cf, #eedd44)';
+		this.#text_content.style.webkitTextFillColor = 'transparent';
+		this.#text_content.style.webkitBackgroundClip = 'text';
+
 		this.#truncate_text = false;
 		this.#truncate_text_changed = false;
 		this.#vertical_trim = 'standard';
@@ -249,7 +254,7 @@ export default class Text extends Component implements IText {
 	}
 
 	public set line_height(value: number | 'auto') {
-		is_valid_line_height(value);
+		assert_is_valid_line_height(value);
 		this.#line_height = value;
 		this.#line_height_changed = true;
 		this.invalidate_properties();
@@ -260,7 +265,7 @@ export default class Text extends Component implements IText {
 	}
 
 	public set max_lines(value: number) {
-		is_positive_integer(value);
+		assert_is_positive_integer(value);
 		this.#max_lines = value;
 		this.#max_lines_changed = true;
 		this.invalidate_properties();
@@ -271,7 +276,7 @@ export default class Text extends Component implements IText {
 	}
 
 	public set text_align_horizontal(value: 'left' | 'center' | 'right' | 'justified') {
-		is_valid_text_align_horizontal(value);
+		assert_is_valid_text_align_horizontal(value);
 		this.#text_align_horizontal = value;
 		this.#text_align_horizontal_changed = true;
 		this.invalidate_properties();
@@ -282,7 +287,7 @@ export default class Text extends Component implements IText {
 	}
 
 	public set text_align_vertical(value: 'top' | 'middle' | 'bottom') {
-		is_valid_text_align_vertical(value);
+		assert_is_valid_text_align_vertical(value);
 		this.#text_align_vertical = value;
 		this.#text_align_vertical_changed = true;
 		this.invalidate_properties();
@@ -293,7 +298,7 @@ export default class Text extends Component implements IText {
 	}
 
 	public set truncate_text(value: boolean) {
-		is_boolean(value);
+		assert_is_boolean(value);
 		this.#truncate_text = value;
 		this.#truncate_text_changed = true;
 		this.invalidate_properties();
@@ -304,7 +309,7 @@ export default class Text extends Component implements IText {
 	}
 
 	public set vertical_trim(value: 'standard' | 'cap') {
-		is_valid_vertical_trim(value);
+		assert_is_valid_vertical_trim(value);
 		this.#vertical_trim = value;
 		this.#vertical_trim_changed = true;
 		this.invalidate_properties();
