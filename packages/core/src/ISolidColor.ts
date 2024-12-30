@@ -1,3 +1,3 @@
-export interface IColor {
+export interface ISolidColor {
 	toStyleString: () => string;
 }
