@@ -8,14 +8,15 @@ import {
 	assert_is_non_negative_or_auto,
 	assert_is_not_child,
 	assert_is_number,
+	assert_is_positive_integer,
 	assert_is_string,
 	assert_is_valid_alignment,
 	assert_is_valid_auto_layout,
+	assert_is_valid_hex,
 	assert_is_valid_line_height,
 	assert_is_valid_size,
 	assert_is_valid_text_align_horizontal,
 	assert_is_valid_text_align_vertical,
-	assert_is_positive_integer,
 	assert_is_valid_vertical_trim,
 } from './assertions';
 import Component from './Component';
@@ -364,6 +365,39 @@ describe('assertions', () => {
 		it('when assert_is_valid_vertical_trim(Number.NaN) it should throw a TypeError', () => {
 			expect(() => {
 				assert_is_valid_vertical_trim(Number.NaN);
+			}).toThrow(TypeError);
+		});
+	});
+	describe('assert_is_valid_hex', () => {
+		it('when assert_is_valid_hex("#123") it should return undefined', () => {
+			const value = assert_is_valid_hex('#123');
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_valid_hex("#1234") it should return undefined', () => {
+			const value = assert_is_valid_hex('#1234');
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_valid_hex("#123456") it should return undefined', () => {
+			const value = assert_is_valid_hex('#123456');
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_valid_hex("#12345678") it should return undefined', () => {
+			const value = assert_is_valid_hex('#12345678');
+			expect(value).toBeUndefined();
+		});
+		it('when assert_is_valid_hex(1) it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_valid_hex(1);
+			}).toThrow(TypeError);
+		});
+		it('when assert_is_valid_hex("Hello") it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_valid_hex('Hello');
+			}).toThrow(TypeError);
+		});
+		it('when assert_is_valid_hex(Number.NaN) it should throw a TypeError', () => {
+			expect(() => {
+				assert_is_valid_hex(Number.NaN);
 			}).toThrow(TypeError);
 		});
 	});
