@@ -3,7 +3,7 @@ import dts from 'vite-plugin-dts';
 
 export default defineConfig({
 	build: {
-		emptyOutDir: false,
+		emptyOutDir: true,
 		lib: {
 			entry: [
 				'./src/Button.ts',
@@ -21,5 +21,6 @@ export default defineConfig({
 		sourcemap: 'inline',
 		target: 'esnext',
 	},
-	plugins: [dts()],
+	// don't create declaration types for test files
+	plugins: [dts({ exclude: './src/**/*.test.ts' })],
 });
