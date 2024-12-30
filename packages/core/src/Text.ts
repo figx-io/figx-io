@@ -3,11 +3,11 @@ import {
 	assert_is_boolean,
 	assert_is_from_one_to_thousand,
 	assert_is_non_negative,
+	assert_is_positive_integer,
 	assert_is_string,
 	assert_is_valid_line_height,
 	assert_is_valid_text_align_horizontal,
 	assert_is_valid_text_align_vertical,
-	assert_is_positive_integer,
 	assert_is_valid_vertical_trim,
 } from './assertions';
 import Component from './Component';
