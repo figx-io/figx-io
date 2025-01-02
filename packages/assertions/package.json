@@ -25,6 +25,10 @@
 			"types": "./dist/assert_is_html_element.d.ts",
 			"default": "./dist/assert_is_html_element.js"
 		},
+		"./assert_is_i_color": {
+			"types": "./dist/assert_is_i_color.d.ts",
+			"default": "./dist/assert_is_i_color.js"
+		},
 		"./assert_is_non_negative_or_auto": {
 			"types": "./dist/assert_is_non_negative_or_auto.d.ts",
 			"default": "./dist/assert_is_non_negative_or_auto.js"
@@ -56,6 +60,10 @@
 		"./assert_is_valid_auto_layout": {
 			"types": "./dist/assert_is_valid_auto_layout.d.ts",
 			"default": "./dist/assert_is_valid_auto_layout.js"
+		},
+		"./assert_is_valid_fill": {
+			"types": "./dist/assert_is_valid_fill.d.ts",
+			"default": "./dist/assert_is_valid_fill.js"
 		},
 		"./assert_is_valid_hex": {
 			"types": "./dist/assert_is_valid_hex.d.ts",
