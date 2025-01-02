@@ -9,6 +9,10 @@
 			"types": "./dist/assert_has_parent_auto_layout.d.ts",
 			"default": "./dist/assert_has_parent_auto_layout.js"
 		},
+		"./assert_is_array_min_length_one": {
+			"types": "./dist/assert_is_array_min_length_one.d.ts",
+			"default": "./dist/assert_is_array_min_length_one.js"
+		},
 		"./assert_is_boolean": {
 			"types": "./dist/assert_is_boolean.d.ts",
 			"default": "./dist/assert_is_boolean.js"

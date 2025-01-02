@@ -7,6 +7,7 @@ export default defineConfig({
 		lib: {
 			entry: [
 				'./src/assert_has_parent_auto_layout.ts',
+				'./src/assert_is_array_min_length_one.ts',
 				'./src/assert_is_boolean.ts',
 				'./src/assert_is_from_minus_180_to_180.ts',
 				'./src/assert_is_from_one_to_thousand.ts',
