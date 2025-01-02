@@ -1,5 +1,49 @@
 # Changelog
 
+## [0.11.0](https://github.com/figx-io/figx-io/compare/core-v0.10.0...core-v0.11.0) (2025-01-02)
+
+
+### Miscellaneous Chores
+
+* rename assertions to start with assert ([c32cc88](https://github.com/figx-io/figx-io/commit/c32cc88f13feed94fa098beb49288419fd74ca76))
+
+
+### Features
+
+* create assert_is_valid_hex assertion ([aab8a8f](https://github.com/figx-io/figx-io/commit/aab8a8f70d9f75bb888d677f5d124c8224fb9b66))
+* create Hex class ([9b4cd1c](https://github.com/figx-io/figx-io/commit/9b4cd1cfce067f8d39b8c82309ef019c6f92fa86))
+* create IColor interface ([83ae592](https://github.com/figx-io/figx-io/commit/83ae59263fd394dcd8708648859f2e2719d787fe))
+* create is_boolean assertion ([d6e72c6](https://github.com/figx-io/figx-io/commit/d6e72c6c7e473e7caf8ac3c94f27933914ed0360))
+* create is_positive_integer assertion ([dcd82a0](https://github.com/figx-io/figx-io/commit/dcd82a0f040f56a5b7c3cb8ff20381d4011f8ad5))
+* create is_valid_vertical_trim assertion ([5555fbe](https://github.com/figx-io/figx-io/commit/5555fbe4078b8d872f1d1633198cef9d1ef8aa02))
+* create ISolidColor interface ([5280937](https://github.com/figx-io/figx-io/commit/52809373038e3419998354309d9854cf6aa36f19))
+* implement fill with ISolidColor and null ([87fd7de](https://github.com/figx-io/figx-io/commit/87fd7de69faac3111a5a992ab89f0cea4fb9e4e7))
+* implement max_lines & vertical_trim ([3c563ed](https://github.com/figx-io/figx-io/commit/3c563ed5e421521e1c3a03c77148ca55e8cf985e))
+* implement truncate_text ([166ee6d](https://github.com/figx-io/figx-io/commit/166ee6de469ee9f706ab5a8009576207a2a3e677))
+* rename IColor interface ([3cc2e1b](https://github.com/figx-io/figx-io/commit/3cc2e1b9b66548c73a0c773414bafa59b2cd702c))
+
+
+### Code Refactoring
+
+* move assertions to own package ([e438f3a](https://github.com/figx-io/figx-io/commit/e438f3aaa32c8d7631cc0438683af757c5a6a2d6))
+
+
+### Styles
+
+* fix import order ([331f343](https://github.com/figx-io/figx-io/commit/331f343924f975d3c02234b695402b3812649c2c))
+
+
+### Tests
+
+* add text instance to document so style is changed ([9494406](https://github.com/figx-io/figx-io/commit/9494406124fdafdd5d55039c611c7cb95b67aa0f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/assertions bumped from ^0.0.1 to ^0.1.0
+
 ## [0.10.0](https://github.com/figx-io/figx-io/compare/core-v0.9.1...core-v0.10.0) (2024-12-29)
 
 

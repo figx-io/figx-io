@@ -72,6 +72,21 @@
   * dependencies
     * @figx-io/core bumped from 0.7.4 to 0.7.5
 
+## [0.7.2](https://github.com/figx-io/figx-io/compare/ui-v0.7.1...ui-v0.7.2) (2025-01-02)
+
+
+### Miscellaneous Chores
+
+* adjust configs ([563992f](https://github.com/figx-io/figx-io/commit/563992f313d6fc752271cae8ccf5851736c51ba3))
+* adjust configs ([bf8b0fd](https://github.com/figx-io/figx-io/commit/bf8b0fd05e226165e366bcc6783d1b7bef938abe))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from 0.10.0 to 0.11.0
+
 ## [0.7.1](https://github.com/figx-io/figx-io/compare/ui-v0.7.0...ui-v0.7.1) (2024-12-29)
 
 
