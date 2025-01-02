@@ -1,4 +1,4 @@
-import type { ISolidColor } from './ISolidColor';
+import type ISolidColor from './ISolidColor';
 import { assert_is_valid_hex } from '@figx-io/assertions/assert_is_valid_hex';
 
 export default class Hex implements ISolidColor {
