@@ -55,9 +55,11 @@ describe('text', () => {
 			});
 			it('given text.fill = new Hex("#123456"), when text.fill = null, text.fill should be null', (): void => {
 				const text = new Text();
+				document.body.appendChild(text);
 				text.fill = new Hex('#123456');
 				text.fill = null;
 				expect(text.fill).toBe(null);
+				text.remove();
 			});
 		});
 		describe('font_family', () => {
