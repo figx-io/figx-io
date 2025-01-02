@@ -1,8 +1,8 @@
 export function assert_is_valid_hex(value: unknown): asserts value is string {
 	if (typeof value === 'string') {
-		if (value.match(/^#?([A-F0-9]{8}|[A-F0-9]{6}|[A-F0-9]{4}|[A-F0-9]{3})$/)) {
+		if (value.match(/^#[0-9A-F]{6}$/)) {
 			return;
 		}
 	}
-	throw new TypeError(`[${value}] is invalid, must be #RGB, #RGBA, # RRGGBB or #RRGGBBAA`);
+	throw new TypeError(`[${value}] is invalid, must be #RRGGBB`);
 }
