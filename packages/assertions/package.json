@@ -13,6 +13,10 @@
 			"types": "./dist/assert_is_boolean.d.ts",
 			"default": "./dist/assert_is_boolean.js"
 		},
+		"./assert_is_from_zero_to_hundred": {
+			"types": "./dist/assert_is_from_zero_to_hundred.d.ts",
+			"default": "./dist/assert_is_from_zero_to_hundred.js"
+		},
 		"./assert_is_from_one_to_thousand": {
 			"types": "./dist/assert_is_from_one_to_thousand.d.ts",
 			"default": "./dist/assert_is_from_one_to_thousand.js"
