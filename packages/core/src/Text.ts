@@ -1,9 +1,11 @@
+import type ISolidColor from './ISolidColor';
 import type IText from './IText';
 import { assert_is_boolean } from '@figx-io/assertions/assert_is_boolean';
 import { assert_is_from_one_to_thousand } from '@figx-io/assertions/assert_is_from_one_to_thousand';
 import { assert_is_non_negative } from '@figx-io/assertions/assert_is_non_negative';
 import { assert_is_positive_integer } from '@figx-io/assertions/assert_is_positive_integer';
 import { assert_is_string } from '@figx-io/assertions/assert_is_string';
+import { assert_is_valid_fill } from '@figx-io/assertions/assert_is_valid_fill';
 import { assert_is_valid_line_height } from '@figx-io/assertions/assert_is_valid_line_height';
 import { assert_is_valid_text_align_horizontal } from '@figx-io/assertions/assert_is_valid_text_align_horizontal';
 import { assert_is_valid_text_align_vertical } from '@figx-io/assertions/assert_is_valid_text_align_vertical';
@@ -13,6 +15,8 @@ import Component from './Component';
 export default class Text extends Component implements IText {
 	#characters: string;
 	#characters_changed: boolean;
+	#fill: ISolidColor | null;
+	#fill_changed: boolean;
 	#font_family: string;
 	#font_family_changed: boolean;
 	#font_size: number;
@@ -35,6 +39,7 @@ export default class Text extends Component implements IText {
 	public constructor() {
 		super();
 		this.style.alignItems = 'flex-start';
+		this.style.color = '';
 		this.style.display = 'inline-flex';
 		this.style.fontFamily = '';
 		this.style.fontSize = '16px';
@@ -43,6 +48,8 @@ export default class Text extends Component implements IText {
 		this.style.textAlign = 'start';
 		this.#characters = '';
 		this.#characters_changed = false;
+		this.#fill = null;
+		this.#fill_changed = false;
 		this.#font_family = '';
 		this.#font_family_changed = false;
 		this.#font_size = 16;
@@ -66,9 +73,9 @@ export default class Text extends Component implements IText {
 		// @ts-expect-error textBoxEdge is not widely supported yet
 		this.#text_content.style.textBoxEdge = '';
 
-		this.#text_content.style.background = 'linear-gradient(45deg, oklch(from #ff0000 l c h), #ff6b08, #cf23cf, #eedd44)';
+		/* this.#text_content.style.background = 'linear-gradient(45deg, oklch(from #ff0000 l c h), #ff6b08, #cf23cf, #eedd44)';
 		this.#text_content.style.webkitTextFillColor = 'transparent';
-		this.#text_content.style.webkitBackgroundClip = 'text';
+		this.#text_content.style.webkitBackgroundClip = 'text'; */
 
 		this.#truncate_text = false;
 		this.#truncate_text_changed = false;
@@ -81,6 +88,9 @@ export default class Text extends Component implements IText {
 		super.commit_properties();
 		if (this.#characters_changed) {
 			this.characters_changed();
+		}
+		if (this.#fill_changed) {
+			this.fill_changed();
 		}
 		if (this.#font_family_changed) {
 			this.font_family_changed();
@@ -112,6 +122,15 @@ export default class Text extends Component implements IText {
 	private characters_changed(): void {
 		this.#characters_changed = false;
 		this.#text_content.textContent = this.characters;
+	}
+
+	private fill_changed(): void {
+		this.#fill_changed = false;
+		if (this.#fill) {
+			this.style.color = this.#fill.toStyleString();
+			return;
+		}
+		this.style.color = '';
 	}
 
 	private font_family_changed(): void {
@@ -216,6 +235,17 @@ export default class Text extends Component implements IText {
 
 	public get characters(): string {
 		return this.#characters;
+	}
+
+	public set fill(value: ISolidColor | null) {
+		assert_is_valid_fill(value);
+		this.#fill = value;
+		this.#fill_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get fill(): ISolidColor | null {
+		return this.#fill;
 	}
 
 	public set font_family(value: string) {

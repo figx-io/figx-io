@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import Hex from './Hex';
 import Text from './Text';
 
 describe('text', () => {
@@ -29,6 +30,34 @@ describe('text', () => {
 				text.characters = 'Hello';
 				expect(text.textContent).toBe('Hello');
 				text.remove();
+			});
+		});
+		describe('fill', () => {
+			it('default fill should be null', (): void => {
+				const text = new Text();
+				expect(text.fill).toBe(null);
+			});
+			it('default style.color should be ""', (): void => {
+				const text = new Text();
+				expect(text.style.color).toBe('');
+			});
+			it('when text.fill = new Hex("#123456"), text.fill should be instance of Hex', (): void => {
+				const text = new Text();
+				text.fill = new Hex('#123456');
+				expect(text.fill).toBeInstanceOf(Hex);
+			});
+			it('when text.fill = new Hex("#123456"), text.style.color should be "rgb(18, 52, 86)"', (): void => {
+				const text = new Text();
+				text.fill = new Hex('#123456');
+				document.body.appendChild(text);
+				expect(text.style.color).toBe('rgb(18, 52, 86)');
+				text.remove();
+			});
+			it('given text.fill = new Hex("#123456"), when text.fill = null, text.fill should be null', (): void => {
+				const text = new Text();
+				text.fill = new Hex('#123456');
+				text.fill = null;
+				expect(text.fill).toBe(null);
 			});
 		});
 		describe('font_family', () => {

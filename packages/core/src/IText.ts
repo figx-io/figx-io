@@ -1,7 +1,9 @@
 import type IComponent from './IComponent';
+import type ISolidColor from './ISolidColor';
 
 export default interface IText extends IComponent {
 	characters: string;
+	fill: ISolidColor | null;
 	font_family: string;
 	font_size: number;
 	font_weight: number;
