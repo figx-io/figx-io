@@ -13,13 +13,17 @@
 			"types": "./dist/assert_is_boolean.d.ts",
 			"default": "./dist/assert_is_boolean.js"
 		},
-		"./assert_is_from_zero_to_hundred": {
-			"types": "./dist/assert_is_from_zero_to_hundred.d.ts",
-			"default": "./dist/assert_is_from_zero_to_hundred.js"
+		"./assert_is_from_minus_180_to_180": {
+			"types": "./dist/assert_is_from_minus_180_to_180.d.ts",
+			"default": "./dist/assert_is_from_minus_180_to_180.js"
 		},
 		"./assert_is_from_one_to_thousand": {
 			"types": "./dist/assert_is_from_one_to_thousand.d.ts",
 			"default": "./dist/assert_is_from_one_to_thousand.js"
+		},
+		"./assert_is_from_zero_to_hundred": {
+			"types": "./dist/assert_is_from_zero_to_hundred.d.ts",
+			"default": "./dist/assert_is_from_zero_to_hundred.js"
 		},
 		"./assert_is_from_zero_to_one": {
 			"types": "./dist/assert_is_from_zero_to_one.d.ts",

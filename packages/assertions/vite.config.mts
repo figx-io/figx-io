@@ -8,8 +8,9 @@ export default defineConfig({
 			entry: [
 				'./src/assert_has_parent_auto_layout.ts',
 				'./src/assert_is_boolean.ts',
-				'./src/assert_is_from_zero_to_hundred.ts',
+				'./src/assert_is_from_minus_180_to_180.ts',
 				'./src/assert_is_from_one_to_thousand.ts',
+				'./src/assert_is_from_zero_to_hundred.ts',
 				'./src/assert_is_from_zero_to_one.ts',
 				'./src/assert_is_html_element.ts',
 				'./src/assert_is_i_color.ts',
