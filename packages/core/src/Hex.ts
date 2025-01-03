@@ -1,6 +1,4 @@
 import type ISolidColor from './ISolidColor';
-import { assert_is_from_zero_to_hundred } from '@figx-io/assertions/assert_is_from_zero_to_hundred';
-import { assert_is_valid_hex } from '@figx-io/assertions/assert_is_valid_hex';
 
 export default class Hex implements ISolidColor {
 	#hex: `#${string}`;
@@ -19,4 +17,20 @@ export default class Hex implements ISolidColor {
 		const opacityHex = scaledValue.toString(16).padStart(2, '0').toUpperCase();
 		return `${this.#hex}${opacityHex}`;
 	}
+}
+
+function assert_is_from_zero_to_hundred(value: unknown): asserts value is number {
+	if (typeof value === 'number' && value >= 0 && value <= 100) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be from 0 to 100`);
+}
+
+function assert_is_valid_hex(value: unknown): asserts value is string {
+	if (typeof value === 'string') {
+		if (value.match(/^#[0-9A-F]{6}$/)) {
+			return;
+		}
+	}
+	throw new TypeError(`[${value}] is invalid, must be #RRGGBB`);
 }

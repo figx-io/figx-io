@@ -1,9 +1,5 @@
 import type IChild from './IChild';
 import type IComponent from './IComponent';
-import { assert_is_from_zero_to_one } from '@figx-io/assertions/assert_is_from_zero_to_one';
-import { assert_is_non_negative } from '@figx-io/assertions/assert_is_non_negative';
-import { assert_is_valid_auto_layout } from '@figx-io/assertions/assert_is_valid_auto_layout';
-import { assert_is_valid_size } from '@figx-io/assertions/assert_is_valid_size';
 
 export default class Component extends HTMLElement implements IComponent, IChild {
 	#connected: boolean;
@@ -320,7 +316,7 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 
 	public set opacity(value: number) {
-		assert_is_from_zero_to_one(value);
+		assert_is_from_0_to_1(value);
 		this.#opacity = value;
 		this.#opacity_changed = true;
 		this.invalidate_properties();
@@ -363,3 +359,34 @@ export default class Component extends HTMLElement implements IComponent, IChild
 	}
 }
 customElements.define('fx-component', Component);
+
+function assert_is_from_0_to_1(value: unknown): asserts value is number {
+	if (typeof value === 'number' && value >= 0 && value <= 1) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be from 0 to 1`);
+}
+
+function assert_is_non_negative(value: unknown): asserts value is number {
+	if (typeof value === 'number' && value >= 0) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be a non negative number`);
+}
+
+function assert_is_valid_auto_layout(value: unknown): asserts value is 'horizontal' | 'vertical' | 'wrap' {
+	if (value === 'horizontal' || value === 'vertical' || value === 'wrap') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be "horizontal", "vertical" or "wrap"`);
+}
+
+function assert_is_valid_size(value: unknown): asserts value is number | 'fill' | 'hug' {
+	if (typeof value === 'number' && value >= 0) {
+		return;
+	}
+	if (value === 'fill' || value === 'hug') {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be a non negative number, "fill" or "hug"`);
+}

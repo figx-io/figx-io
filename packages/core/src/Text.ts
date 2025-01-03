@@ -1,15 +1,5 @@
 import type ISolidColor from './ISolidColor';
 import type IText from './IText';
-import { assert_is_boolean } from '@figx-io/assertions/assert_is_boolean';
-import { assert_is_from_one_to_thousand } from '@figx-io/assertions/assert_is_from_one_to_thousand';
-import { assert_is_non_negative } from '@figx-io/assertions/assert_is_non_negative';
-import { assert_is_positive_integer } from '@figx-io/assertions/assert_is_positive_integer';
-import { assert_is_string } from '@figx-io/assertions/assert_is_string';
-import { assert_is_valid_fill } from '@figx-io/assertions/assert_is_valid_fill';
-import { assert_is_valid_line_height } from '@figx-io/assertions/assert_is_valid_line_height';
-import { assert_is_valid_text_align_horizontal } from '@figx-io/assertions/assert_is_valid_text_align_horizontal';
-import { assert_is_valid_text_align_vertical } from '@figx-io/assertions/assert_is_valid_text_align_vertical';
-import { assert_is_valid_vertical_trim } from '@figx-io/assertions/assert_is_valid_vertical_trim';
 import Component from './Component';
 
 export default class Text extends Component implements IText {
@@ -348,3 +338,83 @@ export default class Text extends Component implements IText {
 	}
 }
 customElements.define('fx-text', Text);
+
+function assert_is_boolean(value: unknown): asserts value is boolean {
+	if (typeof value === 'boolean') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be true or false`);
+}
+
+function assert_is_from_one_to_thousand(value: unknown): asserts value is number {
+	if (typeof value === 'number' && value >= 1 && value <= 1000) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be from 1 to 1000`);
+}
+
+function assert_is_non_negative(value: unknown): asserts value is number {
+	if (typeof value === 'number' && value >= 0) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be a non negative number`);
+}
+
+function assert_is_positive_integer(value: unknown): asserts value is number {
+	if (typeof value === 'number' && value >= 1 && String(value).includes('.') === false) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be a positive integer`);
+}
+
+function assert_is_string(value: unknown): asserts value is string {
+	if (typeof value === 'string') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be of type string`);
+}
+
+function assert_is_valid_fill(value: unknown): asserts value is { toStyleString: () => string } | null {
+	if (value === null) {
+		return;
+	}
+	if (typeof value === 'object') {
+		if ('toStyleString' in value) {
+			if (typeof value.toStyleString === 'function') {
+				return;
+			}
+		}
+	}
+	throw new TypeError(`[${value}] is invalid, must be null or have toStyleString(): string method`);
+}
+
+function assert_is_valid_line_height(value: unknown): asserts value is number | 'auto' {
+	if (value === 'auto') {
+		return;
+	}
+	if (typeof value === 'number' && value > 0) {
+		return;
+	}
+	throw new RangeError(`[${value}] is invalid, must be more than 0 or "auto"`);
+}
+
+function assert_is_valid_text_align_horizontal(value: unknown): asserts value is 'left' | 'center' | 'right' | 'justified' {
+	if (value === 'left' || value === 'center' || value === 'right' || value === 'justified') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be "left", "center", "right" or "justified"`);
+}
+
+function assert_is_valid_text_align_vertical(value: unknown): asserts value is 'top' | 'middle' | 'bottom' {
+	if (value === 'top' || value === 'middle' || value === 'bottom') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be "top", "middle" or "bottom"`);
+}
+
+function assert_is_valid_vertical_trim(value: unknown): asserts value is 'standard' | 'cap' {
+	if (value === 'standard' || value === 'cap') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be "standard" or "cap"`);
+}
