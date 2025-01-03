@@ -1,7 +1,6 @@
 {
 	".": "0.0.1",
 	"apps/website": "0.3.0",
-	"packages/assertions": "0.0.1",
 	"packages/core": "0.10.0",
 	"packages/ui": "0.7.1"
 }
