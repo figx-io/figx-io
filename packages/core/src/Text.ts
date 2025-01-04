@@ -233,14 +233,14 @@ export default class Text extends Component {
 		return this.#characters;
 	}
 
-	public set fill(value: Hex | LinearGradient | null) {
+	override set fill(value: Hex | LinearGradient | null) {
 		assert_is_valid_fill(value);
 		this.#fill = value;
 		this.#fill_changed = true;
 		this.invalidate_properties();
 	}
 
-	public get fill(): Hex | LinearGradient | null {
+	override get fill(): Hex | LinearGradient | null {
 		return this.#fill;
 	}
 
