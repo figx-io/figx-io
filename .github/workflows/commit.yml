@@ -102,35 +102,6 @@ jobs:
           wranglerVersion: 3.5.0
           command: pages deploy 'dist' --project-name=figx --branch=main
 
-  publish-assertions:
-    if: contains(needs.release-please.outputs.paths_released, 'packages/assertions')
-    name: Publish @figx-io/assertions to NPM
-    needs: release-please
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: 'https://registry.npmjs.org'
-          cache: npm
-          cache-dependency-path: '**/package-lock.json'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build @figx-io/assertions
-        run: npm run build:assertions
-
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN  }}
-          package: packages/assertions
-          access: public
-
   publish-core:
     if: contains(needs.release-please.outputs.paths_released, 'packages/core')
     name: Publish @figx-io/core to NPM
