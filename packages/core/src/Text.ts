@@ -72,47 +72,12 @@ export default class Text extends Component {
 		this.appendChild(this.#text_content);
 	}
 
-	protected override commit_properties(): void {
-		super.commit_properties();
-		if (this.#characters_changed) {
-			this.characters_changed();
-		}
-		if (this.#fill_changed) {
-			this.fill_changed();
-		}
-		if (this.#font_family_changed) {
-			this.font_family_changed();
-		}
-		if (this.#font_size_changed) {
-			this.font_size_changed();
-		}
-		if (this.#font_weight_changed) {
-			this.font_weight_changed();
-		}
-		if (this.#line_height_changed) {
-			this.line_height_changed();
-		}
-		if (this.#text_align_horizontal_changed) {
-			this.text_align_horizontal_changed();
-		}
-		if (this.#text_align_vertical_changed) {
-			this.text_align_vertical_changed();
-		}
-		if (this.#truncate_text_changed || this.#max_lines_changed) {
-			this.truncate_text_changed();
-			this.max_lines_changed();
-		}
-		if (this.#vertical_trim_changed) {
-			this.vertical_trim_changed();
-		}
-	}
-
-	private characters_changed(): void {
+	#commit_characters_changed(): void {
 		this.#characters_changed = false;
 		this.#text_content.textContent = this.characters;
 	}
 
-	private fill_changed(): void {
+	#commit_fill_changed(): void {
 		this.#fill_changed = false;
 		this.style.color = '';
 		if (this.fill instanceof LinearGradient) {
@@ -129,22 +94,22 @@ export default class Text extends Component {
 		}
 	}
 
-	private font_family_changed(): void {
+	#commit_font_family_changed(): void {
 		this.#font_family_changed = false;
 		this.style.fontFamily = this.font_family;
 	}
 
-	private font_size_changed(): void {
+	#commit_font_size_changed(): void {
 		this.#font_size_changed = false;
 		this.style.fontSize = `${this.font_size}px`;
 	}
 
-	private font_weight_changed(): void {
+	#commit_font_weight_changed(): void {
 		this.#font_weight_changed = false;
 		this.style.fontWeight = `${this.font_weight}`;
 	}
 
-	private line_height_changed(): void {
+	#commit_line_height_changed(): void {
 		this.#line_height_changed = false;
 		if (this.line_height === 'auto') {
 			this.style.lineHeight = '1.2';
@@ -153,12 +118,12 @@ export default class Text extends Component {
 		this.style.lineHeight = `${this.line_height}px`;
 	}
 
-	private max_lines_changed(): void {
+	#commit_max_lines_changed(): void {
 		this.#max_lines_changed = false;
 		this.#text_content.style.webkitLineClamp = this.max_lines.toString();
 	}
 
-	private text_align_horizontal_changed(): void {
+	#commit_text_align_horizontal_changed(): void {
 		this.#text_align_horizontal_changed = false;
 		if (this.text_align_horizontal === 'left') {
 			this.style.textAlign = 'start';
@@ -177,7 +142,7 @@ export default class Text extends Component {
 		}
 	}
 
-	private text_align_vertical_changed(): void {
+	#commit_text_align_vertical_changed(): void {
 		this.#text_align_vertical_changed = false;
 		if (this.text_align_vertical === 'top') {
 			this.style.alignItems = 'flex-start';
@@ -192,7 +157,7 @@ export default class Text extends Component {
 		}
 	}
 
-	private truncate_text_changed(): void {
+	#commit_truncate_text_changed(): void {
 		this.#truncate_text_changed = false;
 		if (this.#truncate_text) {
 			this.#text_content.style.overflow = 'hidden';
@@ -206,7 +171,7 @@ export default class Text extends Component {
 		}
 	}
 
-	private vertical_trim_changed(): void {
+	#commit_vertical_trim_changed(): void {
 		this.#vertical_trim_changed = false;
 		if (this.vertical_trim === 'standard') {
 			// @ts-expect-error textBoxTrim is not widely supported yet
@@ -219,6 +184,41 @@ export default class Text extends Component {
 			this.#text_content.style.textBoxTrim = 'trim-both';
 			// @ts-expect-error textBoxEdge is not widely supported yet
 			this.#text_content.style.textBoxEdge = 'cap alphabetic';
+		}
+	}
+
+	override commit_properties(): void {
+		super.commit_properties();
+		if (this.#characters_changed) {
+			this.#commit_characters_changed();
+		}
+		if (this.#fill_changed) {
+			this.#commit_fill_changed();
+		}
+		if (this.#font_family_changed) {
+			this.#commit_font_family_changed();
+		}
+		if (this.#font_size_changed) {
+			this.#commit_font_size_changed();
+		}
+		if (this.#font_weight_changed) {
+			this.#commit_font_weight_changed();
+		}
+		if (this.#line_height_changed) {
+			this.#commit_line_height_changed();
+		}
+		if (this.#text_align_horizontal_changed) {
+			this.#commit_text_align_horizontal_changed();
+		}
+		if (this.#text_align_vertical_changed) {
+			this.#commit_text_align_vertical_changed();
+		}
+		if (this.#truncate_text_changed || this.#max_lines_changed) {
+			this.#commit_truncate_text_changed();
+			this.#commit_max_lines_changed();
+		}
+		if (this.#vertical_trim_changed) {
+			this.#commit_vertical_trim_changed();
 		}
 	}
 

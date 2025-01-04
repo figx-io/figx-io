@@ -24,16 +24,6 @@ export default class Application extends Container {
 		this.auto_layout = 'vertical';
 	}
 
-	protected override commit_properties(): void {
-		super.commit_properties();
-		if (this.#fill_changed) {
-			this.#commit_fill_changed();
-		}
-		if (this.#font_family_changed) {
-			this.font_family_changed();
-		}
-	}
-
 	#commit_fill_changed(): void {
 		this.#fill_changed = false;
 		if (this.fill === null) {
@@ -43,9 +33,19 @@ export default class Application extends Container {
 		document.body.style.background = this.fill.to_style_string();
 	}
 
-	private font_family_changed(): void {
+	#commit_font_family_changed(): void {
 		this.#font_family_changed = false;
 		document.body.style.fontFamily = this.font_family;
+	}
+
+	override commit_properties(): void {
+		super.commit_properties();
+		if (this.#fill_changed) {
+			this.#commit_fill_changed();
+		}
+		if (this.#font_family_changed) {
+			this.#commit_font_family_changed();
+		}
 	}
 
 	override set fill(value: Hex | LinearGradient | null) {

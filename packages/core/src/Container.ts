@@ -36,236 +36,220 @@ export default class Container extends Component {
 		this.#padding_vertical_changed = false;
 	}
 
-	protected override commit_properties(): void {
-		super.commit_properties();
-		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed || this.#gap_vertical_changed) {
-			this.auto_layout_changed();
-			this.gap_horizontal_changed();
-			this.gap_vertical_changed();
-			this.alignment_changed();
+	#auto_layout_horizontal_alignment(): void {
+		if (this.alignment === 'top_left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
 		}
-		if (this.#padding_horizontal_changed) {
-			this.padding_horizontal_changed();
+		if (this.alignment === 'top_center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
 		}
-		if (this.#padding_vertical_changed) {
-			this.padding_vertical_changed();
+		if (this.alignment === 'top_right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = 'flex-end';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = 'flex-end';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = 'flex-end';
+			this.#update_children_parent_auto_layout();
 		}
 	}
 
-	private alignment_changed(): void {
+	#auto_layout_vertical_alignment(): void {
+		if (this.alignment === 'top_left') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'top_center') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'top_right') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = 'flex-end';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'left') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'center') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'right') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = 'flex-end';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_left') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_center') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_right') {
+			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = 'flex-end';
+			this.#update_children_parent_auto_layout();
+		}
+	}
+
+	#auto_layout_wrap_alignment(): void {
+		if (this.alignment === 'top_left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'top_center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'top_right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_left') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_center') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.#update_children_parent_auto_layout();
+			return;
+		}
+		if (this.alignment === 'bottom_right') {
+			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
+			this.style.alignItems = '';
+			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
+			this.#update_children_parent_auto_layout();
+		}
+	}
+
+	#commit_alignment_changed(): void {
 		this.#alignment_changed = false;
 		if (this.auto_layout === 'vertical') {
-			this.auto_layout_vertical_alignment();
+			this.#auto_layout_vertical_alignment();
 			return;
 		}
 		if (this.auto_layout === 'horizontal') {
-			this.auto_layout_horizontal_alignment();
+			this.#auto_layout_horizontal_alignment();
 			return;
 		}
 		if (this.auto_layout === 'wrap') {
-			this.auto_layout_wrap_alignment();
+			this.#auto_layout_wrap_alignment();
 		}
 	}
 
-	private auto_layout_changed(): void {
+	#commit_auto_layout_changed(): void {
 		this.#auto_layout_changed = false;
 		if (this.auto_layout === 'horizontal') {
 			this.style.flexDirection = 'row';
 			this.style.flexWrap = '';
-			this.update_children_parent_auto_layout();
+			this.#update_children_parent_auto_layout();
 			return;
 		}
 		if (this.auto_layout === 'vertical') {
 			this.style.flexDirection = 'column';
 			this.style.flexWrap = '';
-			this.update_children_parent_auto_layout();
+			this.#update_children_parent_auto_layout();
 			return;
 		}
 		if (this.auto_layout === 'wrap') {
 			this.style.flexDirection = 'row';
 			this.style.flexWrap = 'wrap';
-			this.update_children_parent_auto_layout();
+			this.#update_children_parent_auto_layout();
 		}
 	}
 
-	private auto_layout_horizontal_alignment(): void {
-		if (this.alignment === 'top_left') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'top_center') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'top_right') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'left') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'center') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'right') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_left') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = 'flex-end';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_center') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = 'flex-end';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_right') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = 'flex-end';
-			this.update_children_parent_auto_layout();
-		}
-	}
-
-	private auto_layout_vertical_alignment(): void {
-		if (this.alignment === 'top_left') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'top_center') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'top_right') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = 'flex-end';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'left') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'center') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'right') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = 'flex-end';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_left') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_center') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_right') {
-			this.style.justifyContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = 'flex-end';
-			this.update_children_parent_auto_layout();
-		}
-	}
-
-	private auto_layout_wrap_alignment(): void {
-		if (this.alignment === 'top_left') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'top_center') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'top_right') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-start';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'left') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'center') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'right') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'center';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_left') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-start';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_center') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'center';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
-			this.update_children_parent_auto_layout();
-			return;
-		}
-		if (this.alignment === 'bottom_right') {
-			this.style.justifyContent = this.#gap_horizontal === 'auto' ? 'space-between' : 'flex-end';
-			this.style.alignItems = '';
-			this.style.alignContent = this.#gap_vertical === 'auto' ? 'space-between' : 'flex-end';
-			this.update_children_parent_auto_layout();
-		}
-	}
-
-	private gap_horizontal_changed(): void {
+	#commit_gap_horizontal_changed(): void {
 		this.#gap_horizontal_changed = false;
 		if (this.#auto_layout === 'horizontal' || this.#auto_layout === 'wrap') {
 			if (this.#gap_horizontal === 'auto') {
@@ -283,7 +267,7 @@ export default class Container extends Component {
 		}
 	}
 
-	private gap_vertical_changed(): void {
+	#commit_gap_vertical_changed(): void {
 		this.#gap_vertical_changed = false;
 		if (this.#auto_layout === 'vertical') {
 			if (this.#gap_vertical === 'auto') {
@@ -310,19 +294,19 @@ export default class Container extends Component {
 		}
 	}
 
-	private padding_horizontal_changed(): void {
+	#commit_padding_horizontal_changed(): void {
 		this.#padding_horizontal_changed = false;
 		this.style.paddingLeft = `${this.padding_horizontal}px`;
 		this.style.paddingRight = `${this.padding_horizontal}px`;
 	}
 
-	private padding_vertical_changed(): void {
+	#commit_padding_vertical_changed(): void {
 		this.#padding_vertical_changed = false;
 		this.style.paddingTop = `${this.padding_vertical}px`;
 		this.style.paddingBottom = `${this.padding_vertical}px`;
 	}
 
-	private update_children_parent_auto_layout(): void {
+	#update_children_parent_auto_layout(): void {
 		for (const child of this.children) {
 			assert_is_component(child);
 			child.parent_auto_layout = this.auto_layout;
@@ -334,6 +318,22 @@ export default class Container extends Component {
 		assert_is_not_child(value, this);
 		value.parent_auto_layout = this.auto_layout;
 		this.appendChild(value);
+	}
+
+	override commit_properties(): void {
+		super.commit_properties();
+		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed || this.#gap_vertical_changed) {
+			this.#commit_auto_layout_changed();
+			this.#commit_gap_horizontal_changed();
+			this.#commit_gap_vertical_changed();
+			this.#commit_alignment_changed();
+		}
+		if (this.#padding_horizontal_changed) {
+			this.#commit_padding_horizontal_changed();
+		}
+		if (this.#padding_vertical_changed) {
+			this.#commit_padding_vertical_changed();
+		}
 	}
 
 	public set alignment(value: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right') {

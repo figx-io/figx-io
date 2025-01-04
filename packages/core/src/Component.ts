@@ -59,31 +59,31 @@ export default class Component extends HTMLElement {
 
 	protected commit_properties(): void {
 		if (this.#corner_radius_changed) {
-			this.corner_radius_changed();
+			this.#commit_corner_radius_changed();
 		}
 		if (this.#fill_changed) {
 			this.#commit_fill_changed();
 		}
 		if (this.#height_changed) {
-			this.height_changed();
+			this.#commit_height_changed();
 		}
 		if (this.#max_height_changed) {
-			this.max_height_changed();
+			this.#commit_max_height_changed();
 		}
 		if (this.#max_width_changed) {
-			this.max_width_changed();
+			this.#commit_max_width_changed();
 		}
 		if (this.#min_height_changed) {
-			this.min_height_changed();
+			this.#commit_min_height_changed();
 		}
 		if (this.#min_width_changed) {
-			this.min_width_changed();
+			this.#commit_min_width_changed();
 		}
 		if (this.#opacity_changed) {
-			this.opacity_changed();
+			this.#commit_opacity_changed();
 		}
 		if (this.#parent_auto_layout_changed) {
-			this.parent_auto_layout_changed();
+			this.#commit_parent_auto_layout_changed();
 		}
 		if (this.#width_changed) {
 			this.width_changed();
@@ -100,6 +100,11 @@ export default class Component extends HTMLElement {
 		}
 	}
 
+	#commit_corner_radius_changed(): void {
+		this.#corner_radius_changed = false;
+		this.style.borderRadius = `${this.corner_radius}px`;
+	}
+
 	#commit_fill_changed(): void {
 		this.#fill_changed = false;
 		if (this.fill === null) {
@@ -109,70 +114,43 @@ export default class Component extends HTMLElement {
 		this.style.background = this.fill.to_style_string();
 	}
 
-	/**
-	 * connectedCallback() is invoked immediately by the browser,
-	 * when the component is added as a child of parent component.
-	 *
-	 * connectedCallback() can be called multiple times, so we use
-	 * the connected flag to prevent invalidation being invoked too many times.
-	 */
-	private connectedCallback(): void {
-		if (!this.connected) {
-			this.connected = true;
-			this.commit_properties();
-		}
-	}
-
-	private corner_radius_changed(): void {
-		this.#corner_radius_changed = false;
-		this.style.borderRadius = `${this.corner_radius}px`;
-	}
-
-	/**
-	 * disconnectedCallback() is invoked by the browser,
-	 * when the component is removed from the parent component.
-	 */
-	private disconnectedCallback(): void {
-		this.connected = false;
-	}
-
-	private height_changed(): void {
+	#commit_height_changed(): void {
 		this.#height_changed = false;
-		this.update_height_styles();
+		this.#update_height_styles();
 	}
 
-	private max_height_changed(): void {
+	#commit_max_height_changed(): void {
 		this.#max_height_changed = false;
 		this.style.maxHeight = `${this.max_height}px`;
 	}
 
-	private max_width_changed(): void {
+	#commit_max_width_changed(): void {
 		this.#max_width_changed = false;
 		this.style.maxWidth = `${this.max_width}px`;
 	}
 
-	private min_height_changed(): void {
+	#commit_min_height_changed(): void {
 		this.#min_height_changed = false;
 		this.style.minHeight = `${this.min_height}px`;
 	}
 
-	private min_width_changed(): void {
+	#commit_min_width_changed(): void {
 		this.#min_width_changed = false;
 		this.style.minWidth = `${this.min_width}px`;
 	}
 
-	private opacity_changed(): void {
+	#commit_opacity_changed(): void {
 		this.#opacity_changed = false;
 		this.style.opacity = `${this.opacity}`;
 	}
 
-	private parent_auto_layout_changed(): void {
+	#commit_parent_auto_layout_changed(): void {
 		this.#parent_auto_layout_changed = false;
 		this.width_changed();
-		this.height_changed();
+		this.#commit_height_changed();
 	}
 
-	private update_height_styles(): void {
+	#update_height_styles(): void {
 		if (this.height === 'fill') {
 			if (this.parent_auto_layout === 'horizontal' || this.parent_auto_layout === 'wrap') {
 				this.style.height = '';
@@ -207,7 +185,7 @@ export default class Component extends HTMLElement {
 		}
 	}
 
-	private update_width_styles(): void {
+	#update_width_styles(): void {
 		if (this.width === 'fill') {
 			if (this.parent_auto_layout === 'horizontal' || this.parent_auto_layout === 'wrap') {
 				this.style.width = '';
@@ -243,9 +221,31 @@ export default class Component extends HTMLElement {
 		}
 	}
 
+	/**
+	 * connectedCallback() is invoked immediately by the browser,
+	 * when the component is added as a child of parent component.
+	 *
+	 * connectedCallback() can be called multiple times, so we use
+	 * the connected flag to prevent invalidation being invoked too many times.
+	 */
+	private connectedCallback(): void {
+		if (!this.connected) {
+			this.connected = true;
+			this.commit_properties();
+		}
+	}
+
+	/**
+	 * disconnectedCallback() is invoked by the browser,
+	 * when the component is removed from the parent component.
+	 */
+	private disconnectedCallback(): void {
+		this.connected = false;
+	}
+
 	private width_changed(): void {
 		this.#width_changed = false;
-		this.update_width_styles();
+		this.#update_width_styles();
 	}
 
 	private set connected(value: boolean) {
