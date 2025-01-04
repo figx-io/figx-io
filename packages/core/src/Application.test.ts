@@ -102,8 +102,9 @@ describe('application', () => {
 				document.body.appendChild(application);
 				application.fill = null;
 				expect(document.body.style.background).toBe('');
+				application.remove();
 			});
-			it('when fill = new Hex("#123456"), body.style.background should be ""', () => {
+			it('when fill = new Hex("#123456"), body.style.background should be "rgb(18, 52, 86)"', () => {
 				const application = new Application();
 				document.body.appendChild(application);
 				application.fill = new Hex('#123456');
