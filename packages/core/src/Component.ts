@@ -86,7 +86,7 @@ export default class Component extends HTMLElement {
 			this.#commit_parent_auto_layout_changed();
 		}
 		if (this.#width_changed) {
-			this.width_changed();
+			this.#commit_width_changed();
 		}
 	}
 
@@ -146,8 +146,13 @@ export default class Component extends HTMLElement {
 
 	#commit_parent_auto_layout_changed(): void {
 		this.#parent_auto_layout_changed = false;
-		this.width_changed();
+		this.#commit_width_changed();
 		this.#commit_height_changed();
+	}
+
+	#commit_width_changed(): void {
+		this.#width_changed = false;
+		this.#update_width_styles();
 	}
 
 	#update_height_styles(): void {
@@ -241,11 +246,6 @@ export default class Component extends HTMLElement {
 	 */
 	private disconnectedCallback(): void {
 		this.connected = false;
-	}
-
-	private width_changed(): void {
-		this.#width_changed = false;
-		this.#update_width_styles();
 	}
 
 	private set connected(value: boolean) {
