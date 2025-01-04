@@ -1,10 +1,11 @@
 import Component from './Component';
 import Hex from './Hex';
+import LinearGradient from './LinearGradient';
 
 export default class Text extends Component {
 	#characters: string;
 	#characters_changed: boolean;
-	#fill: Hex | null;
+	#fill: Hex | LinearGradient | null;
 	#fill_changed: boolean;
 	#font_family: string;
 	#font_family_changed: boolean;
@@ -54,18 +55,16 @@ export default class Text extends Component {
 		this.#text_align_vertical = 'top';
 		this.#text_align_vertical_changed = false;
 		this.#text_content = new Component();
+		this.#text_content.style.background = '';
 		this.#text_content.style.display = 'inline-block';
 		this.#text_content.style.overflow = 'visible';
-		this.#text_content.style.webkitLineClamp = '1';
 		// @ts-expect-error textBoxTrim is not widely supported yet
 		this.#text_content.style.textBoxTrim = '';
 		// @ts-expect-error textBoxEdge is not widely supported yet
 		this.#text_content.style.textBoxEdge = '';
-
-		/* this.#text_content.style.background = 'linear-gradient(45deg, oklch(from #ff0000 l c h), #ff6b08, #cf23cf, #eedd44)';
-		this.#text_content.style.webkitTextFillColor = 'transparent';
-		this.#text_content.style.webkitBackgroundClip = 'text'; */
-
+		this.#text_content.style.webkitBackgroundClip = '';
+		this.#text_content.style.webkitLineClamp = '1';
+		this.#text_content.style.webkitTextFillColor = '';
 		this.#truncate_text = false;
 		this.#truncate_text_changed = false;
 		this.#vertical_trim = 'standard';
@@ -115,11 +114,19 @@ export default class Text extends Component {
 
 	private fill_changed(): void {
 		this.#fill_changed = false;
-		if (this.#fill) {
-			this.style.color = this.#fill.to_style_string();
+		this.style.color = '';
+		if (this.fill instanceof LinearGradient) {
+			this.#text_content.style.background = this.fill.to_style_string();
+			this.#text_content.style.webkitTextFillColor = 'transparent';
+			this.#text_content.style.webkitBackgroundClip = 'text';
 			return;
 		}
-		this.style.color = '';
+		this.#text_content.style.background = '';
+		this.#text_content.style.webkitTextFillColor = '';
+		this.#text_content.style.webkitBackgroundClip = '';
+		if (this.fill instanceof Hex) {
+			this.style.color = this.fill.to_style_string();
+		}
 	}
 
 	private font_family_changed(): void {
@@ -226,14 +233,14 @@ export default class Text extends Component {
 		return this.#characters;
 	}
 
-	public set fill(value: Hex | null) {
+	public set fill(value: Hex | LinearGradient | null) {
 		assert_is_valid_fill(value);
 		this.#fill = value;
 		this.#fill_changed = true;
 		this.invalidate_properties();
 	}
 
-	public get fill(): Hex | null {
+	public get fill(): Hex | LinearGradient | null {
 		return this.#fill;
 	}
 
@@ -374,7 +381,7 @@ function assert_is_string(value: unknown): asserts value is string {
 }
 
 function assert_is_valid_fill(value: unknown): asserts value is Hex | null {
-	if (value === null || value instanceof Hex) {
+	if (value instanceof Hex || value instanceof LinearGradient || value === null) {
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be null or an instance of Hex`);

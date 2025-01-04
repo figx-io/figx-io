@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import Hex from './Hex';
+import LinearGradient from './LinearGradient';
+import StopColor from './StopColor';
 import Text from './Text';
 
 describe('text', () => {
@@ -81,6 +83,15 @@ describe('text', () => {
 					// @ts-expect-error we are testing invalid value
 					text.fill = 'Hello';
 				}).toThrow(TypeError);
+			});
+			describe('when fill = new LinearGradient([new StopColor(new Hex("#123456"))], 0)', () => {
+				it('fill should be instance of LinearGradient', () => {
+					const text = new Text();
+					document.body.appendChild(text);
+					text.fill = new LinearGradient([new StopColor(new Hex('#123456'), 0)]);
+					expect(text.fill).toBeInstanceOf(LinearGradient);
+					text.remove();
+				});
 			});
 		});
 		describe('font_family', () => {
