@@ -103,6 +103,13 @@
   * dependencies
     * @figx-io/ui bumped from ^0.6.0 to ^0.7.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from ^0.10.0 to ^0.11.0
+    * @figx-io/ui bumped from ^0.7.1 to ^0.7.2
+
 ## [0.3.0](https://github.com/figx-io/figx-io/compare/website-v0.2.5...website-v0.3.0) (2024-12-29)
 
 
