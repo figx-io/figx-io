@@ -1,7 +1,6 @@
-import type IButton from './IButton';
 import Container from '@figx-io/core/Container';
 
-export default class Button extends Container implements IButton {
+export default class Button extends Container {
 	public constructor() {
 		super();
 	}

@@ -6,9 +6,6 @@
 	"author": "Martin Rossil",
 	"license": "MIT",
 	"exports": {
-		"./IButton": {
-			"types": "./dist/IButton.d.ts"
-		},
 		"./Button": {
 			"types": "./dist/Button.d.ts",
 			"default": "./dist/Button.js"
