@@ -34,7 +34,7 @@ describe('linear-gradient', () => {
 			expect(linear_gradient.to_style_string()).toBe('linear-gradient(0deg, #123456FF 0%, #654321FF 100%)');
 		});
 	});
-	describe('when new LinearGradient([new StopColor(new Hex("#123456")), new StopColor(new Hex("#654321"))], -180)', () => {
+	describe('when new LinearGradient([new StopColor(new Hex("#123456"), 0), new StopColor(new Hex("#654321"), 100)], -180)', () => {
 		it('to_style_string() should return "linear-gradient(0deg, #123456FF, #654321FF)"', () => {
 			const linear_gradient = new LinearGradient([
 				new StopColor(new Hex('#123456'), 0),
