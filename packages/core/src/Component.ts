@@ -1,7 +1,4 @@
-import type IChild from './IChild';
-import type IComponent from './IComponent';
-
-export default class Component extends HTMLElement implements IComponent, IChild {
+export default class Component extends HTMLElement {
 	#connected: boolean;
 	#corner_radius: number;
 	#corner_radius_changed: boolean;

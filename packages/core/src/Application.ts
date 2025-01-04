@@ -1,7 +1,6 @@
-import type IApplication from './IApplication';
 import Container from './Container';
 
-export default class Application extends Container implements IApplication {
+export default class Application extends Container {
 	public constructor() {
 		super();
 		document.body.style.margin = '0px';

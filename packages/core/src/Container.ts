@@ -1,8 +1,6 @@
-import type IComponent from './IComponent';
-import type IContainer from './IContainer';
 import Component from './Component';
 
-export default class Container extends Component implements IContainer {
+export default class Container extends Component {
 	#alignment: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right';
 	#alignment_changed: boolean;
 	#auto_layout: 'horizontal' | 'vertical' | 'wrap';
@@ -331,7 +329,7 @@ export default class Container extends Component implements IContainer {
 		}
 	}
 
-	public add_component(value: IComponent): void {
+	public add_component(value: Component): void {
 		assert_is_component(value);
 		assert_is_not_child(value, this);
 		value.parent_auto_layout = this.auto_layout;

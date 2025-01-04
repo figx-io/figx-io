@@ -1,11 +1,10 @@
-import type ISolidColor from './ISolidColor';
-import type IText from './IText';
 import Component from './Component';
+import Hex from './Hex';
 
-export default class Text extends Component implements IText {
+export default class Text extends Component {
 	#characters: string;
 	#characters_changed: boolean;
-	#fill: ISolidColor | null;
+	#fill: Hex | null;
 	#fill_changed: boolean;
 	#font_family: string;
 	#font_family_changed: boolean;
@@ -117,7 +116,7 @@ export default class Text extends Component implements IText {
 	private fill_changed(): void {
 		this.#fill_changed = false;
 		if (this.#fill) {
-			this.style.color = this.#fill.toStyleString();
+			this.style.color = this.#fill.to_style_string();
 			return;
 		}
 		this.style.color = '';
@@ -227,14 +226,14 @@ export default class Text extends Component implements IText {
 		return this.#characters;
 	}
 
-	public set fill(value: ISolidColor | null) {
+	public set fill(value: Hex | null) {
 		assert_is_valid_fill(value);
 		this.#fill = value;
 		this.#fill_changed = true;
 		this.invalidate_properties();
 	}
 
-	public get fill(): ISolidColor | null {
+	public get fill(): Hex | null {
 		return this.#fill;
 	}
 
@@ -374,18 +373,11 @@ function assert_is_string(value: unknown): asserts value is string {
 	throw new TypeError(`[${value}] is invalid, must be of type string`);
 }
 
-function assert_is_valid_fill(value: unknown): asserts value is { toStyleString: () => string } | null {
-	if (value === null) {
+function assert_is_valid_fill(value: unknown): asserts value is Hex | null {
+	if (value === null || value instanceof Hex) {
 		return;
 	}
-	if (typeof value === 'object') {
-		if ('toStyleString' in value) {
-			if (typeof value.toStyleString === 'function') {
-				return;
-			}
-		}
-	}
-	throw new TypeError(`[${value}] is invalid, must be null or have toStyleString(): string method`);
+	throw new TypeError(`[${value}] is invalid, must be null or an instance of Hex`);
 }
 
 function assert_is_valid_line_height(value: unknown): asserts value is number | 'auto' {
