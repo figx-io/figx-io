@@ -10,6 +10,8 @@ export default defineConfig({
 				'./src/Component.ts',
 				'./src/Container.ts',
 				'./src/Hex.ts',
+				'./src/LinearGradient.ts',
+				'./src/StopColor.ts',
 				'./src/Text.ts',
 			],
 			formats: ['es'],

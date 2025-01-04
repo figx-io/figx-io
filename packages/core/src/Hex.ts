@@ -1,6 +1,4 @@
-import type ISolidColor from './ISolidColor';
-
-export default class Hex implements ISolidColor {
+export default class Hex {
 	#hex: `#${string}`;
 	#opacity: number;
 	public constructor(hex: `#${string}`, opacity = 100) {
@@ -10,7 +8,7 @@ export default class Hex implements ISolidColor {
 		this.#opacity = opacity;
 	}
 
-	public toStyleString(): string {
+	public to_style_string(): string {
 		// Scale the value to a range of 0 to 255 (hex "00" to "FF")
 		const scaledValue = Math.round((this.#opacity / 100) * 255);
 		// Convert to a two-digit hexadecimal string

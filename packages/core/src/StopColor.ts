@@ -1,30 +1,25 @@
-import type ISolidColor from './ISolidColor';
-import type IStopColor from './IStopColor';
+import Hex from './Hex';
 
-export default class StopColor implements IStopColor {
-	#color: ISolidColor;
-	#percent: number;
-	public constructor(color: ISolidColor, percent: number) {
-		assert_is_i_color(color);
-		assert_is_from_zero_to_hundred(percent);
+export default class StopColor {
+	#color: Hex;
+	#offset: number;
+	public constructor(color: Hex, offset: number) {
+		assert_is_color(color);
+		assert_is_from_zero_to_hundred(offset);
 		this.#color = color;
-		this.#percent = percent;
+		this.#offset = offset;
 	}
 
-	public toStyleString(): string {
-		return '';
+	public to_style_string(): string {
+		return `${this.#color.to_style_string()} ${this.#offset}%`;
 	}
 }
 
-function assert_is_i_color(value: unknown): asserts value is { toStyleString: () => string } {
-	if (value && typeof value === 'object') {
-		if ('toStyleString' in value) {
-			if (typeof value.toStyleString === 'function') {
-				return;
-			}
-		}
+function assert_is_color(value: unknown): asserts value is Hex {
+	if (value instanceof Hex) {
+		return;
 	}
-	throw new TypeError(`[${value}] is invalid, must have toStyleString(): string method`);
+	throw new TypeError(`[${value}] is invalid, must be instance of Hex`);
 }
 
 function assert_is_from_zero_to_hundred(value: unknown): asserts value is number {

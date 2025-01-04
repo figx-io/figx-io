@@ -18,25 +18,21 @@
 			"types": "./dist/Container.d.ts",
 			"default": "./dist/Container.js"
 		},
-		"./IComponent": {
-			"types": "./dist/IComponent.d.ts"
+		"./Hex": {
+			"types": "./dist/Hex.d.ts",
+			"default": "./dist/Hex.js"
 		},
-		"./IContainer": {
-			"types": "./dist/IContainer.d.ts"
+		"./LinearGradient": {
+			"types": "./dist/LinearGradient.d.ts",
+			"default": "./dist/LinearGradient.js"
 		},
-		"./ISolidColor": {
-			"types": "./dist/ISolidColor.d.ts"
-		},
-		"./IText": {
-			"types": "./dist/IText.d.ts"
+		"./StopColor": {
+			"types": "./dist/StopColor.d.ts",
+			"default": "./dist/StopColor.js"
 		},
 		"./Text": {
 			"types": "./dist/Text.d.ts",
 			"default": "./dist/Text.js"
-		},
-		"./Hex": {
-			"types": "./dist/Hex.d.ts",
-			"default": "./dist/Hex.js"
 		}
 	},
 	"scripts": {
