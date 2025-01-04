@@ -1,7 +1,12 @@
+import Hex from './Hex';
+import LinearGradient from './LinearGradient';
+
 export default class Component extends HTMLElement {
 	#connected: boolean;
 	#corner_radius: number;
 	#corner_radius_changed: boolean;
+	#fill: Hex | LinearGradient | null;
+	#fill_changed: boolean;
 	#height: number | 'fill' | 'hug';
 	#height_changed: boolean;
 	#max_height: number;
@@ -20,6 +25,7 @@ export default class Component extends HTMLElement {
 	#width_changed: boolean;
 	public constructor() {
 		super();
+		this.style.background = '';
 		this.style.boxSizing = 'border-box';
 		this.style.borderRadius = '';
 		this.style.display = 'inline-block';
@@ -31,6 +37,8 @@ export default class Component extends HTMLElement {
 		this.#connected = false;
 		this.#corner_radius = 0;
 		this.#corner_radius_changed = false;
+		this.#fill = null;
+		this.#fill_changed = false;
 		this.#height = 'hug';
 		this.#height_changed = false;
 		this.#max_height = Infinity;
@@ -53,8 +61,11 @@ export default class Component extends HTMLElement {
 		if (this.#corner_radius_changed) {
 			this.corner_radius_changed();
 		}
-		if (this.#parent_auto_layout_changed) {
-			this.parent_auto_layout_changed();
+		if (this.#fill_changed) {
+			this.#commit_fill_changed();
+		}
+		if (this.#height_changed) {
+			this.height_changed();
 		}
 		if (this.#max_height_changed) {
 			this.max_height_changed();
@@ -62,20 +73,20 @@ export default class Component extends HTMLElement {
 		if (this.#max_width_changed) {
 			this.max_width_changed();
 		}
-		if (this.#min_width_changed) {
-			this.min_width_changed();
-		}
-		if (this.#width_changed) {
-			this.width_changed();
-		}
 		if (this.#min_height_changed) {
 			this.min_height_changed();
 		}
-		if (this.#height_changed) {
-			this.height_changed();
+		if (this.#min_width_changed) {
+			this.min_width_changed();
 		}
 		if (this.#opacity_changed) {
 			this.opacity_changed();
+		}
+		if (this.#parent_auto_layout_changed) {
+			this.parent_auto_layout_changed();
+		}
+		if (this.#width_changed) {
+			this.width_changed();
 		}
 	}
 
@@ -87,6 +98,15 @@ export default class Component extends HTMLElement {
 		if (this.connected) {
 			this.commit_properties();
 		}
+	}
+
+	#commit_fill_changed(): void {
+		this.#fill_changed = false;
+		if (this.fill === null) {
+			this.style.background = '';
+			return;
+		}
+		this.style.background = this.fill.to_style_string();
 	}
 
 	/**
@@ -247,6 +267,17 @@ export default class Component extends HTMLElement {
 		return this.#corner_radius;
 	}
 
+	public set fill(value: Hex | LinearGradient | null) {
+		assert_is_valid_fill(value);
+		this.#fill = value;
+		this.#fill_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get fill(): Hex | LinearGradient | null {
+		return this.#fill;
+	}
+
 	/**
 	 * height should be a number, "fill" or "hug".
 	 *
@@ -386,4 +417,11 @@ function assert_is_valid_size(value: unknown): asserts value is number | 'fill' 
 		return;
 	}
 	throw new RangeError(`[${value}] is invalid, must be a non negative number, "fill" or "hug"`);
+}
+
+function assert_is_valid_fill(value: unknown): asserts value is Hex | LinearGradient | null {
+	if (value instanceof Hex || value instanceof LinearGradient || value === null) {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be instance of Hex / LinearGradient or null`);
 }

@@ -27,14 +27,14 @@ export default class Application extends Container {
 	protected override commit_properties(): void {
 		super.commit_properties();
 		if (this.#fill_changed) {
-			this.fill_changed();
+			this.#commit_fill_changed();
 		}
 		if (this.#font_family_changed) {
 			this.font_family_changed();
 		}
 	}
 
-	private fill_changed(): void {
+	#commit_fill_changed(): void {
 		this.#fill_changed = false;
 		if (this.fill === null) {
 			document.body.style.background = '';
@@ -48,14 +48,14 @@ export default class Application extends Container {
 		document.body.style.fontFamily = this.font_family;
 	}
 
-	public set fill(value: Hex | LinearGradient | null) {
+	public override set fill(value: Hex | LinearGradient | null) {
 		assert_is_valid_fill(value);
 		this.#fill = value;
 		this.#fill_changed = true;
 		this.invalidate_properties();
 	}
 
-	public get fill(): Hex | LinearGradient | null {
+	public override get fill(): Hex | LinearGradient | null {
 		return this.#fill;
 	}
 
