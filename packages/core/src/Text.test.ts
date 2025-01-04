@@ -31,6 +31,13 @@ describe('text', () => {
 				expect(text.textContent).toBe('Hello');
 				text.remove();
 			});
+			it('when haracters = null, it should throw a TypeError', () => {
+				expect(() => {
+					const text = new Text();
+					// @ts-expect-error we are testing invalid value
+					text.characters = null;
+				}).toThrow(TypeError);
+			});
 		});
 		describe('fill', () => {
 			it('default fill should be null', (): void => {
@@ -68,6 +75,13 @@ describe('text', () => {
 				expect(text.fill).toBe(null);
 				text.remove();
 			});
+			it('when text.fill = "Hello", it should throw a TypeError', () => {
+				expect(() => {
+					const text = new Text();
+					// @ts-expect-error we are testing invalid value
+					text.fill = 'Hello';
+				}).toThrow(TypeError);
+			});
 		});
 		describe('font_family', () => {
 			it('default style.fontFamily should be ""', (): void => {
@@ -94,6 +108,13 @@ describe('text', () => {
 				expect(text.style.fontFamily).toBe('Inter');
 				text.remove();
 			});
+			it('when text.font_family = null, it should throw a TypeError', () => {
+				expect(() => {
+					const text = new Text();
+					// @ts-expect-error we are testing invalid value
+					text.font_family = null;
+				}).toThrow(TypeError);
+			});
 		});
 		describe('font_weight', () => {
 			it('default style.fontWeight should be "400"', (): void => {
@@ -116,6 +137,12 @@ describe('text', () => {
 				expect(text.style.fontWeight).toBe('600');
 				text.remove();
 			});
+			it('when font_weight = 0, it should throw a RangeError', () => {
+				expect(() => {
+					const text = new Text();
+					text.font_weight = 0;
+				}).toThrow(RangeError);
+			});
 		});
 		describe('font_size', () => {
 			it('default style.fontSize should be "16px"', (): void => {
@@ -137,6 +164,12 @@ describe('text', () => {
 				text.font_size = 32;
 				expect(text.style.fontSize).toBe('32px');
 				text.remove();
+			});
+			it('when font_size = -1, it should throw a RangeError', () => {
+				expect(() => {
+					const text = new Text();
+					text.font_size = -1;
+				}).toThrow(RangeError);
 			});
 		});
 		describe('line_height', () => {
@@ -173,6 +206,13 @@ describe('text', () => {
 				document.body.appendChild(text);
 				expect(text.style.lineHeight).toBe('1.2');
 				text.remove();
+			});
+			it('when line_height = "Hello", it should throw a RangeError', () => {
+				expect(() => {
+					const text = new Text();
+					// @ts-expect-error we are testing invalid value
+					text.line_height = 'Hello';
+				}).toThrow(RangeError);
 			});
 		});
 		describe('text_align_vertical', () => {
@@ -215,6 +255,13 @@ describe('text', () => {
 				document.body.appendChild(text);
 				expect(text.style.alignItems).toBe('flex-end');
 				text.remove();
+			});
+			it('when text_align_vertical = "Hello", it should throw a TypeError', () => {
+				expect(() => {
+					const text = new Text();
+					// @ts-expect-error we are testing invalid value
+					text.text_align_vertical = 'Hello';
+				}).toThrow(TypeError);
 			});
 		});
 		describe('text_align_horizontal', () => {
@@ -275,6 +322,13 @@ describe('text', () => {
 				document.body.appendChild(text);
 				expect(text.style.textAlign).toBe('justify');
 				text.remove();
+			});
+			it('when text_align_horizontal = "Hello", it should throw a TypeError', () => {
+				expect(() => {
+					const text = new Text();
+					// @ts-expect-error we are testing invalid value
+					text.text_align_horizontal = 'Hello';
+				}).toThrow(TypeError);
 			});
 		});
 		describe('truncate_text', () => {
@@ -391,6 +445,13 @@ describe('text', () => {
 					text.remove();
 				});
 			});
+			it('when truncate_text = "Hello", it should throw a TypeError', () => {
+				expect(() => {
+					const text = new Text();
+					// @ts-expect-error we are testing invalid value
+					text.truncate_text = 'Hello';
+				}).toThrow(TypeError);
+			});
 		});
 		describe('max_lines', () => {
 			it('default max_lines should be 1', (): void => {
@@ -418,6 +479,12 @@ describe('text', () => {
 					expect(text_content.style.webkitLineClamp).toBe('2');
 				}
 				text.remove();
+			});
+			it('when max_lines = 0, it should throw a RangeError', () => {
+				expect(() => {
+					const text = new Text();
+					text.max_lines = 0;
+				}).toThrow(RangeError);
 			});
 		});
 		describe('vertical_trim', () => {
@@ -496,6 +563,13 @@ describe('text', () => {
 					expect(text_content.style.textBoxEdge).toBe('');
 				}
 				text.remove();
+			});
+			it('when vertical_trim = "Hello", it should throw a TypeError', () => {
+				expect(() => {
+					const text = new Text();
+					// @ts-expect-error we are testing invalid value
+					text.vertical_trim = 'Hello';
+				}).toThrow(TypeError);
 			});
 		});
 	});

@@ -1,4 +1,3 @@
-import type IComponent from './IComponent';
 import { describe, expect, it } from 'vitest';
 import Container from './Container';
 
@@ -77,6 +76,18 @@ describe('container', () => {
 				expect(container.style.paddingBottom).toBe('32px');
 				container.remove();
 			});
+			it('when padding_horizontal = -1 it should throw a RangeError', () => {
+				expect(() => {
+					const container = new Container();
+					container.padding_horizontal = -1;
+				}).toThrow(RangeError);
+			});
+			it('when padding_vertical = -1 it should throw a RangeError', () => {
+				expect(() => {
+					const container = new Container();
+					container.padding_vertical = -1;
+				}).toThrow(RangeError);
+			});
 		});
 		describe('auto_layout', () => {
 			it('default auto_layout should be "horizontal"', (): void => {
@@ -129,6 +140,13 @@ describe('container', () => {
 				expect(container.style.flexDirection).toBe('row');
 				expect(container.style.flexWrap).toBe('wrap');
 				container.remove();
+			});
+			it('when auto_layout = "Hello" it should throw a TypeError', () => {
+				expect(() => {
+					const container = new Container();
+					// @ts-expect-error we are testing invalid value
+					container.auto_layout = 'Hello';
+				}).toThrow(TypeError);
 			});
 		});
 		describe('alignment', () => {
@@ -193,6 +211,13 @@ describe('container', () => {
 				container.alignment = 'bottom_right';
 				expect(container.alignment).toBe('bottom_right');
 				container.remove();
+			});
+			it('when alignment = "Hello" it should throw a TypeError', () => {
+				expect(() => {
+					const container = new Container();
+					// @ts-expect-error we are testing invalid value
+					container.alignment = 'Hello';
+				}).toThrow(TypeError);
 			});
 			describe('alignment styles', () => {
 				describe('given auto_layout = "horizontal"', () => {
@@ -853,6 +878,12 @@ describe('container', () => {
 					container.remove();
 				});
 			});
+			it('when gap_vertical = -1 it should throw a TypeError', () => {
+				expect(() => {
+					const container = new Container();
+					container.gap_vertical = -1;
+				}).toThrow(TypeError);
+			});
 		});
 		describe('gap_horizontal', () => {
 			it('default gap_horizontal should be 0', () => {
@@ -902,6 +933,12 @@ describe('container', () => {
 					container.remove();
 				});
 			});
+			it('when gap_horizontal = -1 it should throw a TypeError', () => {
+				expect(() => {
+					const container = new Container();
+					container.gap_horizontal = -1;
+				}).toThrow(TypeError);
+			});
 		});
 	});
 	describe('methods', () => {
@@ -911,11 +948,12 @@ describe('container', () => {
 				document.body.appendChild(container);
 				expect(() => {
 					const div = document.createElement('div');
-					container.add_component(div as unknown as IComponent);
+					// @ts-expect-error we are testing invalid value
+					container.add_component(div);
 				}).toThrowError(TypeError);
 				container.remove();
 			});
-			it('when a container as added, it should contain this container', () => {
+			it('when a container is added, it should contain this container', () => {
 				const parent = new Container();
 				const child = new Container();
 				document.body.appendChild(parent);
@@ -923,6 +961,14 @@ describe('container', () => {
 				expect(parent.contains(child)).toBe(true);
 				child.remove();
 				parent.remove();
+			});
+			it('when an existing child is added, it should throw a TypeError', () => {
+				expect(() => {
+					const parent = new Container();
+					const child = new Container();
+					parent.add_component(child);
+					parent.add_component(child);
+				}).toThrow(TypeError);
 			});
 		});
 	});

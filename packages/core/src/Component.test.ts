@@ -216,11 +216,18 @@ describe('component', () => {
 			});
 		});
 		describe('parent_auto_layout', () => {
-			it('default_auto_layout should be "horizontal"', () => {
+			it('default parent_auto_layout should be "horizontal"', () => {
 				const component = new Component();
 				document.body.appendChild(component);
 				expect(component.parent_auto_layout).toBe('horizontal');
 				component.remove();
+			});
+			it('when parent_auto_layout = "Hello" it should throw a TypeError', () => {
+				expect(() => {
+					const component = new Component();
+					// @ts-expect-error we are testing invalid value
+					component.parent_auto_layout = 'Hello';
+				}).toThrow(TypeError);
 			});
 			describe('given parent auto_layout is "horizontal"', () => {
 				describe('when parent auto_layout = "vertical"', () => {
@@ -254,6 +261,12 @@ describe('component', () => {
 				document.body.appendChild(component);
 				expect(component.style.opacity).toBe('0.5');
 				component.remove();
+			});
+			it('when opacity = -1 it should throw a RangeError', () => {
+				expect(() => {
+					const component = new Component();
+					component.opacity = -1;
+				}).toThrow(RangeError);
 			});
 		});
 		describe('corner_radius', () => {

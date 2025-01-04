@@ -2,13 +2,13 @@ import { describe, expect, it } from 'vitest';
 import Hex from './Hex';
 
 describe('assert_is_valid_hex', () => {
-	it('when new Hex("#123456"), toStyleString() should return "#123456"', () => {
+	it('when new Hex("#123456"), to_style_string() should return "#123456"', () => {
 		const hex = new Hex('#123456');
-		expect(hex.toStyleString()).toBe('#123456FF');
+		expect(hex.to_style_string()).toBe('#123456FF');
 	});
-	it('when new Hex("#123456", 50), toStyleString() should return "#12345680"', () => {
+	it('when new Hex("#123456", 50), to_style_string() should return "#12345680"', () => {
 		const hex = new Hex('#123456', 50);
-		expect(hex.toStyleString()).toBe('#12345680');
+		expect(hex.to_style_string()).toBe('#12345680');
 	});
 	it('when new Hex("#12345"), it should throw a TypeError', () => {
 		expect(() => {
