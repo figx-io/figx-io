@@ -2,9 +2,6 @@ import { describe, expect, it } from 'vitest';
 import Application from './Application';
 import Component from './Component';
 import Container from './Container';
-import Hex from './Hex';
-import LinearGradient from './LinearGradient';
-import StopColor from './StopColor';
 
 describe('component', () => {
 	describe('default style properties', () => {
@@ -288,48 +285,6 @@ describe('component', () => {
 				document.body.appendChild(component);
 				expect(component.style.borderRadius).toBe('16px');
 				component.remove();
-			});
-		});
-		describe('fill', () => {
-			it('default style.background should be ""', () => {
-				const component = new Component();
-				expect(component.style.background).toBe('');
-			});
-			it('default fill should be null', () => {
-				const component = new Component();
-				expect(component.fill).toBe(null);
-			});
-			it('when fill = new Hex("#123456"), fill should be instance of Hex', () => {
-				const component = new Component();
-				component.fill = new Hex('#123456');
-				expect(component.fill).toBeInstanceOf(Hex);
-			});
-			it('when fill = null, style.background should be ""', () => {
-				const component = new Component();
-				document.body.appendChild(component);
-				component.fill = null;
-				expect(document.body.style.background).toBe('');
-			});
-			it('when fill = new Hex("#123456"), style.background should be "rgb(18, 52, 86)"', () => {
-				const component = new Component();
-				document.body.appendChild(component);
-				component.fill = new Hex('#123456');
-				expect(component.style.background).toBe('rgb(18, 52, 86)');
-				component.remove();
-			});
-			describe('when fill = new LinearGradient([new StopColor(new Hex("#123456"))], 0)', () => {
-				it('fill should be instance of LinearGradient', () => {
-					const component = new Component();
-					component.fill = new LinearGradient([new StopColor(new Hex('#123456'), 0)]);
-					expect(component.fill).toBeInstanceOf(LinearGradient);
-				});
-			});
-			it('when fill = "Hello", it should throw a TypeError', () => {
-				expect(() => {
-					const component = new Component();
-					// @ts-expect-error we are testing invalid value
-					component.fill = 'Hello';
-				}).toThrow(TypeError);
 			});
 		});
 	});

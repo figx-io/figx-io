@@ -1,10 +1,14 @@
 import Component from './Component';
+import Hex from './Hex';
+import LinearGradient from './LinearGradient';
 
 export default class Container extends Component {
 	#alignment: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right';
 	#alignment_changed: boolean;
 	#auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	#auto_layout_changed: boolean;
+	#fill: Hex | LinearGradient | null;
+	#fill_changed: boolean;
 	#gap_horizontal: number | 'auto';
 	#gap_horizontal_changed: boolean;
 	#gap_vertical: number | 'auto';
@@ -26,6 +30,8 @@ export default class Container extends Component {
 		this.#alignment_changed = false;
 		this.#auto_layout = 'horizontal';
 		this.#auto_layout_changed = false;
+		this.#fill = null;
+		this.#fill_changed = false;
 		this.#gap_horizontal = 0;
 		this.#gap_horizontal_changed = false;
 		this.#gap_vertical = 0;
@@ -249,6 +255,15 @@ export default class Container extends Component {
 		}
 	}
 
+	#commit_fill_changed(): void {
+		this.#fill_changed = false;
+		if (this.fill === null) {
+			this.style.background = '';
+			return;
+		}
+		this.style.background = this.fill.to_style_string();
+	}
+
 	#commit_gap_horizontal_changed(): void {
 		this.#gap_horizontal_changed = false;
 		if (this.#auto_layout === 'horizontal' || this.#auto_layout === 'wrap') {
@@ -328,6 +343,9 @@ export default class Container extends Component {
 			this.#commit_gap_vertical_changed();
 			this.#commit_alignment_changed();
 		}
+		if (this.#fill_changed) {
+			this.#commit_fill_changed();
+		}
 		if (this.#padding_horizontal_changed) {
 			this.#commit_padding_horizontal_changed();
 		}
@@ -356,6 +374,17 @@ export default class Container extends Component {
 
 	public get auto_layout(): 'horizontal' | 'vertical' | 'wrap' {
 		return this.#auto_layout;
+	}
+
+	public set fill(value: Hex | LinearGradient | null) {
+		assert_is_valid_fill(value);
+		this.#fill = value;
+		this.#fill_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get fill(): Hex | LinearGradient | null {
+		return this.#fill;
 	}
 
 	public set gap_horizontal(value: number | 'auto') {
@@ -447,4 +476,11 @@ function assert_is_valid_auto_layout(value: unknown): asserts value is 'horizont
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be "horizontal", "vertical" or "wrap"`);
+}
+
+function assert_is_valid_fill(value: unknown): asserts value is Hex | LinearGradient | null {
+	if (value instanceof Hex || value instanceof LinearGradient || value === null) {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be instance of Hex / LinearGradient or null`);
 }

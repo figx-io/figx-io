@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import Container from './Container';
+import Hex from './Hex';
+import LinearGradient from './LinearGradient';
+import StopColor from './StopColor';
 
 describe('container', () => {
 	describe('default style properties', () => {
@@ -937,6 +940,49 @@ describe('container', () => {
 				expect(() => {
 					const container = new Container();
 					container.gap_horizontal = -1;
+				}).toThrow(TypeError);
+			});
+		});
+		describe('fill', () => {
+			it('default style.background should be ""', () => {
+				const container = new Container();
+				expect(container.style.background).toBe('');
+			});
+			it('default fill should be null', () => {
+				const container = new Container();
+				expect(container.fill).toBe(null);
+			});
+			it('when fill = new Hex("#123456"), fill should be instance of Hex', () => {
+				const container = new Container();
+				container.fill = new Hex('#123456');
+				expect(container.fill).toBeInstanceOf(Hex);
+			});
+			it('when fill = null, style.background should be ""', () => {
+				const container = new Container();
+				document.body.appendChild(container);
+				container.fill = null;
+				expect(container.style.background).toBe('');
+				container.remove();
+			});
+			it('when fill = new Hex("#123456"), style.background should be "rgb(18, 52, 86)"', () => {
+				const container = new Container();
+				document.body.appendChild(container);
+				container.fill = new Hex('#123456');
+				expect(container.style.background).toBe('rgb(18, 52, 86)');
+				container.remove();
+			});
+			describe('when fill = new LinearGradient([new StopColor(new Hex("#123456"))], 0)', () => {
+				it('fill should be instance of LinearGradient', () => {
+					const container = new Container();
+					container.fill = new LinearGradient([new StopColor(new Hex('#123456'), 0)]);
+					expect(container.fill).toBeInstanceOf(LinearGradient);
+				});
+			});
+			it('when fill = "Hello", it should throw a TypeError', () => {
+				expect(() => {
+					const container = new Container();
+					// @ts-expect-error we are testing invalid value
+					container.fill = 'Hello';
 				}).toThrow(TypeError);
 			});
 		});

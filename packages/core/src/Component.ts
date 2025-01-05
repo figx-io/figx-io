@@ -1,12 +1,7 @@
-import Hex from './Hex';
-import LinearGradient from './LinearGradient';
-
 export default class Component extends HTMLElement {
 	#connected: boolean;
 	#corner_radius: number;
 	#corner_radius_changed: boolean;
-	#fill: Hex | LinearGradient | null;
-	#fill_changed: boolean;
 	#height: number | 'fill' | 'hug';
 	#height_changed: boolean;
 	#max_height: number;
@@ -37,8 +32,6 @@ export default class Component extends HTMLElement {
 		this.#connected = false;
 		this.#corner_radius = 0;
 		this.#corner_radius_changed = false;
-		this.#fill = null;
-		this.#fill_changed = false;
 		this.#height = 'hug';
 		this.#height_changed = false;
 		this.#max_height = Infinity;
@@ -60,9 +53,6 @@ export default class Component extends HTMLElement {
 	protected commit_properties(): void {
 		if (this.#corner_radius_changed) {
 			this.#commit_corner_radius_changed();
-		}
-		if (this.#fill_changed) {
-			this.#commit_fill_changed();
 		}
 		if (this.#height_changed) {
 			this.#commit_height_changed();
@@ -103,15 +93,6 @@ export default class Component extends HTMLElement {
 	#commit_corner_radius_changed(): void {
 		this.#corner_radius_changed = false;
 		this.style.borderRadius = `${this.corner_radius}px`;
-	}
-
-	#commit_fill_changed(): void {
-		this.#fill_changed = false;
-		if (this.fill === null) {
-			this.style.background = '';
-			return;
-		}
-		this.style.background = this.fill.to_style_string();
 	}
 
 	#commit_height_changed(): void {
@@ -267,17 +248,6 @@ export default class Component extends HTMLElement {
 		return this.#corner_radius;
 	}
 
-	public set fill(value: Hex | LinearGradient | null) {
-		assert_is_valid_fill(value);
-		this.#fill = value;
-		this.#fill_changed = true;
-		this.invalidate_properties();
-	}
-
-	public get fill(): Hex | LinearGradient | null {
-		return this.#fill;
-	}
-
 	/**
 	 * height should be a number, "fill" or "hug".
 	 *
@@ -417,11 +387,4 @@ function assert_is_valid_size(value: unknown): asserts value is number | 'fill' 
 		return;
 	}
 	throw new RangeError(`[${value}] is invalid, must be a non negative number, "fill" or "hug"`);
-}
-
-function assert_is_valid_fill(value: unknown): asserts value is Hex | LinearGradient | null {
-	if (value instanceof Hex || value instanceof LinearGradient || value === null) {
-		return;
-	}
-	throw new TypeError(`[${value}] is invalid, must be instance of Hex / LinearGradient or null`);
 }
