@@ -72,12 +72,12 @@ export default class Text extends Component {
 		this.appendChild(this.#text_content);
 	}
 
-	#commit_characters_changed(): void {
+	#commit_characters(): void {
 		this.#characters_changed = false;
 		this.#text_content.textContent = this.characters;
 	}
 
-	#commit_fill_changed(): void {
+	#commit_fill(): void {
 		this.#fill_changed = false;
 		this.style.color = '';
 		if (this.fill instanceof LinearGradient) {
@@ -94,22 +94,22 @@ export default class Text extends Component {
 		}
 	}
 
-	#commit_font_family_changed(): void {
+	#commit_font_family(): void {
 		this.#font_family_changed = false;
 		this.style.fontFamily = this.font_family;
 	}
 
-	#commit_font_size_changed(): void {
+	#commit_font_size(): void {
 		this.#font_size_changed = false;
 		this.style.fontSize = `${this.font_size}px`;
 	}
 
-	#commit_font_weight_changed(): void {
+	#commit_font_weight(): void {
 		this.#font_weight_changed = false;
 		this.style.fontWeight = `${this.font_weight}`;
 	}
 
-	#commit_line_height_changed(): void {
+	#commit_line_height(): void {
 		this.#line_height_changed = false;
 		if (this.line_height === 'auto') {
 			this.style.lineHeight = '1.2';
@@ -118,12 +118,12 @@ export default class Text extends Component {
 		this.style.lineHeight = `${this.line_height}px`;
 	}
 
-	#commit_max_lines_changed(): void {
+	#commit_max_lines(): void {
 		this.#max_lines_changed = false;
 		this.#text_content.style.webkitLineClamp = this.max_lines.toString();
 	}
 
-	#commit_text_align_horizontal_changed(): void {
+	#commit_text_align_horizontal(): void {
 		this.#text_align_horizontal_changed = false;
 		if (this.text_align_horizontal === 'left') {
 			this.style.textAlign = 'start';
@@ -142,7 +142,7 @@ export default class Text extends Component {
 		}
 	}
 
-	#commit_text_align_vertical_changed(): void {
+	#commit_text_align_vertical(): void {
 		this.#text_align_vertical_changed = false;
 		if (this.text_align_vertical === 'top') {
 			this.style.alignItems = 'flex-start';
@@ -157,7 +157,7 @@ export default class Text extends Component {
 		}
 	}
 
-	#commit_truncate_text_changed(): void {
+	#commit_truncate_text(): void {
 		this.#truncate_text_changed = false;
 		if (this.#truncate_text) {
 			this.#text_content.style.overflow = 'hidden';
@@ -171,7 +171,7 @@ export default class Text extends Component {
 		}
 	}
 
-	#commit_vertical_trim_changed(): void {
+	#commit_vertical_trim(): void {
 		this.#vertical_trim_changed = false;
 		if (this.vertical_trim === 'standard') {
 			// @ts-expect-error textBoxTrim is not widely supported yet
@@ -190,35 +190,35 @@ export default class Text extends Component {
 	override commit_properties(): void {
 		super.commit_properties();
 		if (this.#characters_changed) {
-			this.#commit_characters_changed();
+			this.#commit_characters();
 		}
 		if (this.#fill_changed) {
-			this.#commit_fill_changed();
+			this.#commit_fill();
 		}
 		if (this.#font_family_changed) {
-			this.#commit_font_family_changed();
+			this.#commit_font_family();
 		}
 		if (this.#font_size_changed) {
-			this.#commit_font_size_changed();
+			this.#commit_font_size();
 		}
 		if (this.#font_weight_changed) {
-			this.#commit_font_weight_changed();
+			this.#commit_font_weight();
 		}
 		if (this.#line_height_changed) {
-			this.#commit_line_height_changed();
+			this.#commit_line_height();
 		}
 		if (this.#text_align_horizontal_changed) {
-			this.#commit_text_align_horizontal_changed();
+			this.#commit_text_align_horizontal();
 		}
 		if (this.#text_align_vertical_changed) {
-			this.#commit_text_align_vertical_changed();
+			this.#commit_text_align_vertical();
 		}
 		if (this.#truncate_text_changed || this.#max_lines_changed) {
-			this.#commit_truncate_text_changed();
-			this.#commit_max_lines_changed();
+			this.#commit_truncate_text();
+			this.#commit_max_lines();
 		}
 		if (this.#vertical_trim_changed) {
-			this.#commit_vertical_trim_changed();
+			this.#commit_vertical_trim();
 		}
 	}
 
@@ -233,14 +233,14 @@ export default class Text extends Component {
 		return this.#characters;
 	}
 
-	override set fill(value: Hex | LinearGradient | null) {
+	public set fill(value: Hex | LinearGradient | null) {
 		assert_is_valid_fill(value);
 		this.#fill = value;
 		this.#fill_changed = true;
 		this.invalidate_properties();
 	}
 
-	override get fill(): Hex | LinearGradient | null {
+	public get fill(): Hex | LinearGradient | null {
 		return this.#fill;
 	}
 

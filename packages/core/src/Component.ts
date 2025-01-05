@@ -52,31 +52,31 @@ export default class Component extends HTMLElement {
 
 	protected commit_properties(): void {
 		if (this.#corner_radius_changed) {
-			this.#commit_corner_radius_changed();
+			this.#commit_corner_radius();
 		}
 		if (this.#height_changed) {
-			this.#commit_height_changed();
+			this.#commit_height();
 		}
 		if (this.#max_height_changed) {
-			this.#commit_max_height_changed();
+			this.#commit_max_height();
 		}
 		if (this.#max_width_changed) {
-			this.#commit_max_width_changed();
+			this.#commit_max_width();
 		}
 		if (this.#min_height_changed) {
-			this.#commit_min_height_changed();
+			this.#commit_min_height();
 		}
 		if (this.#min_width_changed) {
-			this.#commit_min_width_changed();
+			this.#commit_min_width();
 		}
 		if (this.#opacity_changed) {
-			this.#commit_opacity_changed();
+			this.#commit_opacity();
 		}
 		if (this.#parent_auto_layout_changed) {
-			this.#commit_parent_auto_layout_changed();
+			this.#commit_parent_auto_layout();
 		}
 		if (this.#width_changed) {
-			this.#commit_width_changed();
+			this.#commit_width();
 		}
 	}
 
@@ -90,48 +90,48 @@ export default class Component extends HTMLElement {
 		}
 	}
 
-	#commit_corner_radius_changed(): void {
+	#commit_corner_radius(): void {
 		this.#corner_radius_changed = false;
 		this.style.borderRadius = `${this.corner_radius}px`;
 	}
 
-	#commit_height_changed(): void {
+	#commit_height(): void {
 		this.#height_changed = false;
 		this.#update_height_styles();
 	}
 
-	#commit_max_height_changed(): void {
+	#commit_max_height(): void {
 		this.#max_height_changed = false;
 		this.style.maxHeight = `${this.max_height}px`;
 	}
 
-	#commit_max_width_changed(): void {
+	#commit_max_width(): void {
 		this.#max_width_changed = false;
 		this.style.maxWidth = `${this.max_width}px`;
 	}
 
-	#commit_min_height_changed(): void {
+	#commit_min_height(): void {
 		this.#min_height_changed = false;
 		this.style.minHeight = `${this.min_height}px`;
 	}
 
-	#commit_min_width_changed(): void {
+	#commit_min_width(): void {
 		this.#min_width_changed = false;
 		this.style.minWidth = `${this.min_width}px`;
 	}
 
-	#commit_opacity_changed(): void {
+	#commit_opacity(): void {
 		this.#opacity_changed = false;
 		this.style.opacity = `${this.opacity}`;
 	}
 
-	#commit_parent_auto_layout_changed(): void {
+	#commit_parent_auto_layout(): void {
 		this.#parent_auto_layout_changed = false;
-		this.#commit_width_changed();
-		this.#commit_height_changed();
+		this.#commit_width();
+		this.#commit_height();
 	}
 
-	#commit_width_changed(): void {
+	#commit_width(): void {
 		this.#width_changed = false;
 		this.#update_width_styles();
 	}

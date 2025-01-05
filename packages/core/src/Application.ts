@@ -24,7 +24,7 @@ export default class Application extends Container {
 		this.auto_layout = 'vertical';
 	}
 
-	#commit_fill_changed(): void {
+	#commit_fill(): void {
 		this.#fill_changed = false;
 		if (this.fill === null) {
 			document.body.style.background = '';
@@ -33,7 +33,7 @@ export default class Application extends Container {
 		document.body.style.background = this.fill.to_style_string();
 	}
 
-	#commit_font_family_changed(): void {
+	#commit_font_family(): void {
 		this.#font_family_changed = false;
 		document.body.style.fontFamily = this.font_family;
 	}
@@ -41,10 +41,10 @@ export default class Application extends Container {
 	override commit_properties(): void {
 		super.commit_properties();
 		if (this.#fill_changed) {
-			this.#commit_fill_changed();
+			this.#commit_fill();
 		}
 		if (this.#font_family_changed) {
-			this.#commit_font_family_changed();
+			this.#commit_font_family();
 		}
 	}
 

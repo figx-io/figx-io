@@ -219,7 +219,7 @@ export default class Container extends Component {
 		}
 	}
 
-	#commit_alignment_changed(): void {
+	#commit_alignment(): void {
 		this.#alignment_changed = false;
 		if (this.auto_layout === 'vertical') {
 			this.#auto_layout_vertical_alignment();
@@ -234,7 +234,7 @@ export default class Container extends Component {
 		}
 	}
 
-	#commit_auto_layout_changed(): void {
+	#commit_auto_layout(): void {
 		this.#auto_layout_changed = false;
 		if (this.auto_layout === 'horizontal') {
 			this.style.flexDirection = 'row';
@@ -255,7 +255,7 @@ export default class Container extends Component {
 		}
 	}
 
-	#commit_fill_changed(): void {
+	#commit_fill(): void {
 		this.#fill_changed = false;
 		if (this.fill === null) {
 			this.style.background = '';
@@ -264,7 +264,7 @@ export default class Container extends Component {
 		this.style.background = this.fill.to_style_string();
 	}
 
-	#commit_gap_horizontal_changed(): void {
+	#commit_gap_horizontal(): void {
 		this.#gap_horizontal_changed = false;
 		if (this.#auto_layout === 'horizontal' || this.#auto_layout === 'wrap') {
 			if (this.#gap_horizontal === 'auto') {
@@ -282,7 +282,7 @@ export default class Container extends Component {
 		}
 	}
 
-	#commit_gap_vertical_changed(): void {
+	#commit_gap_vertical(): void {
 		this.#gap_vertical_changed = false;
 		if (this.#auto_layout === 'vertical') {
 			if (this.#gap_vertical === 'auto') {
@@ -309,13 +309,13 @@ export default class Container extends Component {
 		}
 	}
 
-	#commit_padding_horizontal_changed(): void {
+	#commit_padding_horizontal(): void {
 		this.#padding_horizontal_changed = false;
 		this.style.paddingLeft = `${this.padding_horizontal}px`;
 		this.style.paddingRight = `${this.padding_horizontal}px`;
 	}
 
-	#commit_padding_vertical_changed(): void {
+	#commit_padding_vertical(): void {
 		this.#padding_vertical_changed = false;
 		this.style.paddingTop = `${this.padding_vertical}px`;
 		this.style.paddingBottom = `${this.padding_vertical}px`;
@@ -338,19 +338,19 @@ export default class Container extends Component {
 	override commit_properties(): void {
 		super.commit_properties();
 		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed || this.#gap_vertical_changed) {
-			this.#commit_auto_layout_changed();
-			this.#commit_gap_horizontal_changed();
-			this.#commit_gap_vertical_changed();
-			this.#commit_alignment_changed();
+			this.#commit_auto_layout();
+			this.#commit_gap_horizontal();
+			this.#commit_gap_vertical();
+			this.#commit_alignment();
 		}
 		if (this.#fill_changed) {
-			this.#commit_fill_changed();
+			this.#commit_fill();
 		}
 		if (this.#padding_horizontal_changed) {
-			this.#commit_padding_horizontal_changed();
+			this.#commit_padding_horizontal();
 		}
 		if (this.#padding_vertical_changed) {
-			this.#commit_padding_vertical_changed();
+			this.#commit_padding_vertical();
 		}
 	}
 
