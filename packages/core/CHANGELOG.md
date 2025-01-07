@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.12.0](https://github.com/figx-io/figx-io/compare/core-v0.11.0...core-v0.12.0) (2025-01-07)
+
+
+### Miscellaneous Chores
+
+* fix typos ([92218f1](https://github.com/figx-io/figx-io/commit/92218f11bfbf173e0daa51f8ad85cb32026c4505))
+* remove public in overrides ([3c16632](https://github.com/figx-io/figx-io/commit/3c166325adf597d2a0f5d82159cb22f8465917b8))
+
+
+### Features
+
+* implement Application.fill ([aab0078](https://github.com/figx-io/figx-io/commit/aab0078f83188b2722c06377d305dbdffc637e38))
+* implement Component.fill ([744a4b6](https://github.com/figx-io/figx-io/commit/744a4b6cdbe2e86840c240c00b410f3199bcd8a8))
+* implement Text.fill LinearGradient ([b51fc28](https://github.com/figx-io/figx-io/commit/b51fc281166ef158a86403f2ad6ab72aca72f09c))
+
+
+### Code Refactoring
+
+* make all methods native private ([3e0c5dd](https://github.com/figx-io/figx-io/commit/3e0c5ddbd26e369e61aa4257c3796a4d56f1e582))
+* make all methods native private ([2960aaf](https://github.com/figx-io/figx-io/commit/2960aaf077991e9032da7e0e77e6293086c0985f))
+* move fill from Component to Container ([0fe288b](https://github.com/figx-io/figx-io/commit/0fe288b684a596761e8e132548358ff1d81ad608))
+* remove _changed from methods ([3ee8cf6](https://github.com/figx-io/figx-io/commit/3ee8cf640278a8c0466ab2030263b6f7dd1a23f0))
+
 ## [0.11.0](https://github.com/figx-io/figx-io/compare/core-v0.10.0...core-v0.11.0) (2025-01-04)
 
 
