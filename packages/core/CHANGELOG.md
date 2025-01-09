@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/figx-io/figx-io/compare/core-v0.12.0...core-v0.13.0) (2025-01-09)
+
+
+### Features
+
+* add Rectangle and SVG to exports ([f138407](https://github.com/figx-io/figx-io/commit/f13840756e534d112a33dbb4e174b7210b644ae4))
+
 ## [0.12.0](https://github.com/figx-io/figx-io/compare/core-v0.11.0...core-v0.12.0) (2025-01-07)
 
 
