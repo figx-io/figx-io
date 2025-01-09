@@ -1,7 +1,7 @@
 {
 	"name": "@figx-io/core",
 	"type": "module",
-	"version": "0.12.0",
+	"version": "0.13.0",
 	"private": false,
 	"author": "Martin Rossil",
 	"license": "MIT",
