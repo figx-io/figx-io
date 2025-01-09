@@ -6,7 +6,6 @@
 	"description": "figx-io mono repo",
 	"author": "Martin Rossil",
 	"license": "MIT",
-	"files": ["dist"],
 	"scripts": {
 		"lint": "eslint .",
 		"test": "vitest",

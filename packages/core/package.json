@@ -43,6 +43,7 @@
 			"default": "./dist/Text.js"
 		}
 	},
+	"files": ["dist"],
 	"scripts": {
 		"dev": "vite build --watch",
 		"build": "vite build"
