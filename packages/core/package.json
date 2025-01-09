@@ -1,7 +1,7 @@
 {
 	"name": "@figx-io/core",
 	"type": "module",
-	"version": "0.13.0",
+	"version": "0.14.0",
 	"private": false,
 	"author": "Martin Rossil",
 	"license": "MIT",
@@ -43,7 +43,9 @@
 			"default": "./dist/Text.js"
 		}
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"dev": "vite build --watch",
 		"build": "vite build"

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.0](https://github.com/figx-io/figx-io/compare/core-v0.13.0...core-v0.14.0) (2025-01-09)
+
+
+### Features
+
+* add dist folder to files key in package.json ([b7ea6c5](https://github.com/figx-io/figx-io/commit/b7ea6c56809af37c4e1a85cfcd60a52e1bbaee6f))
+
 ## [0.13.0](https://github.com/figx-io/figx-io/compare/core-v0.12.0...core-v0.13.0) (2025-01-09)
 
 
