@@ -84,6 +84,20 @@
   * dependencies
     * @figx-io/core bumped from 0.12.0 to 0.13.0
 
+## [0.8.0](https://github.com/figx-io/figx-io/compare/ui-v0.7.4...ui-v0.8.0) (2025-01-09)
+
+
+### Features
+
+* add dist folder to files key in package.json ([b7ea6c5](https://github.com/figx-io/figx-io/commit/b7ea6c56809af37c4e1a85cfcd60a52e1bbaee6f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from 0.13.0 to 0.14.0
+
 ## [0.7.2](https://github.com/figx-io/figx-io/compare/ui-v0.7.1...ui-v0.7.2) (2025-01-04)
 
 

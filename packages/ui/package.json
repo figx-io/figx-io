@@ -1,7 +1,7 @@
 {
 	"name": "@figx-io/ui",
 	"type": "module",
-	"version": "0.7.4",
+	"version": "0.8.0",
 	"private": false,
 	"author": "Martin Rossil",
 	"license": "MIT",
@@ -11,12 +11,14 @@
 			"default": "./dist/Button.js"
 		}
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"dev": "vite build --watch",
 		"build": "vite build"
 	},
 	"dependencies": {
-		"@figx-io/core": "0.13.0"
+		"@figx-io/core": "0.14.0"
 	}
 }
