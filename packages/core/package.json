@@ -26,9 +26,17 @@
 			"types": "./dist/LinearGradient.d.ts",
 			"default": "./dist/LinearGradient.js"
 		},
+		"./Rectangle": {
+			"types": "./dist/Rectangle.d.ts",
+			"default": "./dist/Rectangle.js"
+		},
 		"./StopColor": {
 			"types": "./dist/StopColor.d.ts",
 			"default": "./dist/StopColor.js"
+		},
+		"./SVG": {
+			"types": "./dist/SVG.d.ts",
+			"default": "./dist/SVG.js"
 		},
 		"./Text": {
 			"types": "./dist/Text.d.ts",

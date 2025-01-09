@@ -3,7 +3,7 @@ import Hex from './Hex';
 import StopColor from './StopColor';
 
 describe('stop-color', () => {
-	it('should be able to instantiate StopColor"', () => {
+	it('should be able to instantiate StopColor', () => {
 		const hex = new Hex('#123456');
 		const stop_color = new StopColor(hex, 0);
 		expect(stop_color).toBeInstanceOf(StopColor);
