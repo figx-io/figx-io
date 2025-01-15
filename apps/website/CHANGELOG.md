@@ -131,6 +131,26 @@
     * @figx-io/core bumped from ^0.13.0 to ^0.14.0
     * @figx-io/ui bumped from ^0.7.4 to ^0.8.0
 
+## [0.3.5](https://github.com/figx-io/figx-io/compare/website-v0.3.4...website-v0.3.5) (2025-01-15)
+
+
+### Bug Fixes
+
+* fix linting errors ([2f82a02](https://github.com/figx-io/figx-io/commit/2f82a02c7de96c4fe6f8ce13ccb60fe501d57863))
+
+
+### Tests
+
+* testing Stroke ([1e4a51f](https://github.com/figx-io/figx-io/commit/1e4a51fd0b1baf7653bad4dce96a0b30f3d1fdfa))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from ^0.14.0 to ^0.15.0
+    * @figx-io/ui bumped from ^0.8.0 to ^0.8.1
+
 ## [0.3.0](https://github.com/figx-io/figx-io/compare/website-v0.2.5...website-v0.3.0) (2024-12-29)
 
 
