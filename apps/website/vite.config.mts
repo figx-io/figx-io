@@ -5,7 +5,7 @@ export default defineConfig({
 		assetsDir: '.', // to output assets at root level, not in assets folder
 		assetsInlineLimit: 0, // this will turn of inlining assets
 		emptyOutDir: true,
-		minify: false,
+		minify: true,
 		modulePreload: false, // prevent vite from injecting polyfill code
 		outDir: 'dist',
 		target: 'esnext',
