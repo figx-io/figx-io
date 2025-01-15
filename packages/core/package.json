@@ -26,13 +26,13 @@
 			"types": "./dist/LinearGradient.d.ts",
 			"default": "./dist/LinearGradient.js"
 		},
-		"./Rectangle": {
-			"types": "./dist/Rectangle.d.ts",
-			"default": "./dist/Rectangle.js"
-		},
 		"./StopColor": {
 			"types": "./dist/StopColor.d.ts",
 			"default": "./dist/StopColor.js"
+		},
+		"./Stroke": {
+			"types": "./dist/Stroke.d.ts",
+			"default": "./dist/Stroke.js"
 		},
 		"./SVG": {
 			"types": "./dist/SVG.d.ts",
