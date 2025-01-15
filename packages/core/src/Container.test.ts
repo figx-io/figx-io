@@ -3,6 +3,7 @@ import Container from './Container';
 import Hex from './Hex';
 import LinearGradient from './LinearGradient';
 import StopColor from './StopColor';
+import Stroke from './Stroke';
 
 describe('container', () => {
 	describe('default style properties', () => {
@@ -33,6 +34,14 @@ describe('container', () => {
 		it('default style.padding should be ""', () => {
 			const container = new Container();
 			expect(container.style.padding).toBe('');
+		});
+		it('default style.outline should be ""', () => {
+			const container = new Container();
+			expect(container.style.outline).toBe('');
+		});
+		it('default style.outlineOffset should be ""', () => {
+			const container = new Container();
+			expect(container.style.outlineOffset).toBe('');
 		});
 	});
 	describe('properties', () => {
@@ -1002,6 +1011,56 @@ describe('container', () => {
 				document.body.appendChild(container);
 				expect(container.style.borderRadius).toBe('16px');
 				container.remove();
+			});
+		});
+		describe('stroke', () => {
+			it('default stroke should be null', () => {
+				const container = new Container();
+				expect(container.stroke).toBe(null);
+			});
+			it('when stroke = new Stroke(new Hex("#123456"), stroke should be instance of Stroke)', () => {
+				const container = new Container();
+				container.stroke = new Stroke(new Hex('#123456'));
+				expect(container.stroke).toBeInstanceOf(Stroke);
+			});
+			it('when stroke = new Stroke(new Hex("#123456"), style.outline should be "rgb(18, 52, 86) solid 1px")', () => {
+				const container = new Container();
+				container.stroke = new Stroke(new Hex('#123456'));
+				document.body.appendChild(container);
+				expect(container.style.outline).toBe('rgb(18, 52, 86) solid 1px');
+				container.remove();
+			});
+			it('when stroke = new Stroke(new Hex("#123456"), style.outlineOffset should be "-0.5px")', () => {
+				const container = new Container();
+				container.stroke = new Stroke(new Hex('#123456'));
+				document.body.appendChild(container);
+				expect(container.style.outlineOffset).toBe('-0.5px');
+				container.remove();
+			});
+			describe('when stroke = new Stroke(new Hex("#123456") and then stroke = null', () => {
+				it('style.outline should be "")', () => {
+					const container = new Container();
+					container.stroke = new Stroke(new Hex('#123456'));
+					document.body.appendChild(container);
+					container.stroke = null;
+					expect(container.style.outline).toBe('');
+					container.remove();
+				});
+				it('style.outlineOffset should be "")', () => {
+					const container = new Container();
+					container.stroke = new Stroke(new Hex('#123456'));
+					document.body.appendChild(container);
+					container.stroke = null;
+					expect(container.style.outlineOffset).toBe('');
+					container.remove();
+				});
+			});
+			it('when invalid stroke input, it should throw a TypeError', () => {
+				expect(() => {
+					const container = new Container();
+					// @ts-expect-error we are testing invalid value
+					container.stroke = true;
+				}).toThrow(TypeError);
 			});
 		});
 	});

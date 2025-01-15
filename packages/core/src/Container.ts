@@ -1,6 +1,7 @@
 import Component from './Component';
 import Hex from './Hex';
 import LinearGradient from './LinearGradient';
+import Stroke from './Stroke';
 
 export default class Container extends Component {
 	#alignment: 'top_left' | 'top_center' | 'top_right' | 'left' | 'center' | 'right' | 'bottom_left' | 'bottom_center' | 'bottom_right';
@@ -19,6 +20,8 @@ export default class Container extends Component {
 	#padding_horizontal_changed: boolean;
 	#padding_vertical: number;
 	#padding_vertical_changed: boolean;
+	#stroke: Stroke | null;
+	#stroke_changed: boolean;
 	public constructor() {
 		super();
 		this.style.alignItems = 'flex-start';
@@ -26,6 +29,8 @@ export default class Container extends Component {
 		this.style.display = 'inline-flex';
 		this.style.flexDirection = 'row';
 		this.style.justifyContent = 'flex-start';
+		this.style.outline = '';
+		this.style.outlineOffset = '';
 		this.style.padding = '';
 		this.style.rowGap = '';
 		this.#alignment = 'top_left';
@@ -44,6 +49,8 @@ export default class Container extends Component {
 		this.#padding_horizontal_changed = false;
 		this.#padding_vertical = 0;
 		this.#padding_vertical_changed = false;
+		this.#stroke = null;
+		this.#stroke_changed = false;
 	}
 
 	#auto_layout_horizontal_alignment(): void {
@@ -330,6 +337,18 @@ export default class Container extends Component {
 		this.style.paddingBottom = `${this.padding_vertical}px`;
 	}
 
+	#commit_stroke(): void {
+		this.#stroke_changed = false;
+		if (this.stroke) {
+			this.style.outline = this.stroke.to_outline_string();
+			this.style.outlineOffset = this.stroke.to_outline_offset_string();
+		}
+		else {
+			this.style.outline = '';
+			this.style.outlineOffset = '';
+		}
+	}
+
 	#update_children_parent_auto_layout(): void {
 		for (const child of this.children) {
 			assert_is_component(child);
@@ -363,6 +382,9 @@ export default class Container extends Component {
 		}
 		if (this.#padding_vertical_changed) {
 			this.#commit_padding_vertical();
+		}
+		if (this.#stroke_changed) {
+			this.#commit_stroke();
 		}
 	}
 
@@ -453,6 +475,17 @@ export default class Container extends Component {
 	public get padding_vertical(): number {
 		return this.#padding_vertical;
 	}
+
+	public set stroke(value: Stroke | null) {
+		assert_is_valid_stroke(value);
+		this.#stroke = value;
+		this.#stroke_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get stroke(): Stroke | null {
+		return this.#stroke;
+	}
 }
 customElements.define('fx-container', Container);
 
@@ -506,4 +539,11 @@ function assert_is_valid_fill(value: unknown): asserts value is Hex | LinearGrad
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be instance of Hex / LinearGradient or null`);
+}
+
+function assert_is_valid_stroke(value: unknown): asserts value is Stroke | null {
+	if (value instanceof Stroke || value === null) {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be instance of Stroke or null`);
 }
