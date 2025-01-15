@@ -6,8 +6,8 @@ describe('assert_is_valid_hex', () => {
 		const hex = new Hex('#123456');
 		expect(hex.to_style_string()).toBe('#123456FF');
 	});
-	it('when new Hex("#123456", 50), to_style_string() should return "#12345680"', () => {
-		const hex = new Hex('#123456', 50);
+	it('when new Hex("#123456", 0.5), to_style_string() should return "#12345680"', () => {
+		const hex = new Hex('#123456', 0.5);
 		expect(hex.to_style_string()).toBe('#12345680');
 	});
 	it('when new Hex("#12345"), it should throw a TypeError', () => {

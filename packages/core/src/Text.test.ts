@@ -62,9 +62,9 @@ describe('text', () => {
 				expect(text.style.color).toBe('rgb(18, 52, 86)');
 				text.remove();
 			});
-			it('when text.fill = new Hex("#123456", 50), text.style.color should be "rgba(18, 52, 86, 0.5)"', (): void => {
+			it('when text.fill = new Hex("#123456", 0.5), text.style.color should be "rgba(18, 52, 86, 0.5)"', (): void => {
 				const text = new Text();
-				text.fill = new Hex('#123456', 50);
+				text.fill = new Hex('#123456', 0.5);
 				document.body.appendChild(text);
 				expect(text.style.color).toBe('rgba(18, 52, 86, 0.5)');
 				text.remove();
