@@ -986,6 +986,24 @@ describe('container', () => {
 				}).toThrow(TypeError);
 			});
 		});
+		describe('corner_radius', () => {
+			it('default corner_radius should be 0', () => {
+				const container = new Container();
+				expect(container.corner_radius).toBe(0);
+			});
+			it('when corner_radius = 16, corner_radius should be 16', () => {
+				const container = new Container();
+				container.corner_radius = 16;
+				expect(container.corner_radius).toBe(16);
+			});
+			it('when corner_radius = 16, style.borderRadius should be "16px"', () => {
+				const container = new Container();
+				container.corner_radius = 16;
+				document.body.appendChild(container);
+				expect(container.style.borderRadius).toBe('16px');
+				container.remove();
+			});
+		});
 	});
 	describe('methods', () => {
 		describe('add_component()', () => {

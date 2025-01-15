@@ -7,6 +7,8 @@ export default class Container extends Component {
 	#alignment_changed: boolean;
 	#auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	#auto_layout_changed: boolean;
+	#corner_radius: number;
+	#corner_radius_changed: boolean;
 	#fill: Hex | LinearGradient | null;
 	#fill_changed: boolean;
 	#gap_horizontal: number | 'auto';
@@ -30,6 +32,8 @@ export default class Container extends Component {
 		this.#alignment_changed = false;
 		this.#auto_layout = 'horizontal';
 		this.#auto_layout_changed = false;
+		this.#corner_radius = 0;
+		this.#corner_radius_changed = false;
 		this.#fill = null;
 		this.#fill_changed = false;
 		this.#gap_horizontal = 0;
@@ -255,6 +259,11 @@ export default class Container extends Component {
 		}
 	}
 
+	#commit_corner_radius(): void {
+		this.#corner_radius_changed = false;
+		this.style.borderRadius = `${this.corner_radius}px`;
+	}
+
 	#commit_fill(): void {
 		this.#fill_changed = false;
 		if (this.fill === null) {
@@ -337,6 +346,9 @@ export default class Container extends Component {
 
 	override commit_properties(): void {
 		super.commit_properties();
+		if (this.#corner_radius_changed) {
+			this.#commit_corner_radius();
+		}
 		if (this.#auto_layout_changed || this.#alignment_changed || this.#gap_horizontal_changed || this.#gap_vertical_changed) {
 			this.#commit_auto_layout();
 			this.#commit_gap_horizontal();
@@ -374,6 +386,17 @@ export default class Container extends Component {
 
 	public get auto_layout(): 'horizontal' | 'vertical' | 'wrap' {
 		return this.#auto_layout;
+	}
+
+	public set corner_radius(value: number) {
+		assert_is_non_negative(value);
+		this.#corner_radius = value;
+		this.#corner_radius_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get corner_radius(): number {
+		return this.#corner_radius;
 	}
 
 	public set fill(value: Hex | LinearGradient | null) {
