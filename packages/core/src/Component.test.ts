@@ -269,24 +269,6 @@ describe('component', () => {
 				}).toThrow(RangeError);
 			});
 		});
-		describe('corner_radius', () => {
-			it('default corner_radius should be 0', () => {
-				const component = new Component();
-				expect(component.corner_radius).toBe(0);
-			});
-			it('when corner_radius = 16, corner_radius should be 16', () => {
-				const component = new Component();
-				component.corner_radius = 16;
-				expect(component.corner_radius).toBe(16);
-			});
-			it('when corner_radius = 16, style.borderRadius should be "16px"', () => {
-				const component = new Component();
-				component.corner_radius = 16;
-				document.body.appendChild(component);
-				expect(component.style.borderRadius).toBe('16px');
-				component.remove();
-			});
-		});
 	});
 	describe('size', () => {
 		describe('given component is child of Application', () => {

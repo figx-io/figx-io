@@ -1,7 +1,5 @@
 export default class Component extends HTMLElement {
 	#connected: boolean;
-	#corner_radius: number;
-	#corner_radius_changed: boolean;
 	#height: number | 'fill' | 'hug';
 	#height_changed: boolean;
 	#max_height: number;
@@ -30,8 +28,6 @@ export default class Component extends HTMLElement {
 		this.style.minWidth = '0px';
 		this.style.opacity = '';
 		this.#connected = false;
-		this.#corner_radius = 0;
-		this.#corner_radius_changed = false;
 		this.#height = 'hug';
 		this.#height_changed = false;
 		this.#max_height = Infinity;
@@ -51,9 +47,6 @@ export default class Component extends HTMLElement {
 	}
 
 	protected commit_properties(): void {
-		if (this.#corner_radius_changed) {
-			this.#commit_corner_radius();
-		}
 		if (this.#height_changed) {
 			this.#commit_height();
 		}
@@ -88,11 +81,6 @@ export default class Component extends HTMLElement {
 		if (this.connected) {
 			this.commit_properties();
 		}
-	}
-
-	#commit_corner_radius(): void {
-		this.#corner_radius_changed = false;
-		this.style.borderRadius = `${this.corner_radius}px`;
 	}
 
 	#commit_height(): void {
@@ -235,17 +223,6 @@ export default class Component extends HTMLElement {
 
 	private get connected(): boolean {
 		return this.#connected;
-	}
-
-	public set corner_radius(value: number) {
-		assert_is_non_negative(value);
-		this.#corner_radius = value;
-		this.#corner_radius_changed = true;
-		this.invalidate_properties();
-	}
-
-	public get corner_radius(): number {
-		return this.#corner_radius;
 	}
 
 	/**
