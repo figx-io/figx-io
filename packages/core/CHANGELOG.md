@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.15.0](https://github.com/figx-io/figx-io/compare/core-v0.14.0...core-v0.15.0) (2025-01-15)
+
+
+### Miscellaneous Chores
+
+* remove unused Rectangle ([af144a5](https://github.com/figx-io/figx-io/commit/af144a5cb1d34e17881ce9d7f2885303326d728c))
+* remove unused Rectangle ([f0cfe28](https://github.com/figx-io/figx-io/commit/f0cfe281775073e94f963fb0ebce3a23d3faaf55))
+
+
+### Features
+
+* implement stroke ([d3caa5d](https://github.com/figx-io/figx-io/commit/d3caa5d8f39ca377771527b15c78ce9ab8eeb307))
+
+
+### Code Refactoring
+
+* change opacity to 0-1 ([d53c758](https://github.com/figx-io/figx-io/commit/d53c758a8a089577de6c04ff598740ef9cd8fd02))
+* move corner_radius to Container ([5c511cd](https://github.com/figx-io/figx-io/commit/5c511cd08c4d6bcdc9c571b398708e8811f77bfe))
+* move corner_radius to Container ([7ba6b46](https://github.com/figx-io/figx-io/commit/7ba6b461fd0f1cefbde53573e7bdadaa37cb7af8))
+
 ## [0.14.0](https://github.com/figx-io/figx-io/compare/core-v0.13.0...core-v0.14.0) (2025-01-09)
 
 

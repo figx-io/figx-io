@@ -84,6 +84,12 @@
   * dependencies
     * @figx-io/core bumped from 0.12.0 to 0.13.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @figx-io/core bumped from 0.14.0 to 0.15.0
+
 ## [0.8.0](https://github.com/figx-io/figx-io/compare/ui-v0.7.4...ui-v0.8.0) (2025-01-09)
 
 
