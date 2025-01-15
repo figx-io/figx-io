@@ -2,8 +2,6 @@ import Application from '@figx-io/core/Application';
 import Container from '@figx-io/core/Container';
 import Hex from '@figx-io/core/Hex';
 import Stroke from '@figx-io/core/Stroke';
-import ColorBox from './ColorBox';
-import Data from './Data';
 
 export default class FigxIO extends Application {
 	public constructor() {
