@@ -1,7 +1,7 @@
 {
 	"name": "@figx-io/ui",
 	"type": "module",
-	"version": "0.8.0",
+	"version": "0.8.1",
 	"private": false,
 	"author": "Martin Rossil",
 	"license": "MIT",
@@ -19,6 +19,6 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"@figx-io/core": "0.14.0"
+		"@figx-io/core": "0.15.0"
 	}
 }
