@@ -22,6 +22,8 @@ export default class Container extends Component {
 	#padding_vertical_changed: boolean;
 	#stroke: Stroke | null;
 	#stroke_changed: boolean;
+	#visible: boolean;
+	#visible_changed: boolean;
 	public constructor() {
 		super();
 		this.style.alignItems = 'flex-start';
@@ -51,6 +53,8 @@ export default class Container extends Component {
 		this.#padding_vertical_changed = false;
 		this.#stroke = null;
 		this.#stroke_changed = false;
+		this.#visible = true;
+		this.#visible_changed = false;
 	}
 
 	#auto_layout_horizontal_alignment(): void {
@@ -349,6 +353,16 @@ export default class Container extends Component {
 		}
 	}
 
+	#commit_visible(): void {
+		this.#visible_changed = false;
+		if (this.#visible) {
+			this.style.display = 'inline-flex';
+		}
+		else {
+			this.style.display = 'none';
+		}
+	}
+
 	#update_children_parent_auto_layout(): void {
 		for (const child of this.children) {
 			assert_is_component(child);
@@ -385,6 +399,9 @@ export default class Container extends Component {
 		}
 		if (this.#stroke_changed) {
 			this.#commit_stroke();
+		}
+		if (this.#visible_changed) {
+			this.#commit_visible();
 		}
 	}
 
@@ -486,6 +503,17 @@ export default class Container extends Component {
 	public get stroke(): Stroke | null {
 		return this.#stroke;
 	}
+
+	override set visible(value: boolean) {
+		assert_is_boolean(value);
+		this.#visible = value;
+		this.#visible_changed = true;
+		this.invalidate_properties();
+	}
+
+	override get visible(): boolean {
+		return this.#visible;
+	}
 }
 customElements.define('fx-container', Container);
 
@@ -546,4 +574,11 @@ function assert_is_valid_stroke(value: unknown): asserts value is Stroke | null 
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be instance of Stroke or null`);
+}
+
+function assert_is_boolean(value: unknown): asserts value is boolean {
+	if (typeof value === 'boolean') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be true or false`);
 }

@@ -269,6 +269,34 @@ describe('component', () => {
 				}).toThrow(RangeError);
 			});
 		});
+		describe('visible', () => {
+			it('default visible should be true', () => {
+				const component = new Component();
+				expect(component.visible).toBe(true);
+			});
+			it('when visible === true, style.display should be "inline-block"', () => {
+				const component = new Component();
+				document.body.appendChild(component);
+				component.visible = false;
+				component.visible = true;
+				expect(component.style.display).toBe('inline-block');
+				component.remove();
+			});
+			it('when visible === false, style.display should be "none"', () => {
+				const component = new Component();
+				component.visible = false;
+				document.body.appendChild(component);
+				expect(component.style.display).toBe('none');
+				component.remove();
+			});
+			it('when invalid visible input, it should throw a TypeError', () => {
+				expect(() => {
+					const component = new Component();
+					// @ts-expect-error we are testing invalid value
+					component.visible = 'invalid';
+				}).toThrow(TypeError);
+			});
+		});
 	});
 	describe('size', () => {
 		describe('given component is child of Application', () => {

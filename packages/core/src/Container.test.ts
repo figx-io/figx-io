@@ -1063,6 +1063,34 @@ describe('container', () => {
 				}).toThrow(TypeError);
 			});
 		});
+		describe('visible', () => {
+			it('default visible should be true', () => {
+				const container = new Container();
+				expect(container.visible).toBe(true);
+			});
+			it('when visible === true, style.display should be "inline-flex"', () => {
+				const container = new Container();
+				document.body.appendChild(container);
+				container.visible = false;
+				container.visible = true;
+				expect(container.style.display).toBe('inline-flex');
+				container.remove();
+			});
+			it('when visible === false, style.display should be "none"', () => {
+				const container = new Container();
+				container.visible = false;
+				document.body.appendChild(container);
+				expect(container.style.display).toBe('none');
+				container.remove();
+			});
+			it('when invalid visible input, it should throw a TypeError', () => {
+				expect(() => {
+					const container = new Container();
+					// @ts-expect-error we are testing invalid value
+					container.visible = 'invalid';
+				}).toThrow(TypeError);
+			});
+		});
 	});
 	describe('methods', () => {
 		describe('add_component()', () => {

@@ -14,6 +14,8 @@ export default class Component extends HTMLElement {
 	#opacity_changed: boolean;
 	#parent_auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	#parent_auto_layout_changed: boolean;
+	#visible: boolean;
+	#visible_changed: boolean;
 	#width: number | 'fill' | 'hug';
 	#width_changed: boolean;
 	public constructor() {
@@ -42,6 +44,8 @@ export default class Component extends HTMLElement {
 		this.#opacity_changed = false;
 		this.#parent_auto_layout = 'horizontal';
 		this.#parent_auto_layout_changed = false;
+		this.#visible = true;
+		this.#visible_changed = false;
 		this.#width = 'hug';
 		this.#width_changed = false;
 	}
@@ -67,6 +71,9 @@ export default class Component extends HTMLElement {
 		}
 		if (this.#parent_auto_layout_changed) {
 			this.#commit_parent_auto_layout();
+		}
+		if (this.#visible_changed) {
+			this.#commit_visible();
 		}
 		if (this.#width_changed) {
 			this.#commit_width();
@@ -117,6 +124,16 @@ export default class Component extends HTMLElement {
 		this.#parent_auto_layout_changed = false;
 		this.#commit_width();
 		this.#commit_height();
+	}
+
+	#commit_visible(): void {
+		this.#visible_changed = false;
+		if (this.#visible) {
+			this.style.display = 'inline-block';
+		}
+		else {
+			this.style.display = 'none';
+		}
 	}
 
 	#commit_width(): void {
@@ -312,6 +329,17 @@ export default class Component extends HTMLElement {
 		return this.#parent_auto_layout;
 	}
 
+	public set visible(value: boolean) {
+		assert_is_boolean(value);
+		this.#visible = value;
+		this.#visible_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get visible(): boolean {
+		return this.#visible;
+	}
+
 	/**
 	 * width should be a number, "fill" or "hug".
 	 *
@@ -364,4 +392,11 @@ function assert_is_valid_size(value: unknown): asserts value is number | 'fill' 
 		return;
 	}
 	throw new RangeError(`[${value}] is invalid, must be a non negative number, "fill" or "hug"`);
+}
+
+function assert_is_boolean(value: unknown): asserts value is boolean {
+	if (typeof value === 'boolean') {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be true or false`);
 }
