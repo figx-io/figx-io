@@ -9,6 +9,7 @@ export default defineConfig({
 				'./src/Application.ts',
 				'./src/Component.ts',
 				'./src/Container.ts',
+				'./src/DropShadow',
 				'./src/Hex.ts',
 				'./src/LinearGradient.ts',
 				'./src/StopColor.ts',

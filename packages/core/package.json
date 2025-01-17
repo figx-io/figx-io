@@ -18,6 +18,10 @@
 			"types": "./dist/Container.d.ts",
 			"default": "./dist/Container.js"
 		},
+		"./DropShadow": {
+			"types": "./dist/DropShadow.d.ts",
+			"default": "./dist/DropShadow.js"
+		},
 		"./Hex": {
 			"types": "./dist/Hex.d.ts",
 			"default": "./dist/Hex.js"
