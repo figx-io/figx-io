@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.16.0](https://github.com/figx-io/figx-io/compare/core-v0.15.0...core-v0.16.0) (2025-01-17)
+
+
+### Features
+
+* change stroke default position to outside ([5b26e1f](https://github.com/figx-io/figx-io/commit/5b26e1f3a9afbb0706291d79b5663a9594081dd5))
+* create DropShadow class ([cf4b347](https://github.com/figx-io/figx-io/commit/cf4b3479de2ff2ad7d1fbb46bdd8939ad09f1d2a))
+* implement clip_content ([116e390](https://github.com/figx-io/figx-io/commit/116e390156c29d403e92c128d59fe59ab622956a))
+* implement Component.effects property ([91843f0](https://github.com/figx-io/figx-io/commit/91843f04fd1b7c219f892e158b337ed845e67e59))
+* implement DropShadow effect ([9004ba1](https://github.com/figx-io/figx-io/commit/9004ba1ca3f7e4a67721080996cd5dbae6fa052e))
+* implement visible property ([8d19e37](https://github.com/figx-io/figx-io/commit/8d19e37d8eb97f518aeb29d6f1f23e0e688c200a))
+
+
+### Tests
+
+* add stroke 'center' test ([f22e24c](https://github.com/figx-io/figx-io/commit/f22e24cebfe79cfe9a2ab0e3a91a30187b2c7ad1))
+
 ## [0.15.0](https://github.com/figx-io/figx-io/compare/core-v0.14.0...core-v0.15.0) (2025-01-15)
 
 
