@@ -12,9 +12,9 @@ describe('stroke', () => {
 			const stroke = new Stroke(new Hex('#123456'));
 			expect(stroke.to_outline_string()).toBe('1px solid #123456FF');
 		});
-		it('to_outline_offset_string() should return "-0.5px"', () => {
+		it('to_outline_offset_string() should return "0px"', () => {
 			const stroke = new Stroke(new Hex('#123456'));
-			expect(stroke.to_outline_offset_string()).toBe('-0.5px');
+			expect(stroke.to_outline_offset_string()).toBe('0px');
 		});
 	});
 	describe('when new Stroke(new Hex("#123456"), 1, "center", "dash")', () => {
@@ -28,9 +28,9 @@ describe('stroke', () => {
 			const stroke = new Stroke(new Hex('#123456'), 2);
 			expect(stroke.to_outline_string()).toBe('2px solid #123456FF');
 		});
-		it('to_outline_offset_string() should return "-1px"', () => {
+		it('to_outline_offset_string() should return "0px"', () => {
 			const stroke = new Stroke(new Hex('#123456'), 2);
-			expect(stroke.to_outline_offset_string()).toBe('-1px');
+			expect(stroke.to_outline_offset_string()).toBe('0px');
 		});
 	});
 	describe('when new Stroke(new Hex("#123456"), 2, "inside")', () => {

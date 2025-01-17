@@ -5,7 +5,7 @@ export default class Stroke {
 	#position: 'center' | 'inside' | 'outside';
 	#style: 'solid' | 'dash';
 	#weight: number;
-	public constructor(color: Hex, weight = 1, position: 'center' | 'inside' | 'outside' = 'center', style: 'solid' | 'dash' = 'solid') {
+	public constructor(color: Hex, weight = 1, position: 'center' | 'inside' | 'outside' = 'outside', style: 'solid' | 'dash' = 'solid') {
 		assert_is_hex(color);
 		this.#color = color;
 		assert_is_valid_position(position);

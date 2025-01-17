@@ -1030,11 +1030,11 @@ describe('container', () => {
 				expect(container.style.outline).toBe('rgb(18, 52, 86) solid 1px');
 				container.remove();
 			});
-			it('when stroke = new Stroke(new Hex("#123456"), style.outlineOffset should be "-0.5px")', () => {
+			it('when stroke = new Stroke(new Hex("#123456"), style.outlineOffset should be "-0px")', () => {
 				const container = new Container();
 				container.stroke = new Stroke(new Hex('#123456'));
 				document.body.appendChild(container);
-				expect(container.style.outlineOffset).toBe('-0.5px');
+				expect(container.style.outlineOffset).toBe('0px');
 				container.remove();
 			});
 			describe('when stroke = new Stroke(new Hex("#123456") and then stroke = null', () => {
