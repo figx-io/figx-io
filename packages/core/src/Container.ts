@@ -8,6 +8,8 @@ export default class Container extends Component {
 	#alignment_changed: boolean;
 	#auto_layout: 'horizontal' | 'vertical' | 'wrap';
 	#auto_layout_changed: boolean;
+	#clip_content: boolean;
+	#clip_content_changed: boolean;
 	#corner_radius: number;
 	#corner_radius_changed: boolean;
 	#fill: Hex | LinearGradient | null;
@@ -33,12 +35,15 @@ export default class Container extends Component {
 		this.style.justifyContent = 'flex-start';
 		this.style.outline = '';
 		this.style.outlineOffset = '';
+		this.style.overflow = '';
 		this.style.padding = '';
 		this.style.rowGap = '';
 		this.#alignment = 'top_left';
 		this.#alignment_changed = false;
 		this.#auto_layout = 'horizontal';
 		this.#auto_layout_changed = false;
+		this.#clip_content = false;
+		this.#clip_content_changed = false;
 		this.#corner_radius = 0;
 		this.#corner_radius_changed = false;
 		this.#fill = null;
@@ -270,6 +275,16 @@ export default class Container extends Component {
 		}
 	}
 
+	#commit_clip_content(): void {
+		this.#clip_content_changed = false;
+		if (this.clip_content) {
+			this.style.overflow = 'hidden';
+		}
+		else {
+			this.style.overflow = '';
+		}
+	}
+
 	#commit_corner_radius(): void {
 		this.#corner_radius_changed = false;
 		this.style.borderRadius = `${this.corner_radius}px`;
@@ -379,6 +394,9 @@ export default class Container extends Component {
 
 	override commit_properties(): void {
 		super.commit_properties();
+		if (this.#clip_content_changed) {
+			this.#commit_clip_content();
+		}
 		if (this.#corner_radius_changed) {
 			this.#commit_corner_radius();
 		}
@@ -425,6 +443,17 @@ export default class Container extends Component {
 
 	public get auto_layout(): 'horizontal' | 'vertical' | 'wrap' {
 		return this.#auto_layout;
+	}
+
+	public set clip_content(value: boolean) {
+		assert_is_boolean(value);
+		this.#clip_content = value;
+		this.#clip_content_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get clip_content(): boolean {
+		return this.#clip_content;
 	}
 
 	public set corner_radius(value: number) {

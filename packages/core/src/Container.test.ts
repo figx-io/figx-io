@@ -1091,6 +1091,43 @@ describe('container', () => {
 				}).toThrow(TypeError);
 			});
 		});
+		describe('clip_content', () => {
+			it('default style.overflow should be ""', () => {
+				const container = new Container();
+				expect(container.style.overflow).toBe('');
+			});
+			it('default clip_content should be false', () => {
+				const container = new Container();
+				expect(container.clip_content).toBe(false);
+			});
+			it('when clip_content === true, clip_content should be true', () => {
+				const container = new Container();
+				container.clip_content = true;
+				expect(container.clip_content).toBe(true);
+			});
+			it('when clip_content === false, clip_content should be false', () => {
+				const container = new Container();
+				container.clip_content = true;
+				container.clip_content = false;
+				expect(container.clip_content).toBe(false);
+			});
+			it('when clip_content === true, style.overflow should be "hidden"', () => {
+				const container = new Container();
+				container.clip_content = true;
+				document.body.appendChild(container);
+				expect(container.style.overflow).toBe('hidden');
+				container.remove();
+			});
+			it('when clip_content === false, style.overflow should be ""', () => {
+				const container = new Container();
+				container.clip_content = false;
+				document.body.appendChild(container);
+				container.clip_content = true;
+				container.clip_content = false;
+				expect(container.style.overflow).toBe('');
+				container.remove();
+			});
+		});
 	});
 	describe('methods', () => {
 		describe('add_component()', () => {
