@@ -1,5 +1,9 @@
+import DropShadow from './DropShadow';
+
 export default class Component extends HTMLElement {
 	#connected: boolean;
+	#effects: DropShadow[] | null;
+	#effects_changed: boolean;
 	#height: number | 'fill' | 'hug';
 	#height_changed: boolean;
 	#max_height: number;
@@ -24,12 +28,15 @@ export default class Component extends HTMLElement {
 		this.style.boxSizing = 'border-box';
 		this.style.borderRadius = '';
 		this.style.display = 'inline-block';
+		this.style.filter = '';
 		this.style.maxHeight = '';
 		this.style.maxWidth = '';
 		this.style.minHeight = '0px';
 		this.style.minWidth = '0px';
 		this.style.opacity = '';
 		this.#connected = false;
+		this.#effects = null;
+		this.#effects_changed = false;
 		this.#height = 'hug';
 		this.#height_changed = false;
 		this.#max_height = Infinity;
@@ -51,6 +58,9 @@ export default class Component extends HTMLElement {
 	}
 
 	protected commit_properties(): void {
+		if (this.#effects_changed) {
+			this.#commit_effects();
+		}
 		if (this.#height_changed) {
 			this.#commit_height();
 		}
@@ -87,6 +97,17 @@ export default class Component extends HTMLElement {
 	protected invalidate_properties(): void {
 		if (this.connected) {
 			this.commit_properties();
+		}
+	}
+
+	#commit_effects(): void {
+		this.#effects_changed = false;
+		if (this.effects === null) {
+			this.style.filter = '';
+			return;
+		}
+		for (const dropShadow of this.effects) {
+			this.style.filter += `${dropShadow.to_filter_string()} `;
 		}
 	}
 
@@ -240,6 +261,17 @@ export default class Component extends HTMLElement {
 
 	private get connected(): boolean {
 		return this.#connected;
+	}
+
+	public set effects(value: DropShadow[] | null) {
+		assert_is_valid_effects(value);
+		this.#effects = value;
+		this.#effects_changed = true;
+		this.invalidate_properties();
+	}
+
+	public get effects(): DropShadow[] | null {
+		return this.#effects;
 	}
 
 	/**
@@ -399,4 +431,11 @@ function assert_is_boolean(value: unknown): asserts value is boolean {
 		return;
 	}
 	throw new TypeError(`[${value}] is invalid, must be true or false`);
+}
+
+function assert_is_valid_effects(value: unknown): asserts value is DropShadow[] | null {
+	if (value === null || (Array.isArray(value) && value.every(entry => entry instanceof DropShadow))) {
+		return;
+	}
+	throw new TypeError(`[${value}] is invalid, must be Array with instances of DropShadow`);
 }

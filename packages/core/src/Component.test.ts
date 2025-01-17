@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import Application from './Application';
 import Component from './Component';
 import Container from './Container';
+import DropShadow from './DropShadow';
+import Hex from './Hex';
 
 describe('component', () => {
 	describe('default style properties', () => {
@@ -294,6 +296,62 @@ describe('component', () => {
 					const component = new Component();
 					// @ts-expect-error we are testing invalid value
 					component.visible = 'invalid';
+				}).toThrow(TypeError);
+			});
+		});
+		describe('effects', () => {
+			it('default effects should be an null', () => {
+				const component = new Component();
+				expect(component.effects).toBe(null);
+			});
+			it('default style.filter should be ""', () => {
+				const component = new Component();
+				expect(component.style.filter).toBe('');
+			});
+			describe('when effects = [dropShadow]', () => {
+				it('effects should be [dropShadow]', () => {
+					const component = new Component();
+					const effects = [new DropShadow(0, 0, 0, new Hex('#123456'))];
+					component.effects = effects;
+					expect(component.effects).toBe(effects);
+				});
+			});
+			describe('when effects = [dropShadow] and then null', () => {
+				it('effects should be null', () => {
+					const component = new Component();
+					document.body.appendChild(component);
+					component.effects = [new DropShadow(0, 0, 0, new Hex('#123456'))];
+					component.effects = null;
+					expect(component.effects).toBe(null);
+					component.remove();
+				});
+			});
+			describe('when effects = [new DropShadow(1, 2, 3, new Hex("#123456"))]', () => {
+				it('style.filter should be "drop-shadow(1px 2px 3px #123456FF)"', () => {
+					const component = new Component();
+					component.effects = [new DropShadow(1, 2, 3, new Hex('#123456'))];
+					document.body.appendChild(component);
+					expect(component.style.filter).toBe('drop-shadow(rgb(18, 52, 86) 1px 2px 3px)');
+					component.remove();
+				});
+			});
+			describe('when effects = [new DropShadow(1, 2, 3, new Hex("#123456")), new DropShadow(1, 2, 3, new Hex("#123456"))]', () => {
+				it('style.filter should be "drop-shadow(rgb(18, 52, 86) 1px 2px 3px) drop-shadow(rgb(18, 52, 86) 1px 2px 3px)"', () => {
+					const component = new Component();
+					component.effects = [
+						new DropShadow(1, 2, 3, new Hex('#123456')),
+						new DropShadow(1, 2, 3, new Hex('#123456')),
+					];
+					document.body.appendChild(component);
+					expect(component.style.filter).toBe('drop-shadow(rgb(18, 52, 86) 1px 2px 3px) drop-shadow(rgb(18, 52, 86) 1px 2px 3px)');
+					component.remove();
+				});
+			});
+			it('when invalid effects input, it should throw a TypeError', () => {
+				expect(() => {
+					const component = new Component();
+					// @ts-expect-error we are testing invalid value
+					component.effects = 'invalid';
 				}).toThrow(TypeError);
 			});
 		});
