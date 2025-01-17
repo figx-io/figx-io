@@ -53,6 +53,12 @@ describe('stroke', () => {
 			expect(stroke.to_outline_offset_string()).toBe('0px');
 		});
 	});
+	describe('when new Stroke(new Hex("#123456"), 2, "center")', () => {
+		it('to_outline_offset_string() should return "0px"', () => {
+			const stroke = new Stroke(new Hex('#123456'), 2, 'center');
+			expect(stroke.to_outline_offset_string()).toBe('-1px');
+		});
+	});
 	it('when invalid color input, it should throw a TypeError', () => {
 		expect(() => {
 			// @ts-expect-error we are testing invalid value
