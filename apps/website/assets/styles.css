@@ -5,7 +5,7 @@
     font-display: block;
     src: url(inter.woff2) format('woff2');
 }
-* {
+/* * {
     -webkit-overflow-scrolling: touch;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
@@ -14,4 +14,4 @@
 }
 *::-webkit-scrollbar {
   display: none;
-}
+} */
