@@ -138,6 +138,13 @@
     * @figx-io/core bumped from ^0.15.0 to ^0.16.0
     * @figx-io/ui bumped from ^0.8.1 to ^0.8.2
 
+## [0.3.7](https://github.com/figx-io/figx-io/compare/website-v0.3.6...website-v0.3.7) (2025-04-22)
+
+
+### Miscellaneous Chores
+
+* work in progress ([b27a562](https://github.com/figx-io/figx-io/commit/b27a5628e9b2d7538eb29dbfba62dadc34db454a))
+
 ## [0.3.5](https://github.com/figx-io/figx-io/compare/website-v0.3.4...website-v0.3.5) (2025-01-15)
 
 
